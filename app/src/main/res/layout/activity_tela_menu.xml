@@ -7,6 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".TelaMenu">
 
+    <TextView
+        android:id="@+id/tvProcessoEn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Processo Entrevista"
+        android:textColor="#1F4273"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fbEntrevista" />
+
+    <TextView
+        android:id="@+id/tvSaudacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="44dp"
+        android:text="Olá "
+        android:textColor="#1F4273"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvCardView" />
+
+    <TextView
+        android:id="@+id/tvOpcoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Escolha uma das opções abaixo:"
+        android:textColor="#1F4273"
+        android:textSize="22sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUser" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCardView"
         android:layout_width="460dp"
@@ -17,12 +59,38 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tvProcessoDi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Processo Dinâmica"
+        android:textColor="#1F4273"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fbDin" />
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:text="AAAA ,"
+        android:textColor="#47B192"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvSaudacao"
+        app:layout_constraintTop_toBottomOf="@+id/cvCardView" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFotoPerfil"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,101 +101,28 @@
             app:srcCompat="@drawable/fotoperfil" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvOpcoes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:text="Escolha uma das opções abaixo:"
-        android:textColor="#1F4273"
-        android:textSize="22sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUser" />
-
-    <TextView
-        android:id="@+id/tvSaudacao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="48dp"
-        android:text="Olá "
-        android:textColor="#1F4273"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvCardView" />
-
-    <TextView
-        android:id="@+id/tvUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="48dp"
-        android:text="AAAA ,"
-        android:textColor="#47B192"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvSaudacao"
-        app:layout_constraintTop_toBottomOf="@+id/cvCardView" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbDinamica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="40dp"
+        android:id="@+id/fbDin"
+        android:layout_width="91dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="100dp"
         android:clickable="true"
-        app:fabCustomSize="150dp"
+        app:fabCustomSize="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fbEntrevista"
         app:srcCompat="@drawable/fotoperfil" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbEntrevista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="104dp"
+        android:layout_width="100dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="60dp"
         android:clickable="true"
-        app:fabCustomSize="150dp"
-        app:layout_constraintEnd_toStartOf="@+id/fbDinamica"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:fabCustomSize="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOpcoes"
         app:srcCompat="@drawable/fotoperfil" />
-
-    <TextView
-        android:id="@+id/tvProcessoEn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Processo Entrevista"
-        android:textColor="#1F4273"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fbEntrevista"
-        app:layout_constraintVertical_bias="0.158" />
-
-    <TextView
-        android:id="@+id/tvProcessoDi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:text="Processo Dinâmica"
-        android:textColor="#1F4273"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fbDinamica"
-        app:layout_constraintVertical_bias="0.158" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
