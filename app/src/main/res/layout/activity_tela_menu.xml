@@ -55,8 +55,8 @@
         android:layout_width="465dp"
         android:layout_height="98dp"
         app:cardBackgroundColor="#203652"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="-1dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.cardview.widget.CardView>
 
