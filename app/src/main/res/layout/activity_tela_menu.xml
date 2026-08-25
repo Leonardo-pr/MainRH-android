@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E2E2E2"
     tools:context=".TelaMenu">
 
     <TextView
@@ -51,8 +52,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCardView"
-        android:layout_width="460dp"
-        android:layout_height="103dp"
+        android:layout_width="465dp"
+        android:layout_height="98dp"
         app:cardBackgroundColor="#203652"
         tools:layout_editor_absoluteX="-5dp"
         tools:layout_editor_absoluteY="-1dp">
@@ -112,6 +113,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fbEntrevista"
         app:srcCompat="@drawable/fotoperfil" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:alpha="0.4"
+        android:clickable="true"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="@color/black" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida2"
+        android:layout_width="234dp"
+        android:layout_height="218dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="52dp"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao2">
+
+        <TextView
+            android:id="@+id/tvExibido2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Primeira linha\nSegunda linha aqui"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbEntrevista"

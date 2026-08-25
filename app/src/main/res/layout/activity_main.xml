@@ -12,7 +12,7 @@
         android:id="@+id/frameLayout2"
         android:layout_width="364dp"
         android:layout_height="144dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="62dp"
         android:elevation="18dp"
         android:foregroundTint="#D1CDCD"
         app:barrierMargin="@dimen/material_emphasis_disabled_background"
@@ -83,18 +83,17 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btEntrar"
         android:layout_width="165dp"
         android:layout_height="48dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="1dp"
         android:backgroundTint="#1A304B"
         android:text="Entrar"
         android:textColor="@color/white"
         app:cornerRadius="@dimen/cardview_default_elevation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:rippleColor="#230F0F" />
@@ -109,5 +108,42 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:srcCompat="@drawable/exibirsenha" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="40dp"
+        android:alpha ="0.4"
+        android:clickable="true"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="@color/black" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida2"
+        android:layout_width="234dp"
+        android:layout_height="218dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="52dp"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao" >
+
+        <TextView
+            android:id="@+id/tvExibido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Primeira linha\nSegunda linha aqui"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
