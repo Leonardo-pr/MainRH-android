@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvExibido;
     FloatingActionButton fbInterrogacao;
     Button btEntrar;
+    EditText edUsuario;
     EditText edSenha;
     boolean isVisivel = false;
     @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         ibOcultar = (ImageButton) findViewById(R.id.ibOcultar);
         edSenha = (EditText) findViewById(R.id.edSenha);
+        edUsuario = (EditText) findViewById(R.id.edUsuario);
         btEntrar = (Button) findViewById(R.id.btEntrar);
         fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
         cvDuvida = (CardView) findViewById(R.id.cvDuvida2);
@@ -103,5 +105,12 @@ public class MainActivity extends AppCompatActivity {
                 edSenha.setSelection(edSenha.getText().length());
             }
         }); //Ocultar ou exibir senha
+
+        btEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

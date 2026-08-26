@@ -101,5 +101,6 @@ public class TelaMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }

@@ -64,7 +64,7 @@
             android:padding="20dp">
 
             <EditText
-                android:id="@+id/editTextText9"
+                android:id="@+id/edUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
