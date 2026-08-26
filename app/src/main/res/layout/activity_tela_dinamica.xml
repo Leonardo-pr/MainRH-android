@@ -9,6 +9,22 @@
     tools:context=".tela_dinamica">
 
     <!-- Cabeçalho (Header Azul) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:alpha ="0.4"
+        app:backgroundTint="#FFFFFF"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="#1F4273" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHeader"
         android:layout_width="0dp"
@@ -43,7 +59,7 @@
 
     <!-- Título da Tela -->
     <TextView
-        android:id="@+id/tvEntrevistaDinamica"
+        android:id="@+id/tvCandi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -58,25 +74,23 @@
     <!-- Card de Conteúdo da Lista -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvContainerList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="366dp"
+        android:layout_height="481dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="18dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="16dp"
         app:cardElevation="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEntrevistaDinamica">
+        app:layout_constraintTop_toBottomOf="@+id/tvCandi">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvListaDinamicas"
+            android:id="@+id/rvListaResposta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:clipToPadding="false"
+            android:padding="8dp"
             tools:listitem="@android:layout/simple_list_item_1" />
 
     </androidx.cardview.widget.CardView>

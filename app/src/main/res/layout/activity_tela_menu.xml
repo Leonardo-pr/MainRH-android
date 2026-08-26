@@ -162,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Primeira linha\nSegunda linha aqui"
+            android:text="Tela Inicial\nObjetivo:\nPermitir a navegação entre os diferentes processos de avaliação\n\nUtilizado para:\nDinâmicas de grupo\nAvaliações comportamentais em grupo\nSimulações corporativas\n"
             android:textColor="#203652"
             android:textSize="14sp" />
     </androidx.cardview.widget.CardView>
@@ -176,6 +176,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:focusable="true"
+        android:alpha ="0.4"
         app:backgroundTint="#FFFFFF"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"

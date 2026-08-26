@@ -2,6 +2,7 @@ package com.leosoares.projetoandroid;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class tela_dinamica extends AppCompatActivity {
     List<Entrevista> listaEntrevistas;
     ImageView ivFotoPerfil2;
     CardView cvFotoPerfil;
+    LinearLayout llCardEntrevista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,10 @@ public class tela_dinamica extends AppCompatActivity {
             return insets;
         });
 
-        rvListaDinamicas = (RecyclerView) findViewById(R.id.rvListaDinamicas);
+        rvListaDinamicas = (RecyclerView) findViewById(R.id.rvListaResposta);
         rvListaDinamicas.setLayoutManager(new LinearLayoutManager(this));
         listaEntrevistas = carregarEntrevistasEmProcesso();
+        llCardEntrevista = (LinearLayout) findViewById(R.id.llCardEntrevista);
         ivFotoPerfil2 = (ImageView) findViewById(R.id.ivFotoPerfil2);
         cvFotoPerfil = (CardView) findViewById(R.id.cvFotoPerfil);
         adapter = new EntrevistaAdapter(listaEntrevistas);
@@ -54,4 +57,5 @@ public class tela_dinamica extends AppCompatActivity {
 
         return lista;
     }
+
 }
