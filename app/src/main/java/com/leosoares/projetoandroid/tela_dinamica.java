@@ -34,7 +34,7 @@ public class tela_dinamica extends AppCompatActivity {
             return insets;
         });
 
-        rvListaDinamicas = (RecyclerView) findViewById(R.id.rvListaDinamicas);
+        rvListaDinamicas = (RecyclerView) findViewById(R.id.rvListaCandidatos);
         rvListaDinamicas.setLayoutManager(new LinearLayoutManager(this));
         listaEntrevistas = carregarEntrevistasEmProcesso();
         ivFotoPerfil2 = (ImageView) findViewById(R.id.ivFotoPerfil2);
