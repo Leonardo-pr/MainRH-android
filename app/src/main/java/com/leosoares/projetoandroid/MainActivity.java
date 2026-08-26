@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvExibido;
     FloatingActionButton fbInterrogacao;
     Button btEntrar;
+    EditText edUsuario;
     EditText edSenha;
     boolean isVisivel = false;
     @Override
@@ -40,18 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         ibOcultar = (ImageButton) findViewById(R.id.ibOcultar);
         edSenha = (EditText) findViewById(R.id.edSenha);
+        edUsuario = (EditText) findViewById(R.id.edUsuario);
         btEntrar = (Button) findViewById(R.id.btEntrar);
         fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
         cvDuvida = (CardView) findViewById(R.id.cvDuvida2);
         tvExibido = (TextView) findViewById(R.id.tvExibido);
-
-        btEntrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TelaMenu.class);
-                startActivity(intent);
-            }
-        }); // Enviar para próxima tela
 
 
         fbInterrogacao.setOnClickListener(new View.OnClickListener() {
@@ -103,5 +97,22 @@ public class MainActivity extends AppCompatActivity {
                 edSenha.setSelection(edSenha.getText().length());
             }
         }); //Ocultar ou exibir senha
+
+        btEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 1. Pegar o texto digitado
+                String nomeUsuario = edUsuario.getText().toString().trim();
+
+                // 2. Criar a Intent para abrir a TelaMenu
+                Intent intent = new Intent(MainActivity.this, TelaMenu.class);
+
+                // 3. Anexar o dado com uma chave identificadora (ex: "NOME_USUARIO")
+                intent.putExtra("NOME_USUARIO", nomeUsuario);
+
+                // 4. Iniciar a nova Activity
+                startActivity(intent);
+            }
+        });
     }
 }

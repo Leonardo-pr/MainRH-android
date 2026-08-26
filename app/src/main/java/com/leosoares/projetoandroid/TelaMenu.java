@@ -50,6 +50,17 @@ public class TelaMenu extends AppCompatActivity {
         tvProcessoDi = (TextView) findViewById(R.id.tvProcessoDi);
         tvProcessoEn = (TextView) findViewById(R.id.tvProcessoEn);
 
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("NOME_USUARIO")){
+            String usuario = intent.getStringExtra("NOME_USUARIO");
+
+            if(!usuario.isEmpty()){
+                tvUser.setText(usuario);
+            } else {
+                tvUser.setText("Usuário");
+            }
+        }
+
         fbInterrogacao2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,5 +112,6 @@ public class TelaMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
