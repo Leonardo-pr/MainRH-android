@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAndroid">
         <activity
+            android:name=".item_entrevista"
+            android:exported="false" />
+        <activity
             android:name=".tela_candidatos_dinamica"
             android:exported="false" />
         <activity
