@@ -5,58 +5,80 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E2E2E2"
+    android:background="#F4F6F9"
     tools:context=".tela_dinamica">
 
+    <!-- Cabeçalho (Header Azul) -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvCardView"
-        android:layout_width="460dp"
-        android:layout_height="103dp"
+        android:id="@+id/cvHeader"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
         app:cardBackgroundColor="#203652"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.cardview.widget.CardView>
-
+    <!-- Foto de Perfil Arredondada sobre o Header -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFotoPerfil"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivFotoPerfil2"
+            android:id="@+id/ivFotoPerfil"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Foto de Perfil"
             app:srcCompat="@drawable/fotoperfil" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvListaDinamicas"
-        android:layout_width="308dp"
-        android:layout_height="479dp"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEntrevistaDinamica"
-        app:layout_constraintVertical_bias="1.0" />
-
+    <!-- Título da Tela -->
     <TextView
         android:id="@+id/tvEntrevistaDinamica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:text="Entrevista Dinâmica"
         android:textColor="#1F4273"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cvHeader" />
+
+    <!-- Card de Conteúdo da Lista -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvContainerList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEntrevistaDinamica">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvEntrevistas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            tools:listitem="@android:layout/simple_list_item_1" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
