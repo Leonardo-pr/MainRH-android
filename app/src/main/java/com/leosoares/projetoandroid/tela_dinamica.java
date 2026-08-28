@@ -1,8 +1,10 @@
 package com.leosoares.projetoandroid;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,9 @@ public class tela_dinamica extends AppCompatActivity {
     RecyclerView rvListaDinamicas;
     EntrevistaAdapter adapter;
     List<Entrevista> listaEntrevistas;
+    FloatingActionButton fbInterrogacao3;
+    CardView cvDuvida3;
+    TextView tvExibido3;
     ImageView ivFotoPerfil2;
     CardView cvFotoPerfil;
     LinearLayout llCardEntrevista;
@@ -44,6 +51,42 @@ public class tela_dinamica extends AppCompatActivity {
         cvFotoPerfil = (CardView) findViewById(R.id.cvFotoPerfil);
         adapter = new EntrevistaAdapter(listaEntrevistas);
         rvListaDinamicas.setAdapter(adapter);
+        cvDuvida3 = (CardView) findViewById(R.id.cvDuvida3);
+        fbInterrogacao3 = (FloatingActionButton) findViewById(R.id.fbInterrogacao3);
+
+        fbInterrogacao3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cancela qualquer temporizador ativo para evitar bugs se clicar várias vezes
+                v.animate().cancel();
+                cvDuvida3.animate().cancel();
+
+                // Efeito Surgimento (Fade-in)
+                cvDuvida3.setAlpha(0f); // Começa totalmente invisível
+                cvDuvida3.setVisibility(View.VISIBLE);
+                cvDuvida3.animate()
+                        .alpha(1f) // 100% visível
+                        .setDuration(400) // Duração do efeito (400 milissegundos)
+                        .setListener(null);
+
+                // Temporizador de 4 segundos
+                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Efeito Sumir (Fade-out)
+                        cvDuvida3.animate()
+                                .alpha(0f) // Ativar transparencia
+                                .setDuration(400)
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        cvDuvida3.setVisibility(View.GONE);
+                                    }
+                                });
+                    }
+                }, 4000); // 4000 milissegundos = 4 segundos
+            }
+        });
     }
     private List<Entrevista> carregarEntrevistasEmProcesso() {
         List<Entrevista> lista = new ArrayList<>();
@@ -57,5 +100,4 @@ public class tela_dinamica extends AppCompatActivity {
 
         return lista;
     }
-
 }

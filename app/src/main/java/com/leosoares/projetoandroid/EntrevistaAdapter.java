@@ -3,6 +3,8 @@ package com.leosoares.projetoandroid;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.content.Context;
+import android.content.Intent;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +32,17 @@ public class EntrevistaAdapter extends RecyclerView.Adapter<EntrevistaAdapter.Vi
         holder.tvNomeVaga.setText(entrevista.getNomeVaga());
         holder.tvStatus.setText("Status: " + entrevista.getStatus());
         holder.tvCandidatos.setText(entrevista.getTotalCandidatos() + " candidatos");
+
+        // Evento de clique no item inteiro (LinearLayout)
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, tela_candidatos_dinamica.class);
+
+            // Se precisar passar informações da vaga para a próxima tela no futuro:
+            // intent.putExtra("NOME_VAGA", entrevista.getNomeVaga());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -39,6 +52,7 @@ public class EntrevistaAdapter extends RecyclerView.Adapter<EntrevistaAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvNomeVaga, tvStatus, tvCandidatos;
+
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             tvNomeVaga = itemView.findViewById(R.id.tvNomeVaga);
