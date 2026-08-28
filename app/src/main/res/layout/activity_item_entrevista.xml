@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="18dp"
+    android:layout_marginVertical="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp"
+    tools:context=".item_entrevista">
+
+    <LinearLayout
+        android:id="@+id/llCardEntrevista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="18dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNomeVaga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analista de Sistemas"
+                android:textColor="#1F354D"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Status: Em processo"
+                android:textColor="#47B192"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvCandidatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 candidatos"
+            android:textColor="#555555"
+            android:textSize="18sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

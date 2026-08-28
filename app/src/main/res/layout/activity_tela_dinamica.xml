@@ -9,6 +9,44 @@
     tools:context=".tela_dinamica">
 
     <!-- Cabeçalho (Header Azul) -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida3"
+        android:layout_width="300dp"
+        android:layout_height="340dp"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fbInterrogacao3"
+        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao3"
+        app:layout_constraintWidth_max="260dp">
+
+        <TextView
+            android:id="@+id/tvExibido4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Processo Dinâmica\n\nObjetivo:\nÉ centralizar a condução das dinâmicas de grupo, oferencendo um ambiente onde seja possível:\nConsultar Agendamentos\nVisualizar detalhes da atividade\nIdentificar Candidatos vinculdados\n"
+            android:textColor="#203652"
+            android:textSize="14sp" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:alpha="0.4"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="#FFFFFF"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="#1F4273" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHeader"
         android:layout_width="0dp"
@@ -33,7 +71,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivFotoPerfil"
+            android:id="@+id/ivFotoPerfil2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -43,7 +81,7 @@
 
     <!-- Título da Tela -->
     <TextView
-        android:id="@+id/tvEntrevistaDinamica"
+        android:id="@+id/tvCandi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -58,27 +96,28 @@
     <!-- Card de Conteúdo da Lista -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvContainerList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="366dp"
+        android:layout_height="481dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="18dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="16dp"
         app:cardElevation="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEntrevistaDinamica">
+        app:layout_constraintTop_toBottomOf="@+id/tvCandi">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvEntrevistas"
+            android:id="@+id/rvListaResposta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:clipToPadding="false"
+            android:padding="8dp"
             tools:listitem="@android:layout/simple_list_item_1" />
 
     </androidx.cardview.widget.CardView>
+
+    <!-- Botão de Ajuda -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/headerBackground">
 
         <ImageView
-            android:id="@+id/ivFotoPerfil"
+            android:id="@+id/ivFotoPerfil2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -146,8 +146,8 @@
     <!-- Card de Dúvida / Informação -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="340dp"
         android:layout_marginEnd="12dp"
         android:visibility="gone"
         app:cardCornerRadius="12dp"
@@ -162,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Primeira linha\nSegunda linha aqui"
+            android:text="Tela Inicial\nObjetivo:\nPermitir a navegação entre os diferentes processos de avaliação\n\nUtilizado para:\nDinâmicas de grupo\nAvaliações comportamentais em grupo\nSimulações corporativas\n"
             android:textColor="#203652"
             android:textSize="14sp" />
     </androidx.cardview.widget.CardView>
@@ -176,6 +176,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:focusable="true"
+        android:alpha ="0.4"
         app:backgroundTint="#FFFFFF"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
