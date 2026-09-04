@@ -8,6 +8,84 @@
     android:background="#E2E2E2"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:visibility="gone"
+        android:elevation="16dp"
+        android:translationZ="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <!-- Ícone indicando Ajuda/Info -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                app:tint="#4CAF50" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_ajuda"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:padding="12dp"
+                android:textSize="31sp"
+                android:textColor="#FEBE11"/>
+
+            </LinearLayout>
+
+            <!-- Texto Centralizado -->
+            <TextView
+                android:id="@+id/tvExibido3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texto_telaLogin"
+                android:padding="32dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:textColor="#212121"
+                android:textSize="18sp" />
+
+            <!-- Botão "Entendi" Centralizado -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btEntendi3"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-6dp"
+                android:text="Entendi"
+                android:textSize="18dp"
+                android:layout_marginBottom="26dp"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="364dp"
@@ -42,34 +120,14 @@
     </FrameLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvDuvida2"
-        android:layout_width="300dp"
-        android:layout_height="340dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="52dp"
-        android:visibility="gone"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao">
-
-        <TextView
-            android:id="@+id/tvExibido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="Tela de Login\n \n Objetivo:\n \nGarantir que somente usuários autorizados tenham acesso às informações dos processos seletivos da organização\n\n Regras de Negócio\n\n Usuário deve possuir cadastro ativo.\nSenha deve coincidir com a armazenada no servidor.\nContas bloqueadas não podem acessar o sistema."
-            android:textColor="#000000"
-            android:textSize="16sp" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="314dp"
         android:layout_height="157dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
+        android:elevation="16dp"
+        android:translationZ="16dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="16dp"
         app:cardElevation="8dp"
@@ -126,8 +184,8 @@
 
     <Button
         android:id="@+id/btEntrar"
-        android:layout_width="165dp"
-        android:layout_height="48dp"
+        android:layout_width="184dp"
+        android:layout_height="60dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="1dp"

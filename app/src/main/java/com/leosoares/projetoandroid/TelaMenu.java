@@ -3,6 +3,7 @@ package com.leosoares.projetoandroid;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,13 +21,14 @@ public class TelaMenu extends AppCompatActivity {
     FloatingActionButton fbDin;
     FloatingActionButton fbEntrevista;
     FloatingActionButton fbInterrogacao2;
+    Button btEntendi;
     TextView tvProcessoEn;
     TextView tvSaudacao;
     TextView tvOpcoes;
     TextView tvUser;
     TextView tvProcessoDi;
-    TextView tvExibido2;
-    CardView cvDuvida2;
+    TextView tvExibido;
+    CardView cvDuvida;
 
 
     @Override
@@ -43,7 +45,9 @@ public class TelaMenu extends AppCompatActivity {
         fbDin = (FloatingActionButton) findViewById(R.id.fbDin);
         fbEntrevista = (FloatingActionButton) findViewById(R.id.fbEntrevista);
         fbInterrogacao2 = (FloatingActionButton) findViewById(R.id.fbInterrogacao2);
-        cvDuvida2 = (CardView) findViewById(R.id.cvDuvida2);
+        btEntendi = (Button) findViewById(R.id.btEntendi3);
+        tvExibido = (TextView) findViewById(R.id.tvExibido3);
+        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
         tvSaudacao = (TextView) findViewById(R.id.tvSaudacao);
         tvUser = (TextView) findViewById(R.id.tvUser);
         tvOpcoes = (TextView) findViewById(R.id.tvOpcoes);
@@ -61,37 +65,36 @@ public class TelaMenu extends AppCompatActivity {
             }
         }
 
+        // 1. Abrir o pop-up ao clicar no botão de interrogação
         fbInterrogacao2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancela qualquer temporizador ativo para evitar bugs se clicar várias vezes
-                v.animate().cancel();
-                cvDuvida2.animate().cancel();
+                cvDuvida.animate().cancel();
 
-                // Efeito Surgimento (Fade-in)
-                cvDuvida2.setAlpha(0f); // Começa totalmente invisível
-                cvDuvida2.setVisibility(View.VISIBLE);
-                cvDuvida2.animate()
-                        .alpha(1f) // 100% visível
-                        .setDuration(400) // Duração do efeito (400 milissegundos)
+                // Exibe o card com efeito Fade-in
+                cvDuvida.setAlpha(0f);
+                cvDuvida.setVisibility(View.VISIBLE);
+                cvDuvida.animate()
+                        .alpha(1f)
+                        .setDuration(400)
                         .setListener(null);
+            }
+        });
 
-                // Temporizador de 4 segundos
-                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Efeito Sumir (Fade-out)
-                        cvDuvida2.animate()
-                                .alpha(0f) // Ativar transparencia
-                                .setDuration(400)
-                                .withEndAction(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        cvDuvida2.setVisibility(View.GONE);
-                                    }
-                                });
-                    }
-                }, 4000); // 4000 milissegundos = 4 segundos
+// 2. Fechar o pop-up ao clicar no botão "Entendi"
+        btEntendi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde o card com efeito Fade-out
+                cvDuvida.animate()
+                        .alpha(0f)
+                        .setDuration(400)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                cvDuvida.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
 

@@ -5,7 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E2E2E2"
     tools:context=".informacao_candidato">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida5"
+        android:layout_width="300dp"
+        android:layout_height="340dp"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fbInterrogacao5"
+        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao5"
+        app:layout_constraintWidth_max="260dp">
+
+        <TextView
+            android:id="@+id/tvExibido5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Processo Dinâmica\n\nObjetivo:\nÉ centralizar a condução das dinâmicas de grupo, oferencendo um ambiente onde seja possível:\nConsultar Agendamentos\nVisualizar detalhes da atividade\nIdentificar Candidatos vinculdados\n"
+            android:textColor="#203652"
+            android:textSize="14sp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbInterrogacao5"
@@ -13,15 +35,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:alpha="0.4"
         android:clickable="true"
         android:focusable="true"
-        android:alpha ="0.4"
         app:backgroundTint="#FFFFFF"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
-        app:tint="#1F4273" />
+        app:tint="@color/black" />
 
     <Button
         android:id="@+id/btEnviar"

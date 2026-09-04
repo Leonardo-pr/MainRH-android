@@ -21,12 +21,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton ibOcultar;
+    Button btEntendi;
     CardView cvDuvida;
     TextView tvExibido;
     FloatingActionButton fbInterrogacao;
     Button btEntrar;
     EditText edUsuario;
     EditText edSenha;
+
     boolean isVisivel = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,41 +46,42 @@ public class MainActivity extends AppCompatActivity {
         edUsuario = (EditText) findViewById(R.id.edUsuario);
         btEntrar = (Button) findViewById(R.id.btEntrar);
         fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
-        cvDuvida = (CardView) findViewById(R.id.cvDuvida2);
-        tvExibido = (TextView) findViewById(R.id.tvExibido);
+        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
+        tvExibido = (TextView) findViewById(R.id.tvExibido3);
+        btEntendi = (Button) findViewById(R.id.btEntendi3);
 
 
+
+        // 1. Abrir o pop-up ao clicar no botão de interrogação
         fbInterrogacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancela qualquer temporizador ativo para evitar bugs se clicar várias vezes
-                v.animate().cancel();
                 cvDuvida.animate().cancel();
 
-                // Efeito Surgimento (Fade-in)
-                cvDuvida.setAlpha(0f); // Começa totalmente invisível
+                // Exibe o card com efeito Fade-in
+                cvDuvida.setAlpha(0f);
                 cvDuvida.setVisibility(View.VISIBLE);
                 cvDuvida.animate()
-                        .alpha(1f) // 100% visível
-                        .setDuration(400) // Duração do efeito (400 milissegundos)
+                        .alpha(1f)
+                        .setDuration(400)
                         .setListener(null);
+            }
+        });
 
-                // Temporizador de 4 segundos
-                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Efeito Sumir (Fade-out)
-                        cvDuvida.animate()
-                                .alpha(0f) // Ativar transparencia
-                                .setDuration(400)
-                                .withEndAction(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        cvDuvida.setVisibility(View.GONE);
-                                    }
-                                });
-                    }
-                }, 4000); // 4000 milissegundos = 4 segundos
+// 2. Fechar o pop-up ao clicar no botão "Entendi"
+        btEntendi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde o card com efeito Fade-out
+                cvDuvida.animate()
+                        .alpha(0f)
+                        .setDuration(400)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                cvDuvida.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
 
