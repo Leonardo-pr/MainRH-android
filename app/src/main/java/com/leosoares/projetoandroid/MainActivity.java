@@ -50,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
         tvExibido = (TextView) findViewById(R.id.tvExibido3);
         btEntendi = (Button) findViewById(R.id.btEntendi3);
 
+        // Animação do botão
+        fbInterrogacao.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
+                -> fbInterrogacao.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
 
-
-        // 1. Abrir o pop-up ao clicar no botão de interrogação
+        // Abrir o pop-up ao clicar no botão de interrogação
         fbInterrogacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-// 2. Fechar o pop-up ao clicar no botão "Entendi"
+       // Fechar o pop-up ao clicar no botão "Entendi"
         btEntendi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,16 +106,11 @@ public class MainActivity extends AppCompatActivity {
         btEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 1. Pegar o texto digitado
+
                 String nomeUsuario = edUsuario.getText().toString().trim();
-
-                // 2. Criar a Intent para abrir a TelaMenu
-                Intent intent = new Intent(MainActivity.this, TelaMenu.class);
-
-                // 3. Anexar o dado com uma chave identificadora (ex: "NOME_USUARIO")
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                //Anexar o dado com uma chave identificadora
                 intent.putExtra("NOME_USUARIO", nomeUsuario);
-
-                // 4. Iniciar a nova Activity
                 startActivity(intent);
             }
         });

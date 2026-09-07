@@ -17,6 +17,7 @@
     <LinearLayout
         android:id="@+id/llCardEntrevista"
         android:layout_width="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"

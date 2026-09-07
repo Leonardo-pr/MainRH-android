@@ -55,17 +55,18 @@ public class TelaMenu extends AppCompatActivity {
         tvProcessoEn = (TextView) findViewById(R.id.tvProcessoEn);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("NOME_USUARIO")){
-            String usuario = intent.getStringExtra("NOME_USUARIO");
+        if (intent != null && intent.hasExtra("NOME_USUARIO")) {
+            String nome = intent.getStringExtra("NOME_USUARIO");
 
-            if(!usuario.isEmpty()){
-                tvUser.setText(usuario);
-            } else {
-                tvUser.setText("Usuário");
+            if (nome == null || nome.isEmpty()) {
+                nome = "Recrutador";
             }
+            tvUser.setText(nome);
         }
 
-        // 1. Abrir o pop-up ao clicar no botão de interrogação
+        fbInterrogacao2.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
+                -> fbInterrogacao2.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
+
         fbInterrogacao2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +82,7 @@ public class TelaMenu extends AppCompatActivity {
             }
         });
 
-// 2. Fechar o pop-up ao clicar no botão "Entendi"
+// Fechar o pop-up ao clicar no botão "Entendi"
         btEntendi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
