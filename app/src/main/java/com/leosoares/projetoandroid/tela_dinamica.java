@@ -54,8 +54,8 @@ public class tela_dinamica extends AppCompatActivity {
         adapter = new EntrevistaAdapter(listaEntrevistas);
         rvListaDinamicas.setAdapter(adapter);
         cvDuvida3 = (CardView) findViewById(R.id.cvDuvida3);
-        tvExibido3 = (TextView) findViewById(R.id.tvExibido3);
-        btEntendi3 = (Button) findViewById(R.id.btEntendi3);
+        tvExibido3 = (TextView) findViewById(R.id.tvExibido4);
+        btEntendi3 = (Button) findViewById(R.id.btEntendi4);
         fbInterrogacao3 = (FloatingActionButton) findViewById(R.id.fbInterrogacao3);
 
 

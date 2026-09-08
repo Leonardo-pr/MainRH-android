@@ -2,6 +2,7 @@ package com.leosoares.projetoandroid;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,8 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
     CandidatoAdapter adapter;
     List<Candidato> listaCandidatos;
     FloatingActionButton fbInterrogacao4;
+    Button btEntendi4;
+    TextView tvExibido4;
     CardView cvDuvida4;
     TextView tvCandi;
 
@@ -39,49 +42,49 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
         });
 
         listaCandidatos = carregarCadidatosEmProcesso();
-        rvListaCandidatos = findViewById(R.id.rvListaResposta);
-        tvCandi = findViewById(R.id.tvCandi);
+        rvListaCandidatos = (RecyclerView) findViewById(R.id.rvListaResposta);
+        tvCandi = (TextView) findViewById(R.id.tvCandi);
         rvListaCandidatos.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CandidatoAdapter(listaCandidatos);
         rvListaCandidatos.setAdapter(adapter);
+        tvExibido4 = (TextView) findViewById(R.id.tvExibido4);
+        btEntendi4 = (Button) findViewById(R.id.btEntendi4);
         cvDuvida4 = (CardView) findViewById(R.id.cvDuvida4);
         fbInterrogacao4 = (FloatingActionButton) findViewById(R.id.fbInterrogacao4);
 
         fbInterrogacao4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancela qualquer temporizador ativo para evitar bugs se clicar várias vezes
-                v.animate().cancel();
                 cvDuvida4.animate().cancel();
 
-                // Efeito Surgimento (Fade-in)
-                cvDuvida4.setAlpha(0f); // Começa totalmente invisível
+                // Exibe o card com efeito Fade-in
+                cvDuvida4.setAlpha(0f);
                 cvDuvida4.setVisibility(View.VISIBLE);
                 cvDuvida4.animate()
-                        .alpha(1f) // 100% visível
-                        .setDuration(400) // Duração do efeito (400 milissegundos)
+                        .alpha(1f)
+                        .setDuration(400)
                         .setListener(null);
-
-                // Temporizador de 4 segundos
-                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Efeito Sumir (Fade-out)
-                        cvDuvida4.animate()
-                                .alpha(0f) // Ativar transparencia
-                                .setDuration(400)
-                                .withEndAction(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        cvDuvida4.setVisibility(View.GONE);
-                                    }
-                                });
-                    }
-                }, 4000); // 4000 milissegundos = 4 segundos
             }
         });
 
+        // Fechar o pop-up ao clicar no botão "Entendi"
+        btEntendi4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde o card com efeito Fade-out
+                cvDuvida4.animate()
+                        .alpha(0f)
+                        .setDuration(400)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                cvDuvida4.setVisibility(View.GONE);
+                            }
+                        });
+            }
+        });
     }
+
 
     private List<Candidato> carregarCadidatosEmProcesso() {
         List<Candidato> lista = new ArrayList<>();

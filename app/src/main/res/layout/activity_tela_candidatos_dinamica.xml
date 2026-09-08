@@ -9,42 +9,31 @@
     tools:context=".tela_dinamica">
 
     <!-- Cabeçalho (Header Azul) -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvDuvida4"
-        android:layout_width="300dp"
-        android:layout_height="340dp"
-        android:visibility="gone"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fbInterrogacao4"
-        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao4"
-        app:layout_constraintWidth_max="260dp">
-
-        <TextView
-            android:id="@+id/tvExibido5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Processo Dinâmica\n\nObjetivo:\nÉ centralizar a condução das dinâmicas de grupo, oferencendo um ambiente onde seja possível:\nConsultar Agendamentos\nVisualizar detalhes da atividade\nIdentificar Candidatos vinculdados\n"
-            android:textColor="#203652"
-            android:textSize="14sp" />
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbInterrogacao4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
         android:alpha="0.4"
         android:clickable="true"
-        android:focusable="true"
         app:backgroundTint="#FFFFFF"
-        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
+
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#203652"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Texto Centralizado -->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHeader"
@@ -113,6 +102,86 @@
             android:clipToPadding="false"
             android:padding="8dp"
             tools:listitem="@android:layout/simple_list_item_1" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:elevation="16dp"
+        android:translationZ="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <!-- Ícone indicando Ajuda/Info -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    app:tint="#4CAF50" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="12dp"
+                    android:text="@string/titulo_ajuda"
+                    android:textColor="#FEBE11"
+                    android:textSize="31sp" />
+
+            </LinearLayout>
+
+            <!-- Texto Centralizado -->
+            <TextView
+                android:id="@+id/tvExibido4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:padding="32dp"
+                android:text="@string/texto_candidatos"
+                android:textColor="#212121"
+                android:textSize="18sp" />
+
+            <!-- Botão "Entendi" Centralizado -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btEntendi4"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-6dp"
+                android:layout_marginBottom="26dp"
+                android:clickable="true"
+                android:text="Entendi"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

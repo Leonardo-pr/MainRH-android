@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,8 +19,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TelaMenu extends AppCompatActivity {
 
-    FloatingActionButton fbDin;
-    FloatingActionButton fbEntrevista;
+    ImageButton btDin;
+    ImageButton btEntrevista;
     FloatingActionButton fbInterrogacao2;
     Button btEntendi;
     TextView tvProcessoEn;
@@ -42,11 +43,11 @@ public class TelaMenu extends AppCompatActivity {
             return insets;
             });
 
-        fbDin = (FloatingActionButton) findViewById(R.id.fbDin);
-        fbEntrevista = (FloatingActionButton) findViewById(R.id.fbEntrevista);
+        btDin = (ImageButton) findViewById(R.id.btDin);
+        btEntrevista = (ImageButton) findViewById(R.id.btEntrevista);
         fbInterrogacao2 = (FloatingActionButton) findViewById(R.id.fbInterrogacao2);
-        btEntendi = (Button) findViewById(R.id.btEntendi3);
-        tvExibido = (TextView) findViewById(R.id.tvExibido3);
+        btEntendi = (Button) findViewById(R.id.btEntendi4);
+        tvExibido = (TextView) findViewById(R.id.tvExibido4);
         cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
         tvSaudacao = (TextView) findViewById(R.id.tvSaudacao);
         tvUser = (TextView) findViewById(R.id.tvUser);
@@ -100,7 +101,7 @@ public class TelaMenu extends AppCompatActivity {
         });
 
 
-        fbDin.setOnClickListener(new View.OnClickListener() {
+        btDin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TelaMenu.this, tela_dinamica.class);
@@ -109,7 +110,7 @@ public class TelaMenu extends AppCompatActivity {
 
         });
 
-        fbEntrevista.setOnClickListener(new View.OnClickListener() {
+        btEntrevista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TelaMenu.this, tela_candidatos_dinamica.class);

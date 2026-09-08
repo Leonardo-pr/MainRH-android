@@ -57,7 +57,7 @@
 
             <!-- Texto Centralizado -->
             <TextView
-                android:id="@+id/tvExibido3"
+                android:id="@+id/tvExibido4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/texto_telaLogin"
@@ -70,7 +70,7 @@
 
             <!-- Botão "Entendi" Centralizado -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btEntendi3"
+                android:id="@+id/btEntendi4"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
@@ -102,7 +102,7 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/print" />
+            app:srcCompat="@drawable/main_rh" />
     </FrameLayout>
 
     <FrameLayout

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E2E2E2"
+    app:circularflow_defaultRadius="100dp"
     tools:context=".TelaMenu">
 
     <!-- Header / Barra Superior -->
@@ -97,22 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llSaudacao" />
 
-    <!-- Botão Processo Entrevista -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbEntrevista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="#1F4273"
-        app:fabCustomSize="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes"
-        app:maxImageSize="36dp"
-        app:srcCompat="@drawable/fotoperfil"
-        app:tint="#FFFFFF" />
+    <!-- Botão Processo Dinâmica -->
 
     <TextView
         android:id="@+id/tvProcessoEn"
@@ -121,28 +107,46 @@
         android:layout_marginTop="12dp"
         android:text="Processo Entrevista"
         android:textColor="#1F4273"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fbEntrevista" />
+        app:layout_constraintTop_toBottomOf="@+id/btEntrevista" />
 
-    <!-- Botão Processo Dinâmica -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbDin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/btDin"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginTop="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="#47B192"
-        app:fabCustomSize="72dp"
+        android:background="@drawable/bg_botao"
+        android:backgroundTint="#47B192"
+        android:scaleType="center"
+        app:circularflow_defaultRadius="100dp"
+        app:circularflow_radiusInDP="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProcessoEn"
-        app:maxImageSize="36dp"
-        app:srcCompat="@drawable/fotoperfil"
-        app:tint="#FFFFFF" />
+        app:srcCompat="@drawable/grupo" />
+
+    <!-- Card de Dúvida / Informação -->
+
+    <ImageButton
+        android:id="@+id/btEntrevista"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="151dp"
+        android:background="@drawable/bg_botao"
+        android:backgroundTint="#203652"
+        android:scaleType="center"
+        app:circularflow_defaultRadius="100dp"
+        app:circularflow_radiusInDP="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes"
+        app:srcCompat="@drawable/grupo" />
 
     <TextView
         android:id="@+id/tvProcessoDi"
@@ -151,13 +155,12 @@
         android:layout_marginTop="12dp"
         android:text="Processo Dinâmica"
         android:textColor="#1F4273"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fbDin" />
+        app:layout_constraintTop_toBottomOf="@+id/btDin" />
 
-    <!-- Card de Dúvida / Informação -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
         android:layout_width="match_parent"
@@ -174,7 +177,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -207,7 +210,7 @@
 
             <!-- Texto Centralizado -->
             <TextView
-                android:id="@+id/tvExibido3"
+                android:id="@+id/tvExibido4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -220,7 +223,7 @@
 
             <!-- Botão "Entendi" Centralizado -->
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btEntendi3"
+                android:id="@+id/btEntendi4"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"

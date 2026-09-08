@@ -11,83 +11,6 @@
     <!-- Cabeçalho (Header Azul) -->
 
     <!-- Card de Dúvida / Informação -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvDuvida3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:elevation="16dp"
-        android:translationZ="16dp"
-        android:visibility="gone"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <!-- Ícone indicando Ajuda/Info -->
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
-                    app:tint="#4CAF50" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:lineSpacingExtra="4dp"
-                    android:padding="12dp"
-                    android:text="@string/titulo_ajuda"
-                    android:textColor="#FEBE11"
-                    android:textSize="31sp" />
-
-            </LinearLayout>
-
-            <!-- Texto Centralizado -->
-            <TextView
-                android:id="@+id/tvExibido3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:lineSpacingExtra="6dp"
-                android:padding="32dp"
-                android:text="@string/texto_telaDinâmica"
-                android:textColor="#212121"
-                android:textSize="18sp" />
-
-            <!-- Botão "Entendi" Centralizado -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btEntendi3"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-6dp"
-                android:layout_marginBottom="26dp"
-                android:text="Entendi"
-                android:textColor="#FFFFFF"
-                android:textSize="18dp"
-                app:backgroundTint="#4CAF50"
-                app:cornerRadius="20dp" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -173,6 +96,84 @@
             android:clipToPadding="false"
             android:padding="8dp"
             tools:listitem="@android:layout/simple_list_item_1" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDuvida3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:elevation="16dp"
+        android:translationZ="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <!-- Ícone indicando Ajuda/Info -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    app:tint="#4CAF50" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="12dp"
+                    android:text="@string/titulo_ajuda"
+                    android:textColor="#FEBE11"
+                    android:textSize="31sp" />
+
+            </LinearLayout>
+
+            <!-- Texto Centralizado -->
+            <TextView
+                android:id="@+id/tvExibido4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:padding="32dp"
+                android:text="@string/texto_telaDinâmica"
+                android:textColor="#212121"
+                android:textSize="18sp" />
+
+            <!-- Botão "Entendi" Centralizado -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btEntendi4"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-6dp"
+                android:layout_marginBottom="26dp"
+                android:text="Entendi"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

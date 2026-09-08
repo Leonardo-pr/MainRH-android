@@ -23,12 +23,12 @@ public class informacao_candidato extends AppCompatActivity {
 
     RatingBar rbNotaCandidato;
     FloatingActionButton fbInterrogacao5;
-    CardView cvDuvida5;
+    CardView cvDuvida4;
     TextView tvNomeCandidatoDetalhe;
 
     TextView tvEnunciado, tvResposta, tvContadorQuestao, tvNotaNumerica;
     ImageButton btnAnterior, btnProximo;
-    Button btEnviar;
+    Button btEnviar, btEntendi4;
 
     List<Questao> listaQuestoes = new ArrayList<>();
     int indiceAtual = 0;
@@ -45,7 +45,7 @@ public class informacao_candidato extends AppCompatActivity {
         });
 
         fbInterrogacao5 = findViewById(R.id.fbInterrogacao5);
-        cvDuvida5 = findViewById(R.id.cvDuvida5);
+        cvDuvida4 = findViewById(R.id.cvDuvida4);
         tvNomeCandidatoDetalhe = findViewById(R.id.tvNomeCandidatoDetalhe);
         tvNotaNumerica = findViewById(R.id.tvNotaNumerica);
         rbNotaCandidato = findViewById(R.id.rbNotaCandidato);
@@ -54,6 +54,7 @@ public class informacao_candidato extends AppCompatActivity {
         tvContadorQuestao = findViewById(R.id.tvContadorQuestao);
         btnAnterior = findViewById(R.id.btnAnterior);
         btnProximo = findViewById(R.id.btnProximo);
+        btEntendi4 = findViewById(R.id.btEntendi4);
         btEnviar = findViewById(R.id.btEnviar);
 
         // Lógica do Botão Dúvida (FAB)
@@ -111,6 +112,23 @@ public class informacao_candidato extends AppCompatActivity {
         btEnviar.setOnClickListener(v -> {
             Toast.makeText(this, "Avaliação finalizada com sucesso!", Toast.LENGTH_SHORT).show();
             finish();
+        });
+
+        // Fechar o pop-up ao clicar no botão "Entendi"
+        btEntendi4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Esconde o card com efeito Fade-out
+                cvDuvida4.animate()
+                        .alpha(0f)
+                        .setDuration(400)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                cvDuvida4.setVisibility(View.GONE);
+                            }
+                        });
+            }
         });
     }
 
@@ -182,13 +200,13 @@ public class informacao_candidato extends AppCompatActivity {
     private void configurarDuvida() {
         fbInterrogacao5.setOnClickListener(v -> {
             v.animate().cancel();
-            cvDuvida5.animate().cancel();
-            cvDuvida5.setAlpha(0f);
-            cvDuvida5.setVisibility(View.VISIBLE);
-            cvDuvida5.animate().alpha(1f).setDuration(400).setListener(null);
+            cvDuvida4.animate().cancel();
+            cvDuvida4.setAlpha(0f);
+            cvDuvida4.setVisibility(View.VISIBLE);
+            cvDuvida4.animate().alpha(1f).setDuration(400).setListener(null);
 
             new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-                cvDuvida5.animate().alpha(0f).setDuration(400).withEndAction(() -> cvDuvida5.setVisibility(View.GONE));
+                cvDuvida4.animate().alpha(0f).setDuration(400).withEndAction(() -> cvDuvida4.setVisibility(View.GONE));
             }, 4000);
         });
     }

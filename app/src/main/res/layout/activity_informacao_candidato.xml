@@ -10,6 +10,20 @@
     tools:context=".informacao_candidato">
 
     <!-- Header Superior -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.4"
+        android:clickable="true"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="@color/black" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvHeader"
         android:layout_width="0dp"
@@ -58,8 +72,8 @@
             android:id="@+id/imgFotoCandidato"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
             android:contentDescription="Foto Candidato"
+            android:scaleType="centerCrop"
             app:srcCompat="@android:drawable/ic_menu_camera" />
     </androidx.cardview.widget.CardView>
 
@@ -104,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Questão 1 de 3"
                 android:textColor="#888888"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <!-- Enunciado da Pergunta -->
@@ -126,7 +140,7 @@
 
             <!-- Resposta Dada pelo Candidato -->
             <ScrollView
-                android:layout_width="match_parent"
+                android:layout_width="335dp"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -144,8 +158,8 @@
     <!-- Área de Navegação e Avaliação (Setas + Estrelas) -->
     <LinearLayout
         android:id="@+id/llAreaAvaliacao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="373dp"
+        android:layout_height="139dp"
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -216,42 +230,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llAreaAvaliacao" />
 
-    <!-- Card de Ajuda Pop-up -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvDuvida5"
-        android:layout_width="260dp"
+        android:id="@+id/cvDuvida4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:elevation="16dp"
+        android:translationZ="16dp"
         android:visibility="gone"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fbInterrogacao5"
-        app:layout_constraintEnd_toStartOf="@+id/fbInterrogacao5">
-
-        <TextView
-            android:id="@+id/tvExibido5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Avaliação do Candidato:\n\nNavegue entre as questões usando as setas.\nAtribua uma nota para cada resposta de 1 a 5 estrelas.\nO botão 'Enviar Avaliação' será liberado quando todas as questões possuírem nota."
-            android:textColor="#203652"
-            android:textSize="13sp" />
-    </androidx.cardview.widget.CardView>
-
-    <!-- Floating Action Button da Ajuda -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbInterrogacao5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:alpha="0.8"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="#FFFFFF"
-        app:fabSize="mini"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/interrogacao"
-        app:tint="@color/black" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <!-- Ícone indicando Ajuda/Info -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    app:tint="#4CAF50" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="12dp"
+                    android:text="@string/titulo_ajuda"
+                    android:textColor="#FEBE11"
+                    android:textSize="31sp" />
+
+            </LinearLayout>
+
+            <!-- Texto Centralizado -->
+            <TextView
+                android:id="@+id/tvExibido4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:padding="32dp"
+                android:text="@string/texto_informacao_candidato"
+                android:textColor="#212121"
+                android:textSize="18sp" />
+
+            <!-- Botão "Entendi" Centralizado -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btEntendi4"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-6dp"
+                android:layout_marginBottom="26dp"
+                android:clickable="true"
+                android:text="Entendi"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                app:backgroundTint="#4CAF50"
+                app:cornerRadius="20dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

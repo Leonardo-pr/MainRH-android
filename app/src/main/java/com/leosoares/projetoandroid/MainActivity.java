@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         btEntrar = (Button) findViewById(R.id.btEntrar);
         fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
         cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
-        tvExibido = (TextView) findViewById(R.id.tvExibido3);
-        btEntendi = (Button) findViewById(R.id.btEntendi3);
+        tvExibido = (TextView) findViewById(R.id.tvExibido4);
+        btEntendi = (Button) findViewById(R.id.btEntendi4);
 
         // Animação do botão
         fbInterrogacao.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()

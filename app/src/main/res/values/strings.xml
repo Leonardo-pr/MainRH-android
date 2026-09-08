@@ -25,6 +25,11 @@
     </string>
 
     <string name="texto_candidatos">
-        <b>Tela Candidatos</b>&#10;&#10;\n\n<b>Objetivo:</b>&#10;Aqui você pode selecioanar os candidatos presentes nessa vaga,
+        <b>Tela Candidatos</b>&#10;&#10;\n\n<b>Objetivo:</b>&#10;Aqui você pode selecionar os candidatos presentes nessa vaga.
     </string>
+
+    <string name="texto_informacao_candidato">
+        <b>Tela Nota</b>&#10;&#10;\n\n<b>Objetivo</b>&#10;Nessa tela você pode analisar as questões realizadas pelo candidato,
+    </string>
+
 </resources>
