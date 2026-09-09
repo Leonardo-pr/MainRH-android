@@ -60,10 +60,12 @@ public class informacao_candidato extends AppCompatActivity {
         // Lógica do Botão Dúvida (FAB)
         configurarDuvida();
 
-        // Recebe Nome
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("NOME_CANDIDATO")) {
-            tvNomeCandidatoDetalhe.setText(intent.getStringExtra("NOME_CANDIDATO"));
+            String nome = intent.getStringExtra("NOME_CANDIDATO");
+            if (nome != null && !nome.isEmpty()) {
+                tvNomeCandidatoDetalhe.setText(nome);
+            }
         }
 
         // Carrega Dados MOCK

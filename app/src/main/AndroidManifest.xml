@@ -50,6 +50,14 @@
             android:name=".EsqueciSenha"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".HubCandidato"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".HubCandidatoActivity" />
+
+
     </application>
 
 </manifest>

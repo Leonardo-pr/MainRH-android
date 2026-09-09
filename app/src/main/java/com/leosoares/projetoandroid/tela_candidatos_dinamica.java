@@ -49,7 +49,7 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
         rvListaCandidatos.setAdapter(adapter);
         tvExibido4 = (TextView) findViewById(R.id.tvExibido4);
         btEntendi4 = (Button) findViewById(R.id.btEntendi4);
-        cvDuvida4 = (CardView) findViewById(R.id.cvDuvida4);
+         cvDuvida4 = (CardView) findViewById(R.id.cvDuvida4);
         fbInterrogacao4 = (FloatingActionButton) findViewById(R.id.fbInterrogacao4);
 
         fbInterrogacao4.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +90,11 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
         List<Candidato> lista = new ArrayList<>();
         // Exemplo de dados
         // Apenas vagas em "Processo" devem ser adicionadas a essa lista
-        lista.add(new Candidato("Lucas Luvas Pretas"));
-        lista.add(new Candidato("Roberto Robertinho"));
-        lista.add(new Candidato("Abner, Abner! ABNEEEEEEEEEEEEER"));
-        lista.add(new Candidato("Albert Aeds tems"));
-        lista.add(new Candidato("Fruta Frutifera da fruta fruta"));
+        lista.add(new Candidato("Lucas Souza"));
+        lista.add(new Candidato("Roberto Carvalho"));
+        lista.add(new Candidato("Lucas Wanderley"));
+        lista.add(new Candidato("João Silva Santos"));
+        lista.add(new Candidato("Aleixo Martins"));
 
         return lista;
     }
