@@ -18,7 +18,36 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
+/*
+   TelaLogin, Proposta:
+   - O Usuário ao abrir o aplicativo está será a primeira tela
+   Ela pedi duas coisas: Usuário e Senha
+   Quando ele colocar as informções corretas ele será enviado para a proxima tela que será a TelaMenu
+
+   Nesse arquivo java temos 5 funções
+
+   fbInterrogação animated: O botão flutuante treme por um 4 segundos na tela, para o usuário identifique o botão
+   logo quando entrar no aplicativo.
+
+   fbInterrogação clicklistener e btEntendi: Ao clicar no botão de dúvida aparecera um pop up na tela, explicando
+   a função da tela pro usuário, tem o botão de btEntendi, que serve para fechar o pop-up presente na tela.
+
+   btEntrar clicklistener: Ao clicar no entrar, irá salvar o nome escrito o textfield e enviará para
+   para proxima tela, e também o usuario vai ser enviado para a tela splash.
+
+   ibOcultar clicklistener: A imagem de esconder e mostrar senha (Olho), ao entrar no app ele vai estar
+   censurado por padrão, se clicar no botão do olho a senha será mostrada.
+
+   O que falta fazer:
+
+   O nome Usuário e a Senha, são dados que estão salvos no Banco de Dados, ou seja tem que impedir usuários
+   com dados não cadastrados de entrar
+
+   Extra: Pode ser de criarmos a lógica de email avisando que o tal usuário esqueceu a senha.
+
+*/
+
+public class TelaLogin extends AppCompatActivity {
 
     ImageButton ibOcultar;
     Button btEntendi;
@@ -28,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
     Button btEntrar;
     EditText edUsuario;
     EditText edSenha;
-
     boolean isVisivel = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -60,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cvDuvida.animate().cancel();
 
-                // Exibe o card com efeito Fade-in
+                // Exibe o card
                 cvDuvida.setAlpha(0f);
                 cvDuvida.setVisibility(View.VISIBLE);
                 cvDuvida.animate()
@@ -70,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       // Fechar o pop-up ao clicar no botão "Entendi"
+       // Fechar o pop-up
         btEntendi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Esconde o card com efeito Fade-out
                 cvDuvida.animate()
                         .alpha(0f)
                         .setDuration(400)
@@ -83,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 cvDuvida.setVisibility(View.GONE);
                             }
-                        });
+                        }); // Esconde o card
+
             }
         });
 
@@ -108,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String nomeUsuario = edUsuario.getText().toString().trim();
-                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
+
                 //Anexar o dado com uma chave identificadora
                 intent.putExtra("NOME_USUARIO", nomeUsuario);
                 startActivity(intent);

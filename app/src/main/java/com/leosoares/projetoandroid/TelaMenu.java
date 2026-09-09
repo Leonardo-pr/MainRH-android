@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,24 +12,43 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
 
+/*
+   TelaMenu, Proposta:
+   Uma mensagem de bem-vindo com o nome do Recrutador, ele recebe o nome pelo caminho de TelaLogin->
+   Splash -> TelaMenu
+
+   Nessa tela mostrará as vagas em andamento, que é um recyclerView
+   Como todas as telas, ela também possuí o botão de dúvida.
+
+   O RecyclerView funciona da seguinte forma, ele puxa as lógicas criadas no Entrevista.java e
+   EntrevistaAdapter.java, já aqui puxamos os componentes e criamos um private list<entrevista>
+
+   private List<Emprevista>: Ele cria dados exemplares usando um array de dados, ele pega o nomeVaga, status
+   e totalCandidatos, todos presentes no Entrevista.java e EntrevistaAdapter.java.
+
+   O que falta fazer:
+   Os dados das vagas como, Nome da vaga, a quantidade de candidatos, todos esses dados tem que ser puxados
+   do Banco de Dados, e não criados artificialmente.
+
+
+*/
 public class TelaMenu extends AppCompatActivity {
 
-    ImageButton btDin;
-    ImageButton btEntrevista;
-    FloatingActionButton fbInterrogacao2;
-    Button btEntendi;
-    TextView tvProcessoEn;
-    TextView tvSaudacao;
-    TextView tvOpcoes;
-    TextView tvUser;
-    TextView tvProcessoDi;
-    TextView tvExibido;
-    CardView cvDuvida;
-
+    private FloatingActionButton fbInterrogacao2;
+    private Button btEntendi;
+    private TextView tvUser;
+    private CardView cvDuvida;
+    private RecyclerView rvListaResposta;
+    private EntrevistaAdapter adapter;
+    private List<Entrevista> listaEntrevistas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,82 +59,50 @@ public class TelaMenu extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-            });
+        });
 
-        btDin = (ImageButton) findViewById(R.id.btDin);
-        btEntrevista = (ImageButton) findViewById(R.id.btEntrevista);
-        fbInterrogacao2 = (FloatingActionButton) findViewById(R.id.fbInterrogacao2);
-        btEntendi = (Button) findViewById(R.id.btEntendi4);
-        tvExibido = (TextView) findViewById(R.id.tvExibido4);
-        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
-        tvSaudacao = (TextView) findViewById(R.id.tvSaudacao);
-        tvUser = (TextView) findViewById(R.id.tvUser);
-        tvOpcoes = (TextView) findViewById(R.id.tvOpcoes);
-        tvProcessoDi = (TextView) findViewById(R.id.tvProcessoDi);
-        tvProcessoEn = (TextView) findViewById(R.id.tvProcessoEn);
+        fbInterrogacao2 = findViewById(R.id.fbInterrogacao2);
+        btEntendi = findViewById(R.id.btEntendi4);
+        cvDuvida = findViewById(R.id.cvDuvida3);
+        tvUser = findViewById(R.id.tvUser);
+        rvListaResposta = findViewById(R.id.rvListaResposta);
 
+        // Receber o nome do usuário logado
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("NOME_USUARIO")) {
             String nome = intent.getStringExtra("NOME_USUARIO");
-
-            if (nome == null || nome.isEmpty()) {
-                nome = "Recrutador";
+            if (nome != null && !nome.isEmpty()) {
+                tvUser.setText(nome);
             }
-            tvUser.setText(nome);
         }
 
-        fbInterrogacao2.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
-                -> fbInterrogacao2.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
-
-        fbInterrogacao2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cvDuvida.animate().cancel();
-
-                // Exibe o card com efeito Fade-in
-                cvDuvida.setAlpha(0f);
-                cvDuvida.setVisibility(View.VISIBLE);
-                cvDuvida.animate()
-                        .alpha(1f)
-                        .setDuration(400)
-                        .setListener(null);
-            }
+        // Configuração do Card de Ajuda Pop-up
+        fbInterrogacao2.setOnClickListener(v -> {
+            cvDuvida.animate().cancel();
+            cvDuvida.setAlpha(0f);
+            cvDuvida.setVisibility(View.VISIBLE);
+            cvDuvida.animate().alpha(1f).setDuration(400).setListener(null);
         });
 
-// Fechar o pop-up ao clicar no botão "Entendi"
-        btEntendi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Esconde o card com efeito Fade-out
-                cvDuvida.animate()
-                        .alpha(0f)
-                        .setDuration(400)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                cvDuvida.setVisibility(View.GONE);
-                            }
-                        });
-            }
-        });
+        btEntendi.setOnClickListener(v -> cvDuvida.animate()
+                .alpha(0f)
+                .setDuration(400)
+                .withEndAction(() -> cvDuvida.setVisibility(View.GONE)));
 
+        // Configuração da RecyclerView com a lista (ficava na tela_dinamica)
+        rvListaResposta.setLayoutManager(new LinearLayoutManager(this));
+        listaEntrevistas = carregarEntrevistasEmProcesso();
+        adapter = new EntrevistaAdapter(listaEntrevistas);
+        rvListaResposta.setAdapter(adapter);
+    }
 
-        btDin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TelaMenu.this, tela_dinamica.class);
-                startActivity(intent);
-            }
-
-        });
-
-        btEntrevista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TelaMenu.this, tela_candidatos_dinamica.class);
-                startActivity(intent);
-            }
-        });
-
+    private List<Entrevista> carregarEntrevistasEmProcesso() {
+        List<Entrevista> lista = new ArrayList<>();
+        lista.add(new Entrevista("Analista de Sistemas", "Em processo", 12));
+        lista.add(new Entrevista("Desenvolvedor Java", "Em processo", 8));
+        lista.add(new Entrevista("Engenheiro de Software", "Em processo", 15));
+        lista.add(new Entrevista("Designer UX/UI", "Em processo", 5));
+        lista.add(new Entrevista("Suporte Técnico", "Em processo", 20));
+        return lista;
     }
 }

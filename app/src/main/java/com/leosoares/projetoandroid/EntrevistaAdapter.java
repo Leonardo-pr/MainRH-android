@@ -36,7 +36,7 @@ public class EntrevistaAdapter extends RecyclerView.Adapter<EntrevistaAdapter.Vi
         // Evento de clique no item inteiro (LinearLayout)
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
-            Intent intent = new Intent(context, tela_candidatos_dinamica.class);
+            Intent intent = new Intent(context, TelaCandidatos.class);
 
             // Se precisar passar informações da vaga para a próxima tela no futuro:
             // intent.putExtra("NOME_VAGA", entrevista.getNomeVaga());

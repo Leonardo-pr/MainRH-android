@@ -33,11 +33,8 @@ public class CandidatoAdapter extends RecyclerView.Adapter<CandidatoAdapter.View
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
-            Intent intent = new Intent(context, informacao_candidato.class);
-
-            // Passa o nome do candidato clicado usando a chave "NOME_CANDIDATO"
+            Intent intent = new Intent(context, HubCandidatoActivity.class);
             intent.putExtra("NOME_CANDIDATO", candidato.getTvNomeCandidato());
-
             context.startActivity(intent);
         });
     }

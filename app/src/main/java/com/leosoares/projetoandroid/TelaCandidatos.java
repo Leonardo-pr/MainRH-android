@@ -19,7 +19,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class tela_candidatos_dinamica extends AppCompatActivity {
+/*
+  TelaCandidatos Proposta:
+
+  Os Cadidatos
+
+
+ */
+
+public class TelaCandidatos extends AppCompatActivity {
 
     RecyclerView rvListaCandidatos;
     CandidatoAdapter adapter;
@@ -34,7 +42,7 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_tela_candidatos_dinamica);
+        setContentView(R.layout.activity_tela_candidatos);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,7 +57,7 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
         rvListaCandidatos.setAdapter(adapter);
         tvExibido4 = (TextView) findViewById(R.id.tvExibido4);
         btEntendi4 = (Button) findViewById(R.id.btEntendi4);
-        cvDuvida4 = (CardView) findViewById(R.id.cvDuvida4);
+         cvDuvida4 = (CardView) findViewById(R.id.cvDuvida4);
         fbInterrogacao4 = (FloatingActionButton) findViewById(R.id.fbInterrogacao4);
 
         fbInterrogacao4.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +98,11 @@ public class tela_candidatos_dinamica extends AppCompatActivity {
         List<Candidato> lista = new ArrayList<>();
         // Exemplo de dados
         // Apenas vagas em "Processo" devem ser adicionadas a essa lista
-        lista.add(new Candidato("Lucas Luvas Pretas"));
-        lista.add(new Candidato("Roberto Robertinho"));
-        lista.add(new Candidato("Abner, Abner! ABNEEEEEEEEEEEEER"));
-        lista.add(new Candidato("Albert Aeds tems"));
-        lista.add(new Candidato("Fruta Frutifera da fruta fruta"));
+        lista.add(new Candidato("Lucas Souza"));
+        lista.add(new Candidato("Roberto Carvalho"));
+        lista.add(new Candidato("Lucas Wanderley"));
+        lista.add(new Candidato("João Silva Santos"));
+        lista.add(new Candidato("Aleixo Martins"));
 
         return lista;
     }

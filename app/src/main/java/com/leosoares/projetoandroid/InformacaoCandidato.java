@@ -19,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class informacao_candidato extends AppCompatActivity {
+public class InformacaoCandidato extends AppCompatActivity {
 
     RatingBar rbNotaCandidato;
     FloatingActionButton fbInterrogacao5;
@@ -60,10 +60,12 @@ public class informacao_candidato extends AppCompatActivity {
         // Lógica do Botão Dúvida (FAB)
         configurarDuvida();
 
-        // Recebe Nome
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("NOME_CANDIDATO")) {
-            tvNomeCandidatoDetalhe.setText(intent.getStringExtra("NOME_CANDIDATO"));
+            String nome = intent.getStringExtra("NOME_CANDIDATO");
+            if (nome != null && !nome.isEmpty()) {
+                tvNomeCandidatoDetalhe.setText(nome);
+            }
         }
 
         // Carrega Dados MOCK
