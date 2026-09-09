@@ -2,10 +2,8 @@ package com.leosoares.projetoandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,44 +16,59 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
 
-    ImageButton ibOcultar;
+public class TelaMenu extends AppCompatActivity {
+
+    ImageButton btDin;
+    ImageButton btEntrevista;
+    FloatingActionButton fbInterrogacao2;
     Button btEntendi;
-    CardView cvDuvida;
+    TextView tvProcessoEn;
+    TextView tvSaudacao;
+    TextView tvOpcoes;
+    TextView tvUser;
+    TextView tvProcessoDi;
     TextView tvExibido;
-    FloatingActionButton fbInterrogacao;
-    Button btEntrar;
-    EditText edUsuario;
-    EditText edSenha;
+    CardView cvDuvida;
 
-    boolean isVisivel = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tela_menu);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
+            });
 
-        ibOcultar = (ImageButton) findViewById(R.id.ibOcultar);
-        edSenha = (EditText) findViewById(R.id.edSenha);
-        edUsuario = (EditText) findViewById(R.id.edUsuario);
-        btEntrar = (Button) findViewById(R.id.btEntrar);
-        fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
-        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
-        tvExibido = (TextView) findViewById(R.id.tvExibido4);
+        btDin = (ImageButton) findViewById(R.id.btDin);
+        btEntrevista = (ImageButton) findViewById(R.id.btEntrevista);
+        fbInterrogacao2 = (FloatingActionButton) findViewById(R.id.fbInterrogacao2);
         btEntendi = (Button) findViewById(R.id.btEntendi4);
+        tvExibido = (TextView) findViewById(R.id.tvExibido4);
+        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
+        tvSaudacao = (TextView) findViewById(R.id.tvSaudacao);
+        tvUser = (TextView) findViewById(R.id.tvUser);
+        tvOpcoes = (TextView) findViewById(R.id.tvOpcoes);
+        tvProcessoDi = (TextView) findViewById(R.id.tvProcessoDi);
+        tvProcessoEn = (TextView) findViewById(R.id.tvProcessoEn);
 
-        // Animação do botão
-        fbInterrogacao.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
-                -> fbInterrogacao.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("NOME_USUARIO")) {
+            String nome = intent.getStringExtra("NOME_USUARIO");
 
-        // Abrir o pop-up ao clicar no botão de interrogação
-        fbInterrogacao.setOnClickListener(new View.OnClickListener() {
+            if (nome == null || nome.isEmpty()) {
+                nome = "Recrutador";
+            }
+            tvUser.setText(nome);
+        }
+
+        fbInterrogacao2.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
+                -> fbInterrogacao2.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
+
+        fbInterrogacao2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cvDuvida.animate().cancel();
@@ -70,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       // Fechar o pop-up ao clicar no botão "Entendi"
+// Fechar o pop-up ao clicar no botão "Entendi"
         btEntendi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,32 +100,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ibOcultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isVisivel){
-                    edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    ibOcultar.setImageResource(R.drawable.exibirsenha);
-                    isVisivel = false;
-                }else {
-                    edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    ibOcultar.setImageResource(R.drawable.ocultarsenha);
-                    isVisivel = true;
-                }
-                edSenha.setSelection(edSenha.getText().length());
-            }
-        }); //Ocultar ou exibir senha
 
-        btEntrar.setOnClickListener(new View.OnClickListener() {
+        btDin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(TelaMenu.this, tela_dinamica.class);
+                startActivity(intent);
+            }
 
-                String nomeUsuario = edUsuario.getText().toString().trim();
-                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-                //Anexar o dado com uma chave identificadora
-                intent.putExtra("NOME_USUARIO", nomeUsuario);
+        });
+
+        btEntrevista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TelaMenu.this, tela_candidatos_dinamica.class);
                 startActivity(intent);
             }
         });
+
     }
 }

@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">ProjetoAndroid</string>
+    <string name="texto_telaLogin">
+    <b>Tela de Login</b>&#10;&#10;<b>Objetivo:</b>&#10;Garantir que somente usuários autorizados tenham acesso às informações dos processos seletivos da organização, colocando seu usuário e senha registrado no banco de dados, você poderá ter acesso ao app.
+    </string>
+
+    <string name="texto_telaMenu">
+    <b>Tela de Menu</b>&#10;&#10;\n<b>Objetivo:</b>&#10;A Api retorna todos os processos permitidos para o usuário sendo eles:\n\n
+
+        <b>Processo Entrevista</b>\n
+        Para fluxo individual de avaliação.\n\n
+
+        <b>Dinâmica de Grupo</b>\n
+        Fluxo Coletivo de Avaliação.
+    </string>
+
+    <string name="titulo_ajuda">
+        <b>\"ATENÇÃO!\"</b>&#10;&#10;
+    </string>
+
+    <string name="texto_telaDinâmica">
+        <b>Tela Dinâmica</b>&#10;&#10;\n\n<b>Objetivo:</b>&#10;Nessa tela o recrutador pode selecionar as vagas que estão em andamento, cada vaga aparece:\n\n
+        <b>Status:</b> Consegue ver se a vaga está em andamento ou fechada.
+        <b>Candidatos:</b> O número de candidatos que estão concorrendo a vaga.
+    </string>
+
+    <string name="texto_candidatos">
+        <b>Tela Candidatos</b>&#10;&#10;\n\n<b>Objetivo:</b>&#10;Aqui você pode selecionar os candidatos presentes nessa vaga.
+    </string>
+
+    <string name="texto_informacao_candidato">
+        <b>Tela Nota</b>&#10;&#10;\n\n<b>Objetivo</b>&#10;Nessa tela você pode analisar as questões realizadas pelo candidato,
+    </string>
+
 </resources>

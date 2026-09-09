@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAndroid">
         <activity
+            android:name=".informacao_candidato"
+            android:exported="true" />
+        <activity
+            android:name=".item_candidato"
+            android:exported="false" />
+        <activity
+            android:name=".item_entrevista"
+            android:exported="false" />
+        <activity
+            android:name=".tela_candidatos_dinamica"
+            android:exported="false" />
+        <activity
+            android:name=".tela_dinamica"
+            android:exported="false" />
+        <activity
+            android:name=".TelaMenu"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -20,6 +38,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".esqueci_Sem"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".EsqueciSenha"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
