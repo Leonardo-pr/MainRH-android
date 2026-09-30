@@ -3,6 +3,7 @@ package com.leosoares.projetoandroid;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.search.SearchBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class TelaCandidatos extends AppCompatActivity {
 
+    SearchView barraBusca;
     RecyclerView rvListaCandidatos;
     CandidatoAdapter adapter;
     List<Candidato> listaCandidatos;
@@ -49,6 +52,7 @@ public class TelaCandidatos extends AppCompatActivity {
             return insets;
         });
 
+        barraBusca = (SearchView) findViewById(R.id.svBusca);
         listaCandidatos = carregarCadidatosEmProcesso();
         rvListaCandidatos = (RecyclerView) findViewById(R.id.rvListaResposta);
         tvCandi = (TextView) findViewById(R.id.tvCandi);
@@ -74,6 +78,8 @@ public class TelaCandidatos extends AppCompatActivity {
                         .setListener(null);
             }
         });
+
+
 
         // Fechar o pop-up ao clicar no botão "Entendi"
         btEntendi4.setOnClickListener(new View.OnClickListener() {
@@ -105,5 +111,7 @@ public class TelaCandidatos extends AppCompatActivity {
         lista.add(new Candidato("Aleixo Martins"));
 
         return lista;
+
+
     }
 }

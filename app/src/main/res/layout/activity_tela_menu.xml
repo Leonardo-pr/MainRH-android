@@ -87,7 +87,7 @@
     <!-- Container do RecyclerView trazido da tela_dinamica -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvContainerList"
-        android:layout_width="371dp"
+        android:layout_width="0dp"
         android:layout_height="541dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="12dp"
@@ -98,16 +98,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvOpcoes">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvListaResposta"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="8dp"
-            tools:listitem="@layout/activity_item_entrevista" />
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/svBusca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryHint="Pesquisar..." />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListaResposta"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:padding="8dp"
+                tools:listitem="@layout/activity_item_entrevista" />
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
     <!-- Botão de Interrogação -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbInterrogacao2"
