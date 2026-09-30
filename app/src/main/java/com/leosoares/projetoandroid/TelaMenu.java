@@ -37,9 +37,8 @@ import java.util.List;
    O que falta fazer:
    Os dados das vagas como, Nome da vaga, a quantidade de candidatos, todos esses dados tem que ser puxados
    do Banco de Dados, e não criados artificialmente.
-
-
 */
+
 public class TelaMenu extends AppCompatActivity {
 
     private FloatingActionButton fbInterrogacao2;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E2E2E2"
-    tools:context=".TelaMenu">
+    tools:context=".hub_candidato_daltonico">
 
     <!-- Header / Barra Superior -->
     <View
@@ -18,127 +18,101 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Foto de Perfil no Header -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvFotoPerfil"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/headerBackground">
-
-        <ImageView
-            android:id="@+id/ivFotoPerfil2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="Foto de Perfil"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/fotoperfil" />
-    </androidx.cardview.widget.CardView>
-
-    <!-- Seção de Saudação -->
-    <LinearLayout
-        android:id="@+id/llSaudacao"
+    <TextView
+        android:id="@+id/tvNomeCandidato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBackground">
-
-        <TextView
-            android:id="@+id/tvSaudacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Olá, "
-            android:textColor="#1F4273"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recrutador"
-            android:textColor="#47B192"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvOpcoes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        android:text="Vagas em andamento:"
-        android:textColor="#5A6E85"
-        android:textSize="16sp"
+        android:text="Candidato Selecionado"
+        android:textColor="#1F4273"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llSaudacao" />
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground" />
 
-    <!-- Container do RecyclerView trazido da tela_dinamica -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvContainerList"
-        android:layout_width="0dp"
-        android:layout_height="541dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <SearchView
-                android:id="@+id/svBusca"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:iconifiedByDefault="false"
-                android:queryHint="Pesquisar..." />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvListaResposta"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clipToPadding="false"
-                android:padding="8dp"
-                tools:listitem="@layout/activity_item_entrevista" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-    <!-- Botão de Interrogação -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbInterrogacao2"
+    <TextView
+        android:id="@+id/tvSubtitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Selecione a etapa de avaliação:"
+        android:textColor="#5A6E85"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeCandidato" />
+
+    <!-- Botão Processo Entrevista -->
+    <ImageButton
+        android:id="@+id/btEntrevista"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_botao"
+        android:backgroundTint="#203652"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtitulo"
+        app:srcCompat="@drawable/grupo" />
+
+    <TextView
+        android:id="@+id/tvProcessoEn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Processo Entrevista"
+        android:textColor="#1F4273"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btEntrevista" />
+
+    <!-- Botão Processo Dinâmica -->
+    <ImageButton
+        android:id="@+id/btDin"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_botao"
+        android:backgroundTint="#47B192"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProcessoEn"
+        app:srcCompat="@drawable/grupo" />
+
+    <TextView
+        android:id="@+id/tvProcessoDi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Processo Dinâmica"
+        android:textColor="#1F4273"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btDin" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:alpha="0.5"
+        android:alpha="0.4"
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="#FFFFFF"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
 
-    <!-- Card de Ajuda Pop-up -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
         android:layout_width="match_parent"
@@ -178,7 +152,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:text="@string/texto_telaMenu"
+                android:text="@string/texto_telaProcessos"
                 android:textColor="#212121"
                 android:textSize="16sp" />
 

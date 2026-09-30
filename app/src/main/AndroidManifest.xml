@@ -12,6 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAndroid">
         <activity
+            android:name=".item_candidato_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".hub_candidato_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".informacao_candidato_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".item_entrevista_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".tela_candidatos_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".tela_menu_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".splash_daltonico"
+            android:exported="false" />
+        <activity
+            android:name=".login_daltonico"
+            android:exported="false" />
+        <activity
             android:name=".InformacaoCandidato"
             android:exported="true" />
         <activity
@@ -54,10 +78,7 @@
             android:name=".HubCandidato"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".HubCandidatoActivity" />
-
-
+        <activity android:name=".HubCandidatoActivity" />
     </application>
 
 </manifest>

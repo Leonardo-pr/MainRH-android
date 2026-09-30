@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E2E2E2"
-    tools:context=".TelaLogin">
+    tools:context=".login_daltonico">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
@@ -36,22 +35,22 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-            <!-- Ícone indicando Ajuda/Info -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="8dp"
-                app:tint="#4CAF50" />
+                <!-- Ícone indicando Ajuda/Info -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    app:tint="#4CAF50" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/titulo_ajuda"
-                android:gravity="center"
-                android:lineSpacingExtra="4dp"
-                android:padding="12dp"
-                android:textSize="31sp"
-                android:textColor="#FEBE11"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_ajuda"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="12dp"
+                    android:textSize="31sp"
+                    android:textColor="#FEBE11"/>
 
             </LinearLayout>
 

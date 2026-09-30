@@ -12,12 +12,18 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
 /*
    TelaLogin, Proposta:
    - O Usuário ao abrir o aplicativo está será a primeira tela
@@ -58,6 +64,10 @@ public class TelaLogin extends AppCompatActivity {
     EditText edUsuario;
     EditText edSenha;
     boolean isVisivel = false;
+    private boolean modoDaltonico = false;
+    ConstraintLayout main;
+    CardView cardView;
+    Button btnDaltonico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +88,79 @@ public class TelaLogin extends AppCompatActivity {
         cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
         tvExibido = (TextView) findViewById(R.id.tvExibido4);
         btEntendi = (Button) findViewById(R.id.btEntendi4);
+        Button btnDaltonico = findViewById(R.id.btnDaltonico);
+        main = findViewById(R.id.main);
+        cardView = findViewById(R.id.cardView);
+        btnDaltonico = findViewById(R.id.btnDaltonico);
+
 
         // Animação do botão
         fbInterrogacao.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
                 -> fbInterrogacao.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
+
+        Button finalBtnDaltonico = btnDaltonico;
+        btnDaltonico.setOnClickListener(v -> {
+
+            modoDaltonico = !modoDaltonico;
+
+            if (modoDaltonico) {
+
+                // Fundo principal
+                main.setBackgroundColor(Color.WHITE);
+
+                // Card Login
+                cardView.setCardBackgroundColor(Color.parseColor("#F5F5F5"));
+
+                // Card Ajuda
+                cvDuvida.setCardBackgroundColor(Color.WHITE);
+
+                // Botão Entrar
+                btEntrar.setBackgroundColor(Color.parseColor("#0057B8"));
+
+                // Botão Entendi
+                btEntendi.setBackgroundColor(Color.parseColor("#0057B8"));
+
+                // Texto do popup
+                tvExibido.setTextColor(Color.BLACK);
+
+                // Campos de texto
+                edUsuario.setTextColor(Color.BLACK);
+                edSenha.setTextColor(Color.BLACK);
+
+                // Hint dos campos
+                edUsuario.setHintTextColor(Color.DKGRAY);
+                edSenha.setHintTextColor(Color.DKGRAY);
+
+                // Botão modo daltônico
+                finalBtnDaltonico.setBackgroundColor(Color.parseColor("#0057B8"));
+                finalBtnDaltonico.setTextColor(Color.WHITE);
+                finalBtnDaltonico.setText("Modo Daltônico: ON");
+
+            } else {
+
+                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+
+                cardView.setCardBackgroundColor(Color.WHITE);
+
+                cvDuvida.setCardBackgroundColor(Color.WHITE);
+
+                btEntrar.setBackgroundColor(Color.parseColor("#1A304B"));
+
+                btEntendi.setBackgroundColor(Color.parseColor("#4CAF50"));
+
+                tvExibido.setTextColor(Color.parseColor("#212121"));
+
+                edUsuario.setTextColor(Color.BLACK);
+                edSenha.setTextColor(Color.BLACK);
+
+                edUsuario.setHintTextColor(Color.parseColor("#8E8E93"));
+                edSenha.setHintTextColor(Color.parseColor("#8E8E93"));
+
+                finalBtnDaltonico.setBackgroundColor(Color.LTGRAY);
+                finalBtnDaltonico.setTextColor(Color.BLACK);
+                finalBtnDaltonico.setText("Modo Daltônico: OFF");
+            }
+        });
 
         // Abrir o pop-up ao clicar no botão de interrogação
         fbInterrogacao.setOnClickListener(new View.OnClickListener() {
