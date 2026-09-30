@@ -1,11 +1,16 @@
 package com.leosoares.projetoandroid;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,210 +23,210 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import androidx.appcompat.app.AppCompatActivity;
 /*
-   TelaLogin, Proposta:
-   - O Usuário ao abrir o aplicativo está será a primeira tela
-   Ela pedi duas coisas: Usuário e Senha
-   Quando ele colocar as informções corretas ele será enviado para a proxima tela que será a TelaMenu
-
-   Nesse arquivo java temos 5 funções
-
-   fbInterrogação animated: O botão flutuante treme por um 4 segundos na tela, para o usuário identifique o botão
-   logo quando entrar no aplicativo.
-
-   fbInterrogação clicklistener e btEntendi: Ao clicar no botão de dúvida aparecera um pop up na tela, explicando
-   a função da tela pro usuário, tem o botão de btEntendi, que serve para fechar o pop-up presente na tela.
-
-   btEntrar clicklistener: Ao clicar no entrar, irá salvar o nome escrito o textfield e enviará para
-   para proxima tela, e também o usuario vai ser enviado para a tela splash.
-
-   ibOcultar clicklistener: A imagem de esconder e mostrar senha (Olho), ao entrar no app ele vai estar
-   censurado por padrão, se clicar no botão do olho a senha será mostrada.
-
-   O que falta fazer:
-
-   O nome Usuário e a Senha, são dados que estão salvos no Banco de Dados, ou seja tem que impedir usuários
-   com dados não cadastrados de entrar
-
-   Extra: Pode ser de criarmos a lógica de email avisando que o tal usuário esqueceu a senha.
-
+   TelaLogin:
+   Possui transição suave para Modo Escuro, Modo Daltônico,
+   controle de exibição de senha e envio de dados para Splash/Menu.
 */
 
 public class TelaLogin extends AppCompatActivity {
 
-    ImageButton ibOcultar;
-    Button btEntendi;
-    CardView cvDuvida;
-    TextView tvExibido;
-    FloatingActionButton fbInterrogacao;
-    Button btEntrar;
-    EditText edUsuario;
-    EditText edSenha;
-    boolean isVisivel = false;
+    private ImageButton ibOcultar, btThemeToggle;
+    private Button btEntendi, btEntrar, btnDaltonico;
+    private CardView cvDuvida, cardView;
+    private TextView tvExibido;
+    private FloatingActionButton fbInterrogacao;
+    private EditText edUsuario, edSenha;
+    private ConstraintLayout main;
+    private FrameLayout frameLayout;
+
+    private boolean isVisivel = false;
+    private boolean modoEscuro = false;
     private boolean modoDaltonico = false;
-    ConstraintLayout main;
-    CardView cardView;
-    Button btnDaltonico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        ibOcultar = (ImageButton) findViewById(R.id.ibOcultar);
-        edSenha = (EditText) findViewById(R.id.edSenha);
-        edUsuario = (EditText) findViewById(R.id.edUsuario);
-        btEntrar = (Button) findViewById(R.id.btEntrar);
-        fbInterrogacao = (FloatingActionButton) findViewById(R.id.fbInterrogacao);
-        cvDuvida = (CardView) findViewById(R.id.cvDuvida3);
-        tvExibido = (TextView) findViewById(R.id.tvExibido4);
-        btEntendi = (Button) findViewById(R.id.btEntendi4);
-        Button btnDaltonico = findViewById(R.id.btnDaltonico);
+        // Mapeamento dos Componentes
         main = findViewById(R.id.main);
+        frameLayout = findViewById(R.id.frameLayout);
         cardView = findViewById(R.id.cardView);
+        ibOcultar = findViewById(R.id.ibOcultar);
+        frameLayout = findViewById(R.id.frameLayout);
+        edSenha = findViewById(R.id.edSenha);
+        edUsuario = findViewById(R.id.edUsuario);
+        btEntrar = findViewById(R.id.btEntrar);
+        fbInterrogacao = findViewById(R.id.fbInterrogacao);
+        cvDuvida = findViewById(R.id.cvDuvida3);
+        tvExibido = findViewById(R.id.tvExibido4);
+        btEntendi = findViewById(R.id.btEntendi4);
         btnDaltonico = findViewById(R.id.btnDaltonico);
+        btThemeToggle = findViewById(R.id.btThemeToggle);
 
+        // --- MODO NOTURNO (SUAVE E CLEAN) ---
+        btThemeToggle.setOnClickListener(v -> {
+            modoEscuro = !modoEscuro;
 
-        // Animação do botão
-        fbInterrogacao.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).withEndAction(()
-                -> fbInterrogacao.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300));
+            // Giro do botão Sol/Lua
+            btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
 
-        Button finalBtnDaltonico = btnDaltonico;
-        btnDaltonico.setOnClickListener(v -> {
+            if (modoEscuro) {
+                btThemeToggle.setImageResource(R.drawable.lua);
 
-            modoDaltonico = !modoDaltonico;
+                // Animações de Transição de Cores
+                animarCorFundo(main, "#E2E2E2", "#12161A");
+                if (frameLayout != null) animarCorFundo(frameLayout, "#203652", "#1B2430");
+                animarCorCard(cardView, "#FFFFFF", "#1E293B");
+                animarCorCard(cvDuvida, "#FFFFFF", "#243144");
+                animarCorFundo(btEntrar, "#1A304B", "#2B4C7E");
 
-            if (modoDaltonico) {
+                // Textos e Hints
+                animarCorTexto(edUsuario, "#000000", "#E2E8F0");
+                animarCorTexto(edSenha, "#000000", "#E2E8F0");
+                animarCorTexto(tvExibido, "#212121", "#E2E8F0");
+                edUsuario.setHintTextColor(Color.parseColor("#94A3B8"));
+                edSenha.setHintTextColor(Color.parseColor("#94A3B8"));
 
-                // Fundo principal
-                main.setBackgroundColor(Color.WHITE);
-
-                // Card Login
-                cardView.setCardBackgroundColor(Color.parseColor("#F5F5F5"));
-
-                // Card Ajuda
-                cvDuvida.setCardBackgroundColor(Color.WHITE);
-
-                // Botão Entrar
-                btEntrar.setBackgroundColor(Color.parseColor("#0057B8"));
-
-                // Botão Entendi
-                btEntendi.setBackgroundColor(Color.parseColor("#0057B8"));
-
-                // Texto do popup
-                tvExibido.setTextColor(Color.BLACK);
-
-                // Campos de texto
-                edUsuario.setTextColor(Color.BLACK);
-                edSenha.setTextColor(Color.BLACK);
-
-                // Hint dos campos
-                edUsuario.setHintTextColor(Color.DKGRAY);
-                edSenha.setHintTextColor(Color.DKGRAY);
-
-                // Botão modo daltônico
-                finalBtnDaltonico.setBackgroundColor(Color.parseColor("#0057B8"));
-                finalBtnDaltonico.setTextColor(Color.WHITE);
-                finalBtnDaltonico.setText("Modo Daltônico: ON");
+                // Botão de Ajuda (FAB)
+                animarCorFAB(fbInterrogacao, "#FFFFFF", "#243144", "#000000", "#E2E8F0");
 
             } else {
+                btThemeToggle.setImageResource(R.drawable.sol);
 
-                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+                // Volta para o Modo Claro
+                animarCorFundo(main, "#12161A", "#E2E2E2");
+                if (frameLayout != null) animarCorFundo(frameLayout, "#1B2430", "#203652");
+                animarCorCard(cardView, "#1E293B", "#FFFFFF");
+                animarCorCard(cvDuvida, "#243144", "#FFFFFF");
+                animarCorFundo(btEntrar, "#2B4C7E", "#1A304B");
 
-                cardView.setCardBackgroundColor(Color.WHITE);
-
-                cvDuvida.setCardBackgroundColor(Color.WHITE);
-
-                btEntrar.setBackgroundColor(Color.parseColor("#1A304B"));
-
-                btEntendi.setBackgroundColor(Color.parseColor("#4CAF50"));
-
-                tvExibido.setTextColor(Color.parseColor("#212121"));
-
-                edUsuario.setTextColor(Color.BLACK);
-                edSenha.setTextColor(Color.BLACK);
-
+                animarCorTexto(edUsuario, "#E2E8F0", "#000000");
+                animarCorTexto(edSenha, "#E2E8F0", "#000000");
+                animarCorTexto(tvExibido, "#E2E8F0", "#212121");
                 edUsuario.setHintTextColor(Color.parseColor("#8E8E93"));
                 edSenha.setHintTextColor(Color.parseColor("#8E8E93"));
 
-                finalBtnDaltonico.setBackgroundColor(Color.LTGRAY);
-                finalBtnDaltonico.setTextColor(Color.BLACK);
-                finalBtnDaltonico.setText("Modo Daltônico: OFF");
+                animarCorFAB(fbInterrogacao, "#243144", "#FFFFFF", "#E2E8F0", "#000000");
             }
         });
 
-        // Abrir o pop-up ao clicar no botão de interrogação
-        fbInterrogacao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cvDuvida.animate().cancel();
+        // --- MODO DALTÔNICO ---
+        btnDaltonico.setOnClickListener(v -> {
+            modoDaltonico = !modoDaltonico;
 
-                // Exibe o card
-                cvDuvida.setAlpha(0f);
-                cvDuvida.setVisibility(View.VISIBLE);
-                cvDuvida.animate()
-                        .alpha(1f)
-                        .setDuration(400)
-                        .setListener(null);
+            if (modoDaltonico) {
+                main.setBackgroundColor(Color.WHITE);
+                cardView.setCardBackgroundColor(Color.parseColor("#F5F5F5"));
+                cvDuvida.setCardBackgroundColor(Color.WHITE);
+                btEntrar.setBackgroundColor(Color.parseColor("#0057B8"));
+                btEntendi.setBackgroundColor(Color.parseColor("#0057B8"));
+                tvExibido.setTextColor(Color.BLACK);
+                edUsuario.setTextColor(Color.BLACK);
+                edSenha.setTextColor(Color.BLACK);
+                edUsuario.setHintTextColor(Color.DKGRAY);
+                edSenha.setHintTextColor(Color.DKGRAY);
+
+                btnDaltonico.setBackgroundColor(Color.parseColor("#0057B8"));
+                btnDaltonico.setTextColor(Color.WHITE);
+                btnDaltonico.setText("Modo Daltônico: ON");
+            } else {
+                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+                cardView.setCardBackgroundColor(Color.WHITE);
+                cvDuvida.setCardBackgroundColor(Color.WHITE);
+                btEntrar.setBackgroundColor(Color.parseColor("#1A304B"));
+                btEntendi.setBackgroundColor(Color.parseColor("#4CAF50"));
+                tvExibido.setTextColor(Color.parseColor("#212121"));
+                edUsuario.setTextColor(Color.BLACK);
+                edSenha.setTextColor(Color.BLACK);
+                edUsuario.setHintTextColor(Color.parseColor("#8E8E93"));
+                edSenha.setHintTextColor(Color.parseColor("#8E8E93"));
+
+                btnDaltonico.setBackgroundColor(Color.LTGRAY);
+                btnDaltonico.setTextColor(Color.BLACK);
+                btnDaltonico.setText("Modo Daltônico: OFF");
             }
         });
 
-       // Fechar o pop-up
-        btEntendi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cvDuvida.animate()
-                        .alpha(0f)
-                        .setDuration(400)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                cvDuvida.setVisibility(View.GONE);
-                            }
-                        }); // Esconde o card
-
-            }
+        // Abrir Pop-up de Ajuda
+        fbInterrogacao.setOnClickListener(v -> {
+            cvDuvida.animate().cancel();
+            cvDuvida.setAlpha(0f);
+            cvDuvida.setVisibility(View.VISIBLE);
+            cvDuvida.animate().alpha(1f).setDuration(400).setListener(null);
         });
 
-        ibOcultar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isVisivel){
-                    edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    ibOcultar.setImageResource(R.drawable.exibirsenha);
-                    isVisivel = false;
-                }else {
-                    edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    ibOcultar.setImageResource(R.drawable.ocultarsenha);
-                    isVisivel = true;
-                }
-                edSenha.setSelection(edSenha.getText().length());
+        // Fechar Pop-up
+        btEntendi.setOnClickListener(v -> cvDuvida.animate()
+                .alpha(0f)
+                .setDuration(400)
+                .withEndAction(() -> cvDuvida.setVisibility(View.GONE)));
+
+        // Exibir / Ocultar Senha
+        ibOcultar.setOnClickListener(v -> {
+            if (isVisivel) {
+                edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                ibOcultar.setImageResource(R.drawable.exibirsenha);
+                isVisivel = false;
+            } else {
+                edSenha.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                ibOcultar.setImageResource(R.drawable.ocultarsenha);
+                isVisivel = true;
             }
-        }); //Ocultar ou exibir senha
-
-        btEntrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String nomeUsuario = edUsuario.getText().toString().trim();
-                Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
-
-                //Anexar o dado com uma chave identificadora
-                intent.putExtra("NOME_USUARIO", nomeUsuario);
-                startActivity(intent);
-            }
+            edSenha.setSelection(edSenha.getText().length());
         });
+
+        // Botão Entrar
+        btEntrar.setOnClickListener(v -> {
+            String nomeUsuario = edUsuario.getText().toString().trim();
+            Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
+            intent.putExtra("NOME_USUARIO", nomeUsuario);
+            intent.putExtra("MODO_ESCURO", modoEscuro);
+            startActivity(intent);
+        });
+    }
+
+    // Métodos Auxiliares de transição suave (VALUE ANIMATOR)
+
+    private void animarCorFundo(View view, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> view.setBackgroundColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+    private void animarCorCard(CardView card, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> card.setCardBackgroundColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+    private void animarCorTexto(TextView tv, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> tv.setTextColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+    private void animarCorFAB(FloatingActionButton fab, String fundoInicio, String fundoFim, String iconeInicio, String iconeFim) {
+        ValueAnimator animFundo = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(fundoInicio), Color.parseColor(fundoFim));
+        animFundo.setDuration(400);
+        animFundo.addUpdateListener(animation -> fab.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
+        animFundo.start();
+
+        ValueAnimator animIcone = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(iconeInicio), Color.parseColor(iconeFim));
+        animIcone.setDuration(400);
+        animIcone.addUpdateListener(animation -> fab.setImageTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
+        animIcone.start();
     }
 }

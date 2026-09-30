@@ -1,9 +1,15 @@
 package com.leosoares.projetoandroid;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,31 +26,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-   TelaMenu, Proposta:
-   Uma mensagem de bem-vindo com o nome do Recrutador, ele recebe o nome pelo caminho de TelaLogin->
-   Splash -> TelaMenu
-
-   Nessa tela mostrará as vagas em andamento, que é um recyclerView
-   Como todas as telas, ela também possuí o botão de dúvida.
-
-   O RecyclerView funciona da seguinte forma, ele puxa as lógicas criadas no Entrevista.java e
-   EntrevistaAdapter.java, já aqui puxamos os componentes e criamos um private list<entrevista>
-
-   private List<Emprevista>: Ele cria dados exemplares usando um array de dados, ele pega o nomeVaga, status
-   e totalCandidatos, todos presentes no Entrevista.java e EntrevistaAdapter.java.
-
-   O que falta fazer:
-   Os dados das vagas como, Nome da vaga, a quantidade de candidatos, todos esses dados tem que ser puxados
-   do Banco de Dados, e não criados artificialmente.
-*/
-
 public class TelaMenu extends AppCompatActivity {
 
     private FloatingActionButton fbInterrogacao2;
     private Button btEntendi;
-    private TextView tvUser;
-    private CardView cvDuvida;
+    private ImageButton btThemeToggle;
+    private SearchView svBusca;
+    private View main, headerBackground;
+    private boolean modoEscuro = false;
+    private TextView tvUser, tvSaudacao, tvOpcoes, tvExibido4;
+    private CardView cvDuvida3, cvContainerList;
     private RecyclerView rvListaResposta;
     private EntrevistaAdapter adapter;
     private List<Entrevista> listaEntrevistas;
@@ -54,45 +45,171 @@ public class TelaMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_menu);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Mapeamento
+        main = findViewById(R.id.main);
+        svBusca = findViewById(R.id.svBusca);
+        headerBackground = findViewById(R.id.headerBackground);
+        btThemeToggle = findViewById(R.id.btThemeToggle);
         fbInterrogacao2 = findViewById(R.id.fbInterrogacao2);
         btEntendi = findViewById(R.id.btEntendi4);
-        cvDuvida = findViewById(R.id.cvDuvida3);
+        cvDuvida3 = findViewById(R.id.cvDuvida3);
+        cvContainerList = findViewById(R.id.cvContainerList);
         tvUser = findViewById(R.id.tvUser);
+        tvSaudacao = findViewById(R.id.tvSaudacao);
+        tvOpcoes = findViewById(R.id.tvOpcoes);
+        tvExibido4 = findViewById(R.id.tvExibido4);
         rvListaResposta = findViewById(R.id.rvListaResposta);
 
-        // Receber o nome do usuário logado
+        // Modo Noturno
+        btThemeToggle.setOnClickListener(v -> {
+            modoEscuro = !modoEscuro;
+
+            // Animação de Giro
+            btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
+
+            if (modoEscuro) {
+                btThemeToggle.setImageResource(R.drawable.lua);
+
+                // Transição de Fundos
+                animarCorFundo(main, "#E2E2E2", "#12161A");
+                animarCorFundo(headerBackground, "#203652", "#1B2430");
+                animarCorCard(cvContainerList, "#FFFFFF", "#1E293B");
+                animarCorCard(cvDuvida3, "#FFFFFF", "#243144");
+
+                // Transição de Textos
+                animarCorTexto(tvSaudacao, "#1F4273", "#E2E8F0");
+                animarCorTexto(tvUser, "#47B192", "#56C8A8");
+                animarCorTexto(tvOpcoes, "#5A6E85", "#94A3B8");
+                animarCorTexto(tvExibido4, "#212121", "#E2E8F0");
+;
+                // Transição Botão de Dúvida
+                animarCorFAB(fbInterrogacao2, "#FFFFFF", "#243144", "#000000", "#E2E8F0");
+
+            } else {
+                btThemeToggle.setImageResource(R.drawable.sol);
+
+                // Volta para as cores do Modo Claro
+                animarCorFundo(main, "#12161A", "#E2E2E2");
+                animarCorFundo(headerBackground, "#1B2430", "#203652");
+                animarCorCard(cvContainerList, "#1E293B", "#FFFFFF");
+                animarCorCard(cvDuvida3, "#243144", "#FFFFFF");
+
+                animarCorTexto(tvSaudacao, "#E2E8F0", "#1F4273");
+                animarCorTexto(tvUser, "#56C8A8", "#47B192");
+                animarCorTexto(tvOpcoes, "#94A3B8", "#5A6E85");
+                animarCorTexto(tvExibido4, "#E2E8F0", "#212121");
+
+                animarCorFAB(fbInterrogacao2, "#243144", "#FFFFFF", "#E2E8F0", "#000000");
+            }
+        });
+
+        // Nome do Usuário Logado
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("NOME_USUARIO")) {
+        if (intent.hasExtra("NOME_USUARIO")) {
             String nome = intent.getStringExtra("NOME_USUARIO");
-            if (nome != null && !nome.isEmpty()) {
+            if(nome != null && !nome.isEmpty()) {
                 tvUser.setText(nome);
             }
         }
+        modoEscuro = intent.getBooleanExtra("MODO_ESCURO", false);
 
-        // Configuração do Card de Ajuda Pop-up
+        if(modoEscuro) {
+            aplicarTemaEscuroEstatico();
+        }
+
+        // Popup de Dúvida
         fbInterrogacao2.setOnClickListener(v -> {
-            cvDuvida.animate().cancel();
-            cvDuvida.setAlpha(0f);
-            cvDuvida.setVisibility(View.VISIBLE);
-            cvDuvida.animate().alpha(1f).setDuration(400).setListener(null);
+            cvDuvida3.animate().cancel();
+            cvDuvida3.setAlpha(0f);
+            cvDuvida3.setVisibility(View.VISIBLE);
+            cvDuvida3.animate().alpha(1f).setDuration(400).setListener(null);
         });
 
-        btEntendi.setOnClickListener(v -> cvDuvida.animate()
+        btEntendi.setOnClickListener(v -> cvDuvida3.animate()
                 .alpha(0f)
                 .setDuration(400)
-                .withEndAction(() -> cvDuvida.setVisibility(View.GONE)));
+                .withEndAction(() -> cvDuvida3.setVisibility(View.GONE)));
 
-        // Configuração da RecyclerView com a lista (ficava na tela_dinamica)
+        // RecyclerView
         rvListaResposta.setLayoutManager(new LinearLayoutManager(this));
         listaEntrevistas = carregarEntrevistasEmProcesso();
         adapter = new EntrevistaAdapter(listaEntrevistas);
         rvListaResposta.setAdapter(adapter);
+    }
+
+    //  Métodos Auxiliares de transição suave (VALUE ANIMATOR)
+
+    private void animarCorFundo(View view, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> view.setBackgroundColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+    private void animarCorCard(CardView card, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> card.setCardBackgroundColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+
+    private void animarCorTexto(TextView tv, String hexInicio, String hexFim) {
+        ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
+        anim.setDuration(400);
+        anim.addUpdateListener(animation -> tv.setTextColor((int) animation.getAnimatedValue()));
+        anim.start();
+    }
+
+    private void animarCorFAB(FloatingActionButton fab, String fundoInicio, String fundoFim, String iconeInicio, String iconeFim) {
+        ValueAnimator animFundo = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(fundoInicio), Color.parseColor(fundoFim));
+        animFundo.setDuration(400);
+        animFundo.addUpdateListener(animation -> fab.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
+        animFundo.start();
+
+        ValueAnimator animIcone = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(iconeInicio), Color.parseColor(iconeFim));
+        animIcone.setDuration(400);
+        animIcone.addUpdateListener(animation -> fab.setImageTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
+        animIcone.start();
+    }
+
+    private void aplicarTemaEscuroEstatico() {
+        // Ícone da barra superior
+        if (btThemeToggle != null) {
+            btThemeToggle.setImageResource(R.drawable.lua);
+        }
+
+        // Fundo Principal
+        if (main != null) {
+            main.setBackgroundColor(Color.parseColor("#12161A"));
+        }
+
+        // Barra superior (Header)
+        if (headerBackground != null) {
+            headerBackground.setBackgroundColor(Color.parseColor("#1B2430"));
+        }
+
+        // Cards / Containers
+        if (cvContainerList != null) {
+            cvContainerList.setCardBackgroundColor(Color.parseColor("#1E293B"));
+        }
+
+        // Textos da Tela
+        if (tvSaudacao != null) tvSaudacao.setTextColor(Color.parseColor("#E2E8F0"));
+        if (tvUser != null) tvUser.setTextColor(Color.parseColor("#56C8A8"));
+
+        // Botão de Ajuda (FAB)
+        if (fbInterrogacao2 != null) {
+            fbInterrogacao2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#243144")));
+            fbInterrogacao2.setImageTintList(ColorStateList.valueOf(Color.parseColor("#E2E8F0")));
+        }
     }
 
     private List<Entrevista> carregarEntrevistasEmProcesso() {

@@ -24,6 +24,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Botão Modo Noturno (Sol / Lua) -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -226,6 +228,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
+
+    <ImageButton
+        android:id="@+id/btThemeToggle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Alternar Tema"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sol"
+        app:tint="#FFFFFF" />
 
     <Button
         android:id="@+id/btnDaltonico"
