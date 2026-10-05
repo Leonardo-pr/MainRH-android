@@ -10,6 +10,47 @@
     tools:context=".InformacaoCandidato">
 
     <!-- Header Superior -->
+
+    <View
+        android:id="@+id/headerBackground2"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#203652"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btThemeToggle3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Alternar Tema"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/headerBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sol"
+        app:tint="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/ibAcessibilidade5"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/acessib" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbInterrogacao5"
         android:layout_width="wrap_content"
@@ -23,17 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvHeader"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:cardBackgroundColor="#203652"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Ícone de Perfil Recrutador -->
     <androidx.cardview.widget.CardView
@@ -61,12 +91,12 @@
         android:id="@+id/cvPerfilCandidato"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         app:cardCornerRadius="45dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvHeader">
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground2">
 
         <ImageView
             android:id="@+id/imgFotoCandidato"

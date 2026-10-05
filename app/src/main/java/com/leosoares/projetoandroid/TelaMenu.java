@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,7 @@ public class TelaMenu extends AppCompatActivity {
 
     private FloatingActionButton fbInterrogacao2;
     private Button btEntendi;
-    private ImageButton btThemeToggle;
+    private ImageButton btThemeToggle, ibAcessibilidade3;
     private SearchView svBusca;
     private View main, headerBackground;
     private boolean modoEscuro = false;
@@ -39,6 +40,8 @@ public class TelaMenu extends AppCompatActivity {
     private RecyclerView rvListaResposta;
     private EntrevistaAdapter adapter;
     private List<Entrevista> listaEntrevistas;
+    private boolean modoDaltonico = false;
+    private boolean modoAltoContraste = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class TelaMenu extends AppCompatActivity {
         main = findViewById(R.id.main);
         svBusca = findViewById(R.id.svBusca);
         headerBackground = findViewById(R.id.headerBackground);
+        ibAcessibilidade3 = findViewById(R.id.ibAcessibilidade3);
         btThemeToggle = findViewById(R.id.btThemeToggle);
         fbInterrogacao2 = findViewById(R.id.fbInterrogacao2);
         btEntendi = findViewById(R.id.btEntendi4);
@@ -66,6 +70,7 @@ public class TelaMenu extends AppCompatActivity {
         tvOpcoes = findViewById(R.id.tvOpcoes);
         tvExibido4 = findViewById(R.id.tvExibido4);
         rvListaResposta = findViewById(R.id.rvListaResposta);
+
 
         // Modo Noturno
         btThemeToggle.setOnClickListener(v -> {
@@ -110,6 +115,10 @@ public class TelaMenu extends AppCompatActivity {
             }
         });
 
+        if (ibAcessibilidade3 != null) {
+            ibAcessibilidade3.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
+        }
+
         // Nome do Usuário Logado
         Intent intent = getIntent();
         if (intent.hasExtra("NOME_USUARIO")) {
@@ -145,6 +154,56 @@ public class TelaMenu extends AppCompatActivity {
     }
 
     //  Métodos Auxiliares de transição suave (VALUE ANIMATOR)
+
+    private void abrirBottomSheetAcessibilidade() {
+        AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
+
+        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
+            @Override
+            public void onToggleAltoContraste() {
+                modoAltoContraste = !modoAltoContraste;
+                aplicarAltoContraste(modoAltoContraste);
+            }
+
+            @Override
+            public void onToggleDaltonico() {
+                modoDaltonico = !modoDaltonico;
+                aplicarModoDaltonico(modoDaltonico);
+            }
+        });
+
+        dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
+    }
+
+    private void aplicarModoDaltonico(boolean ativar) {
+        if (ativar) {
+            main.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#0057B8"));
+
+            Toast.makeText(this, "Modo Daltônico Ativado", Toast.LENGTH_SHORT).show();
+        } else {
+            // Restaura cores originais
+            if (modoEscuro) {
+                main.setBackgroundColor(Color.parseColor("#12161A"));
+                if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#1B2430"));
+            } else {
+                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+                if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#203652"));
+            }
+            Toast.makeText(this, "Modo Daltônico Desativado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void aplicarAltoContraste(boolean ativar) {
+        if (ativar) {
+            main.setBackgroundColor(Color.BLACK);
+            if (headerBackground != null) headerBackground.setBackgroundColor(Color.BLACK);
+
+            Toast.makeText(this, "Alto Contraste Ativado", Toast.LENGTH_SHORT).show();
+        } else {
+            aplicarModoDaltonico(false);
+        }
+    }
 
     private void animarCorFundo(View view, String hexInicio, String hexFim) {
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));

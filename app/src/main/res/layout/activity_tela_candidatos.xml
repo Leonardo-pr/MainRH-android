@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E2E2E2"
-    tools:context=".tela_dinamica">
+    tools:context=".TelaCandidatos">
 
     <!-- Cabeçalho (Header Azul) -->
 
@@ -14,13 +14,15 @@
         android:id="@+id/fbInterrogacao4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:alpha="0.4"
         android:clickable="true"
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvContainerList"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
 
@@ -35,18 +37,37 @@
 
     <!-- Texto Centralizado -->
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvHeader"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        app:cardBackgroundColor="#203652"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <!-- Foto de Perfil Arredondada sobre o Header -->
+
+    <ImageButton
+        android:id="@+id/ibAcessibilidade2"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/acessib" />
+
+    <ImageButton
+        android:id="@+id/btThemeToggle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Alternar Tema"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/headerBackground"
+        app:layout_constraintTop_toTopOf="@+id/headerBackground"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/sol"
+        app:tint="#FFFFFF" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFotoPerfil"
         android:layout_width="48dp"
@@ -67,27 +88,32 @@
             app:srcCompat="@drawable/fotoperfil" />
     </androidx.cardview.widget.CardView>
 
+    <!-- Botão Modo Noturno (Sol / Lua) -->
+
     <!-- Título da Tela -->
+
+
+    <!-- Card de Conteúdo da Lista -->
+
     <TextView
         android:id="@+id/tvCandi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Candidatos"
         android:textColor="#1F4273"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground" />
 
-    <!-- Card de Conteúdo da Lista -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvContainerList"
         android:layout_width="352dp"
         android:layout_height="481dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="45dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="16dp"
         app:cardElevation="3dp"
@@ -184,5 +210,15 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <SearchView
+        android:id="@+id/svBusca"
+        android:layout_width="347dp"
+        android:layout_height="47dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Pesquisar..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCandi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

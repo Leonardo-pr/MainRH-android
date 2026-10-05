@@ -5,8 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E2E2E2"
+    android:background="#FCF5FD"
     tools:context=".TelaLogin">
+
+    <View
+        android:id="@+id/headerBackground3"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="#203652"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
@@ -14,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:visibility="gone"
         android:elevation="16dp"
         android:translationZ="16dp"
+        android:visibility="gone"
         app:cardCornerRadius="16dp"
         app:cardElevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,22 +48,22 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-            <!-- Ícone indicando Ajuda/Info -->
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="8dp"
-                app:tint="#4CAF50" />
+                <!-- Ícone indicando Ajuda/Info -->
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
+                    app:tint="#4CAF50" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/titulo_ajuda"
-                android:gravity="center"
-                android:lineSpacingExtra="4dp"
-                android:padding="12dp"
-                android:textSize="31sp"
-                android:textColor="#FEBE11"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="12dp"
+                    android:text="@string/titulo_ajuda"
+                    android:textColor="#FEBE11"
+                    android:textSize="31sp" />
 
             </LinearLayout>
 
@@ -62,11 +72,11 @@
                 android:id="@+id/tvExibido4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/texto_telaLogin"
-                android:padding="32dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:lineSpacingExtra="6dp"
+                android:padding="32dp"
+                android:text="@string/texto_telaLogin"
                 android:textColor="#212121"
                 android:textSize="18sp" />
 
@@ -77,10 +87,10 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-6dp"
-                android:text="Entendi"
-                android:textSize="18dp"
                 android:layout_marginBottom="26dp"
+                android:text="Entendi"
                 android:textColor="#FFFFFF"
+                android:textSize="18dp"
                 app:backgroundTint="#4CAF50"
                 app:cornerRadius="20dp" />
 
@@ -92,33 +102,19 @@
         android:id="@+id/frameLayout2"
         android:layout_width="364dp"
         android:layout_height="144dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="20dp"
         android:elevation="18dp"
         android:foregroundTint="#D1CDCD"
         app:barrierMargin="@dimen/material_emphasis_disabled_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+        app:layout_constraintTop_toBottomOf="@+id/headerBackground3">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/main_rh" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="465dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="796dp"
-        android:background="#1F3754"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent">
 
     </FrameLayout>
 
@@ -221,7 +217,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="40dp"
-        android:alpha ="0.4"
+        android:alpha="0.4"
         android:clickable="true"
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +229,7 @@
         android:id="@+id/btThemeToggle"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Alternar Tema"
         android:padding="8dp"
@@ -243,16 +239,15 @@
         app:srcCompat="@drawable/sol"
         app:tint="#FFFFFF" />
 
-    <Button
-        android:id="@+id/btnDaltonico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:text="Modo Daltônico"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btEntrar"
-        tools:ignore="MissingConstraints" />
+    <ImageButton
+        android:id="@+id/ibAcessibilidade"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/headerBackground3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/acessib" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

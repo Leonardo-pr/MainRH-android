@@ -20,6 +20,17 @@
 
     <!-- Botão Modo Noturno (Sol / Lua) -->
     <ImageButton
+        android:id="@+id/ibAcessibilidade3"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/acessib" />
+
+    <ImageButton
         android:id="@+id/btThemeToggle"
         android:layout_width="40dp"
         android:layout_height="40dp"

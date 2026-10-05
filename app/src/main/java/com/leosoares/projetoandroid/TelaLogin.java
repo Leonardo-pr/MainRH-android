@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,18 +33,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TelaLogin extends AppCompatActivity {
 
-    private ImageButton ibOcultar, btThemeToggle;
-    private Button btEntendi, btEntrar, btnDaltonico;
+    private ImageButton ibOcultar, btThemeToggle, ibAcessibilidade;
+    private Button btEntendi, btEntrar;
+    private View headerBackground3;
     private CardView cvDuvida, cardView;
     private TextView tvExibido;
     private FloatingActionButton fbInterrogacao;
     private EditText edUsuario, edSenha;
     private ConstraintLayout main;
     private FrameLayout frameLayout;
-
     private boolean isVisivel = false;
     private boolean modoEscuro = false;
     private boolean modoDaltonico = false;
+    private boolean modoAltoContraste = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +62,11 @@ public class TelaLogin extends AppCompatActivity {
 
         // Mapeamento dos Componentes
         main = findViewById(R.id.main);
-        frameLayout = findViewById(R.id.frameLayout);
+
         cardView = findViewById(R.id.cardView);
+        headerBackground3 = findViewById(R.id.headerBackground3);
         ibOcultar = findViewById(R.id.ibOcultar);
-        frameLayout = findViewById(R.id.frameLayout);
+        ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
         edSenha = findViewById(R.id.edSenha);
         edUsuario = findViewById(R.id.edUsuario);
         btEntrar = findViewById(R.id.btEntrar);
@@ -70,10 +74,9 @@ public class TelaLogin extends AppCompatActivity {
         cvDuvida = findViewById(R.id.cvDuvida3);
         tvExibido = findViewById(R.id.tvExibido4);
         btEntendi = findViewById(R.id.btEntendi4);
-        btnDaltonico = findViewById(R.id.btnDaltonico);
         btThemeToggle = findViewById(R.id.btThemeToggle);
 
-        // --- MODO NOTURNO (SUAVE E CLEAN) ---
+        // Modo Claro ou Escuro
         btThemeToggle.setOnClickListener(v -> {
             modoEscuro = !modoEscuro;
 
@@ -120,43 +123,6 @@ public class TelaLogin extends AppCompatActivity {
             }
         });
 
-        // --- MODO DALTÔNICO ---
-        btnDaltonico.setOnClickListener(v -> {
-            modoDaltonico = !modoDaltonico;
-
-            if (modoDaltonico) {
-                main.setBackgroundColor(Color.WHITE);
-                cardView.setCardBackgroundColor(Color.parseColor("#F5F5F5"));
-                cvDuvida.setCardBackgroundColor(Color.WHITE);
-                btEntrar.setBackgroundColor(Color.parseColor("#0057B8"));
-                btEntendi.setBackgroundColor(Color.parseColor("#0057B8"));
-                tvExibido.setTextColor(Color.BLACK);
-                edUsuario.setTextColor(Color.BLACK);
-                edSenha.setTextColor(Color.BLACK);
-                edUsuario.setHintTextColor(Color.DKGRAY);
-                edSenha.setHintTextColor(Color.DKGRAY);
-
-                btnDaltonico.setBackgroundColor(Color.parseColor("#0057B8"));
-                btnDaltonico.setTextColor(Color.WHITE);
-                btnDaltonico.setText("Modo Daltônico: ON");
-            } else {
-                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
-                cardView.setCardBackgroundColor(Color.WHITE);
-                cvDuvida.setCardBackgroundColor(Color.WHITE);
-                btEntrar.setBackgroundColor(Color.parseColor("#1A304B"));
-                btEntendi.setBackgroundColor(Color.parseColor("#4CAF50"));
-                tvExibido.setTextColor(Color.parseColor("#212121"));
-                edUsuario.setTextColor(Color.BLACK);
-                edSenha.setTextColor(Color.BLACK);
-                edUsuario.setHintTextColor(Color.parseColor("#8E8E93"));
-                edSenha.setHintTextColor(Color.parseColor("#8E8E93"));
-
-                btnDaltonico.setBackgroundColor(Color.LTGRAY);
-                btnDaltonico.setTextColor(Color.BLACK);
-                btnDaltonico.setText("Modo Daltônico: OFF");
-            }
-        });
-
         // Abrir Pop-up de Ajuda
         fbInterrogacao.setOnClickListener(v -> {
             cvDuvida.animate().cancel();
@@ -164,6 +130,10 @@ public class TelaLogin extends AppCompatActivity {
             cvDuvida.setVisibility(View.VISIBLE);
             cvDuvida.animate().alpha(1f).setDuration(400).setListener(null);
         });
+
+        if (ibAcessibilidade != null) {
+            ibAcessibilidade.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
+        }
 
         // Fechar Pop-up
         btEntendi.setOnClickListener(v -> cvDuvida.animate()
@@ -196,6 +166,56 @@ public class TelaLogin extends AppCompatActivity {
     }
 
     // Métodos Auxiliares de transição suave (VALUE ANIMATOR)
+
+    private void abrirBottomSheetAcessibilidade() {
+        AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
+
+        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
+            @Override
+            public void onToggleAltoContraste() {
+                modoAltoContraste = !modoAltoContraste;
+                aplicarAltoContraste(modoAltoContraste);
+            }
+
+            @Override
+            public void onToggleDaltonico() {
+                modoDaltonico = !modoDaltonico;
+                aplicarModoDaltonico(modoDaltonico);
+            }
+        });
+
+        dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
+    }
+
+    private void aplicarModoDaltonico(boolean ativar) {
+        if (ativar) {
+            main.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            if (headerBackground3 != null) headerBackground3.setBackgroundColor(Color.parseColor("#0057B8"));
+
+            Toast.makeText(this, "Modo Daltônico Ativado", Toast.LENGTH_SHORT).show();
+        } else {
+            // Restaura cores originais
+            if (modoEscuro) {
+                main.setBackgroundColor(Color.parseColor("#12161A"));
+                if (headerBackground3 != null) headerBackground3.setBackgroundColor(Color.parseColor("#1B2430"));
+            } else {
+                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+                if (headerBackground3 != null) headerBackground3.setBackgroundColor(Color.parseColor("#203652"));
+            }
+            Toast.makeText(this, "Modo Daltônico Desativado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void aplicarAltoContraste(boolean ativar) {
+        if (ativar) {
+            main.setBackgroundColor(Color.BLACK);
+            if (headerBackground3 != null) headerBackground3.setBackgroundColor(Color.BLACK);
+
+            Toast.makeText(this, "Alto Contraste Ativado", Toast.LENGTH_SHORT).show();
+        } else {
+            aplicarModoDaltonico(false);
+        }
+    }
 
     private void animarCorFundo(View view, String hexInicio, String hexFim) {
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
