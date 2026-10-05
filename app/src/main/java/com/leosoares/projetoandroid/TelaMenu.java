@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,19 +30,25 @@ import java.util.List;
 
 public class TelaMenu extends AppCompatActivity {
 
+    private enum ModoTema {
+        CLARO,
+        ESCURO,
+        ALTO_CONTRASTE,
+        DALTONICO
+    }
+
+    private ModoTema temaAtual = ModoTema.CLARO;
+
     private FloatingActionButton fbInterrogacao2;
     private Button btEntendi;
     private ImageButton btThemeToggle, ibAcessibilidade3;
     private SearchView svBusca;
     private View main, headerBackground;
-    private boolean modoEscuro = false;
     private TextView tvUser, tvSaudacao, tvOpcoes, tvExibido4;
     private CardView cvDuvida3, cvContainerList;
     private RecyclerView rvListaResposta;
     private EntrevistaAdapter adapter;
     private List<Entrevista> listaEntrevistas;
-    private boolean modoDaltonico = false;
-    private boolean modoAltoContraste = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,7 @@ public class TelaMenu extends AppCompatActivity {
             return insets;
         });
 
-        // Mapeamento
+        // Mapeamento dos Componentes
         main = findViewById(R.id.main);
         svBusca = findViewById(R.id.svBusca);
         headerBackground = findViewById(R.id.headerBackground);
@@ -71,89 +78,94 @@ public class TelaMenu extends AppCompatActivity {
         tvExibido4 = findViewById(R.id.tvExibido4);
         rvListaResposta = findViewById(R.id.rvListaResposta);
 
+        // Receber dados da Intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("NOME_USUARIO")) {
+                String nome = intent.getStringExtra("NOME_USUARIO");
+                if (nome != null && !nome.isEmpty()) {
+                    tvUser.setText(nome);
+                }
+            }
+            if (intent.getBooleanExtra("MODO_ESCURO", false)) {
+                aplicarTema(ModoTema.ESCURO);
+            }
+        }
 
-        // Modo Noturno
-        btThemeToggle.setOnClickListener(v -> {
-            modoEscuro = !modoEscuro;
+        // Alternar Modo Noturno / Claro
+        if (btThemeToggle != null) {
+            btThemeToggle.setOnClickListener(v -> {
+                btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
+                if (temaAtual == ModoTema.ESCURO) {
+                    aplicarTema(ModoTema.CLARO);
+                } else {
+                    aplicarTema(ModoTema.ESCURO);
+                }
+            });
+        }
 
-            // Animação de Giro
-            btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
+        svBusca.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filtrar(query);
+                return true;
+            }
 
-            if (modoEscuro) {
-                btThemeToggle.setImageResource(R.drawable.lua);
-
-                // Transição de Fundos
-                animarCorFundo(main, "#E2E2E2", "#12161A");
-                animarCorFundo(headerBackground, "#203652", "#1B2430");
-                animarCorCard(cvContainerList, "#FFFFFF", "#1E293B");
-                animarCorCard(cvDuvida3, "#FFFFFF", "#243144");
-
-                // Transição de Textos
-                animarCorTexto(tvSaudacao, "#1F4273", "#E2E8F0");
-                animarCorTexto(tvUser, "#47B192", "#56C8A8");
-                animarCorTexto(tvOpcoes, "#5A6E85", "#94A3B8");
-                animarCorTexto(tvExibido4, "#212121", "#E2E8F0");
-;
-                // Transição Botão de Dúvida
-                animarCorFAB(fbInterrogacao2, "#FFFFFF", "#243144", "#000000", "#E2E8F0");
-
-            } else {
-                btThemeToggle.setImageResource(R.drawable.sol);
-
-                // Volta para as cores do Modo Claro
-                animarCorFundo(main, "#12161A", "#E2E2E2");
-                animarCorFundo(headerBackground, "#1B2430", "#203652");
-                animarCorCard(cvContainerList, "#1E293B", "#FFFFFF");
-                animarCorCard(cvDuvida3, "#243144", "#FFFFFF");
-
-                animarCorTexto(tvSaudacao, "#E2E8F0", "#1F4273");
-                animarCorTexto(tvUser, "#56C8A8", "#47B192");
-                animarCorTexto(tvOpcoes, "#94A3B8", "#5A6E85");
-                animarCorTexto(tvExibido4, "#E2E8F0", "#212121");
-
-                animarCorFAB(fbInterrogacao2, "#243144", "#FFFFFF", "#E2E8F0", "#000000");
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrar(newText);
+                return true;
             }
         });
 
+        // Botão de Acessibilidade
         if (ibAcessibilidade3 != null) {
             ibAcessibilidade3.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
         }
 
-        // Nome do Usuário Logado
-        Intent intent = getIntent();
-        if (intent.hasExtra("NOME_USUARIO")) {
-            String nome = intent.getStringExtra("NOME_USUARIO");
-            if(nome != null && !nome.isEmpty()) {
-                tvUser.setText(nome);
-            }
-        }
-        modoEscuro = intent.getBooleanExtra("MODO_ESCURO", false);
-
-        if(modoEscuro) {
-            aplicarTemaEscuroEstatico();
-        }
-
         // Popup de Dúvida
-        fbInterrogacao2.setOnClickListener(v -> {
-            cvDuvida3.animate().cancel();
-            cvDuvida3.setAlpha(0f);
-            cvDuvida3.setVisibility(View.VISIBLE);
-            cvDuvida3.animate().alpha(1f).setDuration(400).setListener(null);
-        });
+        if (fbInterrogacao2 != null && cvDuvida3 != null) {
+            fbInterrogacao2.setOnClickListener(v -> {
+                cvDuvida3.animate().cancel();
+                cvDuvida3.setAlpha(0f);
+                cvDuvida3.setVisibility(View.VISIBLE);
+                cvDuvida3.animate().alpha(1f).setDuration(400).setListener(null);
+            });
+        }
 
-        btEntendi.setOnClickListener(v -> cvDuvida3.animate()
-                .alpha(0f)
-                .setDuration(400)
-                .withEndAction(() -> cvDuvida3.setVisibility(View.GONE)));
+        if (btEntendi != null && cvDuvida3 != null) {
+            btEntendi.setOnClickListener(v -> cvDuvida3.animate()
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction(() -> cvDuvida3.setVisibility(View.GONE)));
+        }
 
-        // RecyclerView
-        rvListaResposta.setLayoutManager(new LinearLayoutManager(this));
-        listaEntrevistas = carregarEntrevistasEmProcesso();
-        adapter = new EntrevistaAdapter(listaEntrevistas);
-        rvListaResposta.setAdapter(adapter);
+        // Configuração do RecyclerView
+        if (rvListaResposta != null) {
+            rvListaResposta.setLayoutManager(new LinearLayoutManager(this));
+            listaEntrevistas = carregarEntrevistasEmProcesso();
+            adapter = new EntrevistaAdapter(listaEntrevistas);
+            rvListaResposta.setAdapter(adapter);
+        }
     }
 
-    //  Métodos Auxiliares de transição suave (VALUE ANIMATOR)
+    private void filtrar(String texto) {
+        List<Entrevista> listaFiltrada = new ArrayList<>();
+
+        // Pega a lista original completa
+        List<Entrevista> original = carregarEntrevistasEmProcesso();
+
+        for (Entrevista List : original) {
+            // ATENÇÃO: Substitua getNome() pelo método real que retorna o nome na sua classe Candidato (ex: getNomeCandidato())
+            if (List.getNomeVaga().toLowerCase().contains(texto.toLowerCase())) {
+                listaFiltrada.add(List);
+            }
+        }
+
+        // Cria um novo adapter temporário apenas com os itens filtrados e joga no RecyclerView
+        adapter = new EntrevistaAdapter(listaFiltrada);
+        rvListaResposta.setAdapter(adapter);
+    }
 
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
@@ -161,51 +173,138 @@ public class TelaMenu extends AppCompatActivity {
         dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
             @Override
             public void onToggleAltoContraste() {
-                modoAltoContraste = !modoAltoContraste;
-                aplicarAltoContraste(modoAltoContraste);
+                if (temaAtual == ModoTema.ALTO_CONTRASTE) {
+                    aplicarTema(ModoTema.CLARO);
+                } else {
+                    aplicarTema(ModoTema.ALTO_CONTRASTE);
+                }
             }
 
             @Override
             public void onToggleDaltonico() {
-                modoDaltonico = !modoDaltonico;
-                aplicarModoDaltonico(modoDaltonico);
+                if (temaAtual == ModoTema.DALTONICO) {
+                    aplicarTema(ModoTema.CLARO);
+                } else {
+                    aplicarTema(ModoTema.DALTONICO);
+                }
             }
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
     }
 
-    private void aplicarModoDaltonico(boolean ativar) {
-        if (ativar) {
-            main.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#0057B8"));
+    // Gerenciador de TEMAS
+    private void aplicarTema(ModoTema novoTema) {
+        this.temaAtual = novoTema;
 
-            Toast.makeText(this, "Modo Daltônico Ativado", Toast.LENGTH_SHORT).show();
-        } else {
-            // Restaura cores originais
-            if (modoEscuro) {
-                main.setBackgroundColor(Color.parseColor("#12161A"));
-                if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#1B2430"));
-            } else {
+        switch (novoTema) {
+            case ALTO_CONTRASTE:
+                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
+
+                main.setBackgroundColor(Color.parseColor("#0A0F14"));
+                if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#121D28"));
+
+                if (tvSaudacao != null) tvSaudacao.setTextColor(Color.parseColor("#FFE600"));
+                if (tvUser != null) tvUser.setTextColor(Color.parseColor("#00E6A1"));
+                if (tvOpcoes != null) tvOpcoes.setTextColor(Color.parseColor("#94A3B8"));
+
+                if (cvContainerList != null) {
+                    cvContainerList.setCardBackgroundColor(Color.parseColor("#1B2B3C"));
+                }
+
+                // Card de Ajuda Pop-up com moldura verde neon
+                GradientDrawable molduraAltoContraste = new GradientDrawable();
+                molduraAltoContraste.setShape(GradientDrawable.RECTANGLE);
+                molduraAltoContraste.setColor(Color.parseColor("#1B2B3C"));
+                molduraAltoContraste.setCornerRadius(32f);
+                molduraAltoContraste.setStroke(4, Color.parseColor("#00E6A1"));
+
+                if (cvDuvida3 != null) {
+                    cvDuvida3.setBackground(molduraAltoContraste);
+                }
+                if (tvExibido4 != null) tvExibido4.setTextColor(Color.WHITE);
+                if (btEntendi != null) {
+                    btEntendi.setBackgroundColor(Color.parseColor("#00E6A1"));
+                    btEntendi.setTextColor(Color.parseColor("#0A0F14"));
+                }
+
+                if (fbInterrogacao2 != null) {
+                    fbInterrogacao2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#1B2B3C")));
+                    fbInterrogacao2.setImageTintList(ColorStateList.valueOf(Color.parseColor("#00E6A1")));
+                }
+
+                Toast.makeText(this, "Alto Contraste Ativado", Toast.LENGTH_SHORT).show();
+                break;
+
+                // MODO DALTONICO
+            case DALTONICO:
+                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
+
+                break;
+
+            case ESCURO:
+                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.lua);
+
+                animarCorFundo(main, "#E2E2E2", "#12161A");
+                if (headerBackground != null) animarCorFundo(headerBackground, "#203652", "#1B2430");
+
+                if (cvContainerList != null) animarCorCard(cvContainerList, "#FFFFFF", "#1E293B");
+                if (cvDuvida3 != null) animarCorCard(cvDuvida3, "#FFFFFF", "#243144");
+
+                animarCorTexto(tvSaudacao, "#1F4273", "#E2E8F0");
+                animarCorTexto(tvUser, "#47B192", "#56C8A8");
+                animarCorTexto(tvOpcoes, "#5A6E85", "#94A3B8");
+                animarCorTexto(tvExibido4, "#212121", "#E2E8F0");
+
+                if (btEntendi != null) {
+                    btEntendi.setBackgroundColor(Color.parseColor("#47B192"));
+                    btEntendi.setTextColor(Color.WHITE);
+                }
+
+                animarCorFAB(fbInterrogacao2, "#FFFFFF", "#243144", "#000000", "#E2E8F0");
+
+                Toast.makeText(this, "Modo Escuro Ativado", Toast.LENGTH_SHORT).show();
+                break;
+
+            case CLARO:
+            default:
+                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
+
+                // RESTAURAÇÃO COMPLETA DO MODO CLARO DO SEU XML ORIGINAL
                 main.setBackgroundColor(Color.parseColor("#E2E2E2"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#203652"));
-            }
-            Toast.makeText(this, "Modo Daltônico Desativado", Toast.LENGTH_SHORT).show();
+
+                if (cvContainerList != null) {
+                    cvContainerList.setCardBackgroundColor(Color.WHITE);
+                }
+                if (cvDuvida3 != null) {
+                    cvDuvida3.setCardBackgroundColor(Color.WHITE);
+                }
+
+                if (tvSaudacao != null) tvSaudacao.setTextColor(Color.parseColor("#1F4273"));
+                if (tvUser != null) tvUser.setTextColor(Color.parseColor("#47B192"));
+                if (tvOpcoes != null) tvOpcoes.setTextColor(Color.parseColor("#5A6E85"));
+                if (tvExibido4 != null) tvExibido4.setTextColor(Color.parseColor("#FFFFFF"));
+
+                if (btEntendi != null) {
+                    btEntendi.setBackgroundColor(Color.parseColor("#47B192"));
+                    btEntendi.setTextColor(Color.WHITE);
+                }
+
+                if (fbInterrogacao2 != null) {
+                    fbInterrogacao2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                    fbInterrogacao2.setImageTintList(ColorStateList.valueOf(Color.BLACK));
+                }
+
+                Toast.makeText(this, "Modo Claro Ativado", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
-    private void aplicarAltoContraste(boolean ativar) {
-        if (ativar) {
-            main.setBackgroundColor(Color.BLACK);
-            if (headerBackground != null) headerBackground.setBackgroundColor(Color.BLACK);
-
-            Toast.makeText(this, "Alto Contraste Ativado", Toast.LENGTH_SHORT).show();
-        } else {
-            aplicarModoDaltonico(false);
-        }
-    }
+    //  Métodos Auxiliares de transição suave (VALUE ANIMATOR)
 
     private void animarCorFundo(View view, String hexInicio, String hexFim) {
+        if (view == null) return;
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
         anim.setDuration(400);
         anim.addUpdateListener(animation -> view.setBackgroundColor((int) animation.getAnimatedValue()));
@@ -213,14 +312,15 @@ public class TelaMenu extends AppCompatActivity {
     }
 
     private void animarCorCard(CardView card, String hexInicio, String hexFim) {
+        if (card == null) return;
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
         anim.setDuration(400);
         anim.addUpdateListener(animation -> card.setCardBackgroundColor((int) animation.getAnimatedValue()));
         anim.start();
     }
 
-
     private void animarCorTexto(TextView tv, String hexInicio, String hexFim) {
+        if (tv == null) return;
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
         anim.setDuration(400);
         anim.addUpdateListener(animation -> tv.setTextColor((int) animation.getAnimatedValue()));
@@ -228,6 +328,7 @@ public class TelaMenu extends AppCompatActivity {
     }
 
     private void animarCorFAB(FloatingActionButton fab, String fundoInicio, String fundoFim, String iconeInicio, String iconeFim) {
+        if (fab == null) return;
         ValueAnimator animFundo = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(fundoInicio), Color.parseColor(fundoFim));
         animFundo.setDuration(400);
         animFundo.addUpdateListener(animation -> fab.setBackgroundTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
@@ -237,38 +338,6 @@ public class TelaMenu extends AppCompatActivity {
         animIcone.setDuration(400);
         animIcone.addUpdateListener(animation -> fab.setImageTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
         animIcone.start();
-    }
-
-    private void aplicarTemaEscuroEstatico() {
-        // Ícone da barra superior
-        if (btThemeToggle != null) {
-            btThemeToggle.setImageResource(R.drawable.lua);
-        }
-
-        // Fundo Principal
-        if (main != null) {
-            main.setBackgroundColor(Color.parseColor("#12161A"));
-        }
-
-        // Barra superior (Header)
-        if (headerBackground != null) {
-            headerBackground.setBackgroundColor(Color.parseColor("#1B2430"));
-        }
-
-        // Cards / Containers
-        if (cvContainerList != null) {
-            cvContainerList.setCardBackgroundColor(Color.parseColor("#1E293B"));
-        }
-
-        // Textos da Tela
-        if (tvSaudacao != null) tvSaudacao.setTextColor(Color.parseColor("#E2E8F0"));
-        if (tvUser != null) tvUser.setTextColor(Color.parseColor("#56C8A8"));
-
-        // Botão de Ajuda (FAB)
-        if (fbInterrogacao2 != null) {
-            fbInterrogacao2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#243144")));
-            fbInterrogacao2.setImageTintList(ColorStateList.valueOf(Color.parseColor("#E2E8F0")));
-        }
     }
 
     private List<Entrevista> carregarEntrevistasEmProcesso() {

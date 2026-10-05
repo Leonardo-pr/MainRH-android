@@ -37,10 +37,6 @@ public class EntrevistaAdapter extends RecyclerView.Adapter<EntrevistaAdapter.Vi
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, TelaCandidatos.class);
-
-            // Se precisar passar informações da vaga para a próxima tela no futuro:
-            // intent.putExtra("NOME_VAGA", entrevista.getNomeVaga());
-
             context.startActivity(intent);
         });
     }
