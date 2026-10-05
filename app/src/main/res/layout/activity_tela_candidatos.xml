@@ -215,6 +215,7 @@
         android:id="@+id/svBusca"
         android:layout_width="347dp"
         android:layout_height="47dp"
+        android:layout_marginTop="8dp"
         android:iconifiedByDefault="false"
         android:queryHint="Pesquisar..."
         app:layout_constraintEnd_toEndOf="parent"

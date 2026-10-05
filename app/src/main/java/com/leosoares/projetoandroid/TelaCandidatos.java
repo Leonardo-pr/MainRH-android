@@ -75,6 +75,22 @@ public class TelaCandidatos extends AppCompatActivity {
         btEntendi4 = findViewById(R.id.btEntendi4);
         ibAcessibilidade2 = findViewById(R.id.ibAcessibilidade2);
 
+
+        // --- CONFIGURAÇÃO DA BARRA DE PESQUISA (FUNCIONANDO SEM ALTERAR OUTRAS CLASSES) ---
+        svBusca.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filtrar(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrar(newText);
+                return true;
+            }
+        });
+
         // Configuração do RecyclerView
         listaCandidatos = carregarCandidatosEmProcesso();
         rvListaResposta.setLayoutManager(new LinearLayoutManager(this));
@@ -251,5 +267,23 @@ public class TelaCandidatos extends AppCompatActivity {
         anim.setDuration(400);
         anim.addUpdateListener(animation -> button.setImageTintList(ColorStateList.valueOf((int) animation.getAnimatedValue())));
         anim.start();
+    }
+
+    private void filtrar(String texto) {
+        List<Candidato> listaFiltrada = new ArrayList<>();
+
+        // Pega a lista original completa
+        List<Candidato> original = carregarCandidatosEmProcesso();
+
+        for (Candidato c : original) {
+            // ATENÇÃO: Substitua getNome() pelo método real que retorna o nome na sua classe Candidato (ex: getNomeCandidato())
+            if (c.getTvNomeCandidato().toLowerCase().contains(texto.toLowerCase())) {
+                listaFiltrada.add(c);
+            }
+        }
+
+        // Cria um novo adapter temporário apenas com os itens filtrados e joga no RecyclerView
+        adapter = new CandidatoAdapter(listaFiltrada);
+        rvListaResposta.setAdapter(adapter);
     }
 }
