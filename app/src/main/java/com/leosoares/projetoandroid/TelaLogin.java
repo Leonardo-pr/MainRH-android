@@ -73,7 +73,7 @@ public class TelaLogin extends AppCompatActivity {
         btnDaltonico = findViewById(R.id.btnDaltonico);
         btThemeToggle = findViewById(R.id.btThemeToggle);
 
-        // --- MODO NOTURNO (SUAVE E CLEAN) ---
+        // --- MODO NOTURNO ---
         btThemeToggle.setOnClickListener(v -> {
             modoEscuro = !modoEscuro;
 

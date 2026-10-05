@@ -9,14 +9,54 @@
     tools:context=".HubCandidatoActivity">
 
     <!-- Header / Barra Superior -->
+
     <View
         android:id="@+id/headerBackground"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:background="#203652"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btThemeToggle2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Alternar Tema"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/headerBackground"
+        app:layout_constraintTop_toTopOf="@+id/headerBackground"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/sol"
+        app:tint="#FFFFFF" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvFotoPerfil"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivFotoPerfil2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Foto de Perfil"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/fotoperfil" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvNomeCandidato"
@@ -166,5 +206,16 @@
                 app:cornerRadius="20dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/fbAcessibilidade"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/bg_botao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

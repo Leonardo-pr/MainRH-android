@@ -8,6 +8,17 @@
     android:background="#E2E2E2"
     tools:context=".TelaLogin">
 
+    <ImageButton
+        android:id="@+id/fbAcessibilidade"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_botao" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
         android:layout_width="match_parent"
