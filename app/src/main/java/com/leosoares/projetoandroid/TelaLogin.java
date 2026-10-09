@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class TelaLogin extends AppCompatActivity {
 
     // Enum para controlar os estados de temas da aplicação
-    private enum ModoTema {
+    enum ModoTema {
         CLARO,
         ESCURO,
         ALTO_CONTRASTE,
@@ -43,8 +44,8 @@ public class TelaLogin extends AppCompatActivity {
     }
 
     private ModoTema temaAtual = ModoTema.CLARO;
-
-    private ImageButton ibOcultar, btThemeToggle, ibAcessibilidade;
+    ImageButton ibOcultar, btThemeToggle, ibAcessibilidade;
+    private ImageView ivLogo;
     private Button btEntendi4, btEntrar;
     private View headerBackground3, main;
     private CardView cvDuvida3, cardView;
@@ -67,10 +68,11 @@ public class TelaLogin extends AppCompatActivity {
             return insets;
         });
 
-        // Mapeamento dos Componentes
+        // Componentes
         main = findViewById(R.id.main);
         cardView = findViewById(R.id.cardView);
         headerBackground3 = findViewById(R.id.headerBackground3);
+        ivLogo = findViewById(R.id.ivLogo);
         ibOcultar = findViewById(R.id.ibOcultar);
         ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
         edSenha = findViewById(R.id.edSenha);
@@ -132,7 +134,7 @@ public class TelaLogin extends AppCompatActivity {
             String nomeUsuario = edUsuario.getText().toString().trim();
             Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
             intent.putExtra("NOME_USUARIO", nomeUsuario);
-            intent.putExtra("MODO_ESCURO", temaAtual == ModoTema.ESCURO);
+            intent.putExtra("TEMA_ATUAL", temaAtual.name());
             startActivity(intent);
         });
     }
@@ -170,20 +172,15 @@ public class TelaLogin extends AppCompatActivity {
         switch (novoTema) {
             case ALTO_CONTRASTE:
                 btThemeToggle.setImageResource(R.drawable.sol);
-
-                // Fundo Escuro Profundo com Header Destacado para diferenciação visual
                 main.setBackgroundColor(Color.parseColor("#0A0F14"));
+                if (ivLogo != null) ivLogo.setImageResource(R.drawable.altocontraste_logo);
                 if (headerBackground3 != null) headerBackground3.setBackgroundColor(Color.parseColor("#121D28"));
                 if (frameLayout != null) frameLayout.setBackgroundColor(Color.parseColor("#121D28"));
-
-                // Card Principal e Botão de Ação
                 if (cardView != null) cardView.setCardBackgroundColor(Color.parseColor("#1B2B3C"));
                 if (btEntrar != null) {
                     btEntrar.setBackgroundColor(Color.parseColor("#00E6A1"));
-                    btEntrar.setTextColor(Color.parseColor("#0A0F14")); // Texto escuro para alto contraste
+                    btEntrar.setTextColor(Color.parseColor("#0A0F14"));
                 }
-
-                // Campos de Texto (Inputs e Hints)
                 if (edUsuario != null) {
                     edUsuario.setTextColor(Color.WHITE);
                     edUsuario.setHintTextColor(Color.parseColor("#94A3B8"));
@@ -192,7 +189,6 @@ public class TelaLogin extends AppCompatActivity {
                     edSenha.setTextColor(Color.WHITE);
                     edSenha.setHintTextColor(Color.parseColor("#94A3B8"));
                 }
-
                 // Card de Dúvidas com Borda Destacada em Verde Neon
                 if (cvDuvida3 != null) {
                     GradientDrawable shape = new GradientDrawable();
@@ -215,13 +211,13 @@ public class TelaLogin extends AppCompatActivity {
                 // MODO DALTONICO
             case DALTONICO:
                 btThemeToggle.setImageResource(R.drawable.sol);
+                if (ivLogo != null) ivLogo.setImageResource(R.drawable.daltonico_logo);
                 break;
 
             case ESCURO:
                 btThemeToggle.setImageResource(R.drawable.lua);
-
-                // Transição animada para Modo Escuro Padrão
                 animarCorFundo(main, "#E2E2E2", "#12161A");
+                if (ivLogo != null) ivLogo.setImageResource(R.drawable.main_rh);
                 if (headerBackground3 != null) animarCorFundo(headerBackground3, "#203652", "#1B2430");
                 if (frameLayout != null) animarCorFundo(frameLayout, "#203652", "#1B2430");
                 if (cardView != null) animarCorCard(cardView, "#FFFFFF", "#1E293B");
@@ -229,7 +225,6 @@ public class TelaLogin extends AppCompatActivity {
                     btEntrar.setBackgroundColor(Color.parseColor("#2B4C7E"));
                     btEntrar.setTextColor(Color.WHITE);
                 }
-
                 animarCorTexto(edUsuario, "#000000", "#E2E8F0");
                 animarCorTexto(edSenha, "#000000", "#E2E8F0");
                 if (edUsuario != null) edUsuario.setHintTextColor(Color.parseColor("#94A3B8"));
@@ -254,8 +249,7 @@ public class TelaLogin extends AppCompatActivity {
             case CLARO:
             default:
                 btThemeToggle.setImageResource(R.drawable.sol);
-
-                // Transição para Modo Claro Padrão
+                if (ivLogo != null) ivLogo.setImageResource(R.drawable.main_rh);
                 animarCorFundo(main, "#12161A", "#E2E2E2");
                 if (headerBackground3 != null) animarCorFundo(headerBackground3, "#1B2430", "#203652");
                 if (frameLayout != null) animarCorFundo(frameLayout, "#1B2430", "#203652");

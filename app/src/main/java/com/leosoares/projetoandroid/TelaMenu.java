@@ -38,10 +38,10 @@ public class TelaMenu extends AppCompatActivity {
     }
 
     private ModoTema temaAtual = ModoTema.CLARO;
-
     private FloatingActionButton fbInterrogacao2;
     private Button btEntendi;
-    private ImageButton btThemeToggle, ibAcessibilidade3;
+    ImageButton btThemeToggle;
+    private ImageButton ibAcessibilidade3;
     private SearchView svBusca;
     private View main, headerBackground;
     private TextView tvUser, tvSaudacao, tvOpcoes, tvExibido4;
@@ -49,6 +49,7 @@ public class TelaMenu extends AppCompatActivity {
     private RecyclerView rvListaResposta;
     private EntrevistaAdapter adapter;
     private List<Entrevista> listaEntrevistas;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +88,13 @@ public class TelaMenu extends AppCompatActivity {
                     tvUser.setText(nome);
                 }
             }
-            if (intent.getBooleanExtra("MODO_ESCURO", false)) {
-                aplicarTema(ModoTema.ESCURO);
+            if (intent.hasExtra("TEMA_ATUAL")){
+                String nome = intent.getStringExtra("TEMA_ATUAL");
+                if (nome != null && !nome.isEmpty()){
+                    temaAtual.name();
+                }
             }
+
         }
 
         // Alternar Modo Noturno / Claro
@@ -156,7 +161,6 @@ public class TelaMenu extends AppCompatActivity {
         List<Entrevista> original = carregarEntrevistasEmProcesso();
 
         for (Entrevista List : original) {
-            // ATENÇÃO: Substitua getNome() pelo método real que retorna o nome na sua classe Candidato (ex: getNomeCandidato())
             if (List.getNomeVaga().toLowerCase().contains(texto.toLowerCase())) {
                 listaFiltrada.add(List);
             }
@@ -194,7 +198,7 @@ public class TelaMenu extends AppCompatActivity {
     }
 
     // Gerenciador de TEMAS
-    private void aplicarTema(ModoTema novoTema) {
+    void aplicarTema(ModoTema novoTema) {
         this.temaAtual = novoTema;
 
         switch (novoTema) {
@@ -239,6 +243,8 @@ public class TelaMenu extends AppCompatActivity {
                 // MODO DALTONICO
             case DALTONICO:
                 if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
+                if (tvUser != null) tvUser.setTextColor(Color.parseColor("#6d04ff"));
+
 
                 break;
 
@@ -269,8 +275,6 @@ public class TelaMenu extends AppCompatActivity {
             case CLARO:
             default:
                 if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
-
-                // RESTAURAÇÃO COMPLETA DO MODO CLARO DO SEU XML ORIGINAL
                 main.setBackgroundColor(Color.parseColor("#E2E2E2"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#203652"));
 
@@ -280,17 +284,14 @@ public class TelaMenu extends AppCompatActivity {
                 if (cvDuvida3 != null) {
                     cvDuvida3.setCardBackgroundColor(Color.WHITE);
                 }
-
                 if (tvSaudacao != null) tvSaudacao.setTextColor(Color.parseColor("#1F4273"));
                 if (tvUser != null) tvUser.setTextColor(Color.parseColor("#47B192"));
                 if (tvOpcoes != null) tvOpcoes.setTextColor(Color.parseColor("#5A6E85"));
                 if (tvExibido4 != null) tvExibido4.setTextColor(Color.parseColor("#FFFFFF"));
-
                 if (btEntendi != null) {
                     btEntendi.setBackgroundColor(Color.parseColor("#47B192"));
                     btEntendi.setTextColor(Color.WHITE);
                 }
-
                 if (fbInterrogacao2 != null) {
                     fbInterrogacao2.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                     fbInterrogacao2.setImageTintList(ColorStateList.valueOf(Color.BLACK));
