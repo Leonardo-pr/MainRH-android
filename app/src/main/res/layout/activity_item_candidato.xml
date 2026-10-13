@@ -13,12 +13,13 @@
     tools:context=".item_candidato">
 
     <LinearLayout
+        android:id="@+id/llCardCandidato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="18dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="18dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lucas"
-                android:textColor= "#1F354D"
+                android:textColor="#1F354D"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>

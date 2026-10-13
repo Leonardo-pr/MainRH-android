@@ -1,0 +1,25 @@
+<resources>
+    <!-- Tema Claro -->
+    <style name="Theme_ProjetoAndroid_Claro" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#E2E2E2</item>
+        <item name="colorPrimary">#1A304B</item>
+    </style>
+
+    <!-- Tema Escuro -->
+    <style name="Theme_ProjetoAndroid_Escuro" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#12161A</item>
+        <item name="colorPrimary">#2B4C7E</item>
+    </style>
+
+    <!-- Tema Alto Contraste -->
+    <style name="Theme_ProjetoAndroid_AltoContraste" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#0A0F14</item>
+        <item name="colorPrimary">#00E6A1</item>
+    </style>
+
+    <!-- Tema Daltônico -->
+    <style name="Theme_ProjetoAndroid_Daltonico" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#FFFFFF</item>
+        <item name="colorPrimary">#0057B8</item>
+    </style>
+</resources>

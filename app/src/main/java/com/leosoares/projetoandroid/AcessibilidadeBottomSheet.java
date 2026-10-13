@@ -17,6 +17,8 @@ public class AcessibilidadeBottomSheet extends DialogFragment {
     public interface OnAcessibilidadeListener {
         void onToggleAltoContraste();
         void onToggleDaltonico();
+
+        void onTemaSelecionado(int tipoTema);
     }
 
     private OnAcessibilidadeListener listener;
@@ -28,7 +30,8 @@ public class AcessibilidadeBottomSheet extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        // Centraliza o Dialog e deixa o fundo externo transparente
+
+        // Centralizar o Dialog e deixa o fundo externo transparente
         if (getDialog() != null && getDialog().getWindow() != null) {
             Window window = getDialog().getWindow();
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

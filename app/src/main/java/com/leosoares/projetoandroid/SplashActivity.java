@@ -11,12 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private enum ModoTema {
         CLARO,
@@ -49,23 +48,29 @@ public class SplashActivity extends AppCompatActivity {
             });
         }
 
-        // Receber Nome do User e Tema Escolhido
+        // Receber Nome do Usuario
         String nomeUsuario = "";
         Intent intentAnterior = getIntent();
-        if (intentAnterior != null) {
-            if (intentAnterior.hasExtra("NOME_USUARIO")) {
-                nomeUsuario = intentAnterior.getStringExtra("NOME_USUARIO");
-            }
-            if (intentAnterior.hasExtra("TEMA_SELECIONADO")) {
-                String nomeTema = intentAnterior.getStringExtra("TEMA_SELECIONADO");
-                if (nomeTema != null) {
-                    try {
-                        temaAtual = ModoTema.valueOf(nomeTema);
-                    } catch (IllegalArgumentException e) {
-                        temaAtual = ModoTema.CLARO;
-                    }
-                }
-            }
+        if (intentAnterior != null && intentAnterior.hasExtra("NOME_USUARIO")) {
+            nomeUsuario = intentAnterior.getStringExtra("NOME_USUARIO");
+        }
+
+        // Ler diretamente o ThemeManager para o tema salvo
+        int temaSalvo = ThemeManager.getSavedTheme(this);
+        switch (temaSalvo) {
+            case ThemeManager.THEME_DARK:
+                temaAtual = ModoTema.ESCURO;
+                break;
+            case ThemeManager.THEME_HIGH_CONTRAST:
+                temaAtual = ModoTema.ALTO_CONTRASTE;
+                break;
+            case ThemeManager.THEME_COLORBLIND:
+                temaAtual = ModoTema.DALTONICO;
+                break;
+            case ThemeManager.THEME_LIGHT:
+            default:
+                temaAtual = ModoTema.CLARO;
+                break;
         }
 
         // Aplica o tema visual no Splash Screen
@@ -77,8 +82,6 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, TelaMenu.class);
             intent.putExtra("NOME_USUARIO", nomeParaTelaMenu);
-            intent.putExtra("TEMA_SELECIONADO", temaAtual.name());
-            intent.putExtra("MODO_ESCURO", temaAtual == ModoTema.ESCURO);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();

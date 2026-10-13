@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,13 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-   InformacaoCandidato:
-   Gerencia a avaliação das questões do candidato com suporte ao Modo Escuro animado
-   e aos modos de Acessibilidade (Daltônico e Alto Contraste).
-*/
-
-public class InformacaoCandidato extends AppCompatActivity {
+public class InformacaoCandidato extends BaseActivity {
 
     private enum ModoTema {
         CLARO,
@@ -87,6 +80,9 @@ public class InformacaoCandidato extends AppCompatActivity {
         tvExibido4 = findViewById(R.id.tvExibido4);
         btEntendi4 = findViewById(R.id.btEntendi4);
 
+        // Carrega tema salvo ao reabrir aplicativo
+        sincronizarTemaSalvo();
+
         // Lógica do Botão Dúvida (FAB)
         configurarDuvida();
 
@@ -105,14 +101,14 @@ public class InformacaoCandidato extends AppCompatActivity {
         atualizarExibicaoQuestao();
         verificarEstatusBotaoEnviar();
 
-        // --- MODO NOTURNO / CLARO ---
+        // Modo Noturno / Claro (Sol/Lua) ---
         if (btThemeToggle3 != null) {
             btThemeToggle3.setOnClickListener(v -> {
                 btThemeToggle3.animate().rotationBy(360f).setDuration(400).start();
                 if (temaAtual == ModoTema.ESCURO) {
-                    aplicarTema(ModoTema.CLARO);
+                    salvarEAplicarTema(ModoTema.CLARO);
                 } else {
-                    aplicarTema(ModoTema.ESCURO);
+                    salvarEAplicarTema(ModoTema.ESCURO);
                 }
             });
         }
@@ -123,35 +119,43 @@ public class InformacaoCandidato extends AppCompatActivity {
         }
 
         // Listener da RatingBar
-        rbNotaCandidato.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-            if (fromUser) {
-                listaQuestoes.get(indiceAtual).setNota(rating);
-                tvNotaNumerica.setText(String.format(java.util.Locale.US, "%.1f", rating));
-                atualizarCorNota(rating);
-                verificarEstatusBotaoEnviar();
-            }
-        });
+        if (rbNotaCandidato != null) {
+            rbNotaCandidato.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+                if (fromUser) {
+                    listaQuestoes.get(indiceAtual).setNota(rating);
+                    tvNotaNumerica.setText(String.format(java.util.Locale.US, "%.1f", rating));
+                    atualizarCorNota(rating);
+                    verificarEstatusBotaoEnviar();
+                }
+            });
+        }
 
         // Navegação das Questões
-        btnProximo.setOnClickListener(v -> {
-            if (indiceAtual < listaQuestoes.size() - 1) {
-                indiceAtual++;
-                atualizarExibicaoQuestao();
-            }
-        });
+        if (btnProximo != null) {
+            btnProximo.setOnClickListener(v -> {
+                if (indiceAtual < listaQuestoes.size() - 1) {
+                    indiceAtual++;
+                    atualizarExibicaoQuestao();
+                }
+            });
+        }
 
-        btnAnterior.setOnClickListener(v -> {
-            if (indiceAtual > 0) {
-                indiceAtual--;
-                atualizarExibicaoQuestao();
-            }
-        });
+        if (btnAnterior != null) {
+            btnAnterior.setOnClickListener(v -> {
+                if (indiceAtual > 0) {
+                    indiceAtual--;
+                    atualizarExibicaoQuestao();
+                }
+            });
+        }
 
         // Enviar Avaliação
-        btEnviar.setOnClickListener(v -> {
-            Toast.makeText(this, "Avaliação finalizada com sucesso!", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        if (btEnviar != null) {
+            btEnviar.setOnClickListener(v -> {
+                Toast.makeText(this, "Avaliação finalizada com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        }
 
         // Fechar o pop-up de dúvida
         if (btEntendi4 != null && cvDuvida4 != null) {
@@ -160,6 +164,39 @@ public class InformacaoCandidato extends AppCompatActivity {
                     .setDuration(400)
                     .withEndAction(() -> cvDuvida4.setVisibility(View.GONE)));
         }
+    }
+
+    // Lê o que está salvo no ThemeManager e aplica
+    private void sincronizarTemaSalvo() {
+        int salvo = ThemeManager.getSavedTheme(this);
+        switch (salvo) {
+            case ThemeManager.THEME_DARK:
+                aplicarTema(ModoTema.ESCURO);
+                break;
+            case ThemeManager.THEME_HIGH_CONTRAST:
+                aplicarTema(ModoTema.ALTO_CONTRASTE);
+                break;
+            case ThemeManager.THEME_COLORBLIND:
+                aplicarTema(ModoTema.DALTONICO);
+                break;
+            case ThemeManager.THEME_LIGHT:
+            default:
+                aplicarTema(ModoTema.CLARO);
+                break;
+        }
+    }
+
+    // Salva no ThemeManager e aplica o tema visualmente
+    private void salvarEAplicarTema(ModoTema novoTema) {
+        this.temaAtual = novoTema;
+        int tipoInt = ThemeManager.THEME_LIGHT;
+
+        if (novoTema == ModoTema.ESCURO) tipoInt = ThemeManager.THEME_DARK;
+        else if (novoTema == ModoTema.ALTO_CONTRASTE) tipoInt = ThemeManager.THEME_HIGH_CONTRAST;
+        else if (novoTema == ModoTema.DALTONICO) tipoInt = ThemeManager.THEME_COLORBLIND;
+
+        ThemeManager.saveTheme(this, tipoInt);
+        aplicarTema(novoTema);
     }
 
     private void carregarQuestoesMock() {
@@ -242,26 +279,34 @@ public class InformacaoCandidato extends AppCompatActivity {
             @Override
             public void onToggleAltoContraste() {
                 if (temaAtual == ModoTema.ALTO_CONTRASTE) {
-                    aplicarTema(ModoTema.CLARO);
+                    salvarEAplicarTema(ModoTema.CLARO);
                 } else {
-                    aplicarTema(ModoTema.ALTO_CONTRASTE);
+                    salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
                 }
             }
 
             @Override
             public void onToggleDaltonico() {
                 if (temaAtual == ModoTema.DALTONICO) {
-                    aplicarTema(ModoTema.CLARO);
+                    salvarEAplicarTema(ModoTema.CLARO);
                 } else {
-                    aplicarTema(ModoTema.DALTONICO);
+                    salvarEAplicarTema(ModoTema.DALTONICO);
                 }
+            }
+
+            @Override
+            public void onTemaSelecionado(int tipoTema) {
+                if (tipoTema == ThemeManager.THEME_DARK) salvarEAplicarTema(ModoTema.ESCURO);
+                else if (tipoTema == ThemeManager.THEME_HIGH_CONTRAST) salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
+                else if (tipoTema == ThemeManager.THEME_COLORBLIND) salvarEAplicarTema(ModoTema.DALTONICO);
+                else salvarEAplicarTema(ModoTema.CLARO);
             }
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
     }
 
-    // Gerenciador de TEMAS
+    // Cores Temas
     private void aplicarTema(ModoTema novoTema) {
         this.temaAtual = novoTema;
 
@@ -269,7 +314,7 @@ public class InformacaoCandidato extends AppCompatActivity {
             case ALTO_CONTRASTE:
                 if (btThemeToggle3 != null) btThemeToggle3.setImageResource(R.drawable.sol);
 
-                main.setBackgroundColor(Color.parseColor("#0A0F14"));
+                if (main != null) main.setBackgroundColor(Color.parseColor("#0A0F14"));
                 if (headerBackground2 != null) headerBackground2.setBackgroundColor(Color.parseColor("#121D28"));
 
                 if (tvNomeCandidatoDetalhe != null) tvNomeCandidatoDetalhe.setTextColor(Color.parseColor("#FFE600"));
@@ -281,7 +326,6 @@ public class InformacaoCandidato extends AppCompatActivity {
                     cvContainerList.setCardBackgroundColor(Color.parseColor("#1B2B3C"));
                 }
 
-                // Card de Dúvida com borda verde neon
                 GradientDrawable molduraAltoContraste = new GradientDrawable();
                 molduraAltoContraste.setShape(GradientDrawable.RECTANGLE);
                 molduraAltoContraste.setColor(Color.parseColor("#1B2B3C"));
@@ -300,12 +344,40 @@ public class InformacaoCandidato extends AppCompatActivity {
                     fbInterrogacao5.setImageTintList(ColorStateList.valueOf(Color.parseColor("#00E6A1")));
                 }
 
-                Toast.makeText(this, "Alto Contraste Ativado", Toast.LENGTH_SHORT).show();
                 break;
 
-                // MODO DALTONICO
             case DALTONICO:
                 if (btThemeToggle3 != null) btThemeToggle3.setImageResource(R.drawable.sol);
+                if (main != null) main.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                if (headerBackground2 != null) headerBackground2.setBackgroundColor(Color.parseColor("#0057B8"));
+
+                if (tvNomeCandidatoDetalhe != null) tvNomeCandidatoDetalhe.setTextColor(Color.parseColor("#0057B8"));
+                if (tvContadorQuestao != null) tvContadorQuestao.setTextColor(Color.parseColor("#333333"));
+                if (tvEnunciado != null) tvEnunciado.setTextColor(Color.parseColor("#0057B8"));
+                if (tvResposta != null) tvResposta.setTextColor(Color.parseColor("#333333"));
+
+                if (cvContainerList != null) {
+                    cvContainerList.setCardBackgroundColor(Color.parseColor("#F5F5F5"));
+                }
+
+                GradientDrawable bgDaltonico = new GradientDrawable();
+                bgDaltonico.setShape(GradientDrawable.RECTANGLE);
+                bgDaltonico.setColor(Color.WHITE);
+                bgDaltonico.setCornerRadius(32f);
+                bgDaltonico.setStroke(4, Color.parseColor("#0057B8"));
+
+                if (cvDuvida4 != null) cvDuvida4.setBackground(bgDaltonico);
+                if (tvExibido4 != null) tvExibido4.setTextColor(Color.parseColor("#333333"));
+                if (btEntendi4 != null) {
+                    btEntendi4.setBackgroundColor(Color.parseColor("#0057B8"));
+                    btEntendi4.setTextColor(Color.WHITE);
+                }
+
+                if (fbInterrogacao5 != null) {
+                    fbInterrogacao5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0057B8")));
+                    fbInterrogacao5.setImageTintList(ColorStateList.valueOf(Color.WHITE));
+                }
+
                 break;
 
             case ESCURO:
@@ -315,7 +387,13 @@ public class InformacaoCandidato extends AppCompatActivity {
                 if (headerBackground2 != null) animarCorFundo(headerBackground2, "#203652", "#1B2430");
 
                 if (cvContainerList != null) animarCorCard(cvContainerList, "#FFFFFF", "#1E293B");
-                if (cvDuvida4 != null) animarCorCard(cvDuvida4, "#FFFFFF", "#243144");
+
+                GradientDrawable bgEscuro = new GradientDrawable();
+                bgEscuro.setShape(GradientDrawable.RECTANGLE);
+                bgEscuro.setColor(Color.parseColor("#243144"));
+                bgEscuro.setCornerRadius(32f);
+
+                if (cvDuvida4 != null) cvDuvida4.setBackground(bgEscuro);
 
                 animarCorTexto(tvNomeCandidatoDetalhe, "#203652", "#E2E8F0");
                 animarCorTexto(tvContadorQuestao, "#666666", "#94A3B8");
@@ -331,19 +409,23 @@ public class InformacaoCandidato extends AppCompatActivity {
                 if (fbInterrogacao5 != null) {
                     animarCorFAB(fbInterrogacao5, "#FFFFFF", "#243144", "#000000", "#E2E8F0");
                 }
-
-                Toast.makeText(this, "Modo Escuro Ativado", Toast.LENGTH_SHORT).show();
                 break;
 
             case CLARO:
             default:
                 if (btThemeToggle3 != null) btThemeToggle3.setImageResource(R.drawable.sol);
 
-                main.setBackgroundColor(Color.parseColor("#E2E2E2"));
+                if (main != null) main.setBackgroundColor(Color.parseColor("#E2E2E2"));
                 if (headerBackground2 != null) headerBackground2.setBackgroundColor(Color.parseColor("#203652"));
 
                 if (cvContainerList != null) cvContainerList.setCardBackgroundColor(Color.WHITE);
-                if (cvDuvida4 != null) cvDuvida4.setCardBackgroundColor(Color.WHITE);
+
+                GradientDrawable bgClaro = new GradientDrawable();
+                bgClaro.setShape(GradientDrawable.RECTANGLE);
+                bgClaro.setColor(Color.WHITE);
+                bgClaro.setCornerRadius(32f);
+
+                if (cvDuvida4 != null) cvDuvida4.setBackground(bgClaro);
 
                 if (tvNomeCandidatoDetalhe != null) tvNomeCandidatoDetalhe.setTextColor(Color.parseColor("#203652"));
                 if (tvContadorQuestao != null) tvContadorQuestao.setTextColor(Color.parseColor("#666666"));
@@ -360,14 +442,17 @@ public class InformacaoCandidato extends AppCompatActivity {
                     fbInterrogacao5.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
                     fbInterrogacao5.setImageTintList(ColorStateList.valueOf(Color.BLACK));
                 }
-
-                Toast.makeText(this, "Modo Claro Ativado", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    // --- Métodos Auxiliares de Transição Suave (VALUE ANIMATOR) ---
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sincronizarTemaSalvo();
+    }
 
+    // Métodos Auxiliares de Transição Suave
     private void animarCorFundo(View view, String hexInicio, String hexFim) {
         if (view == null) return;
         ValueAnimator anim = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor(hexInicio), Color.parseColor(hexFim));
