@@ -6,25 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E2E2E2"
-    app:circularflow_defaultRadius="100dp"
     tools:context=".TelaMenu">
 
     <!-- Header / Barra Superior -->
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbInterrogacao2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
-        android:alpha="0.4"
-        android:clickable="true"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/interrogacao"
-        app:tint="@color/black" />
-
     <View
         android:id="@+id/headerBackground"
         android:layout_width="0dp"
@@ -33,6 +17,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Botão Modo Noturno (Sol / Lua) -->
+    <ImageButton
+        android:id="@+id/ibAcessibilidade3"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/acessib" />
+
+    <ImageButton
+        android:id="@+id/btThemeToggle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Alternar Tema"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
+        app:layout_constraintTop_toTopOf="@+id/headerBackground"
+        app:srcCompat="@drawable/sol"
+        app:tint="#FFFFFF" />
 
     <!-- Foto de Perfil no Header -->
     <androidx.cardview.widget.CardView
@@ -50,6 +61,7 @@
             android:id="@+id/ivFotoPerfil2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="Foto de Perfil"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/fotoperfil" />
     </androidx.cardview.widget.CardView>
@@ -78,7 +90,7 @@
             android:id="@+id/tvUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AAAAA"
+            android:text="Recrutador"
             android:textColor="#47B192"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -91,76 +103,69 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
-        android:text="Escolha uma das opções abaixo:"
+        android:text="Vagas em andamento:"
         android:textColor="#5A6E85"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llSaudacao" />
 
-    <!-- Botão Processo Dinâmica -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvContainerList"
+        android:layout_width="0dp"
+        android:layout_height="541dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes">
 
-    <TextView
-        android:id="@+id/tvProcessoEn"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <SearchView
+                android:id="@+id/svBusca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryHint="Pesquisar..." />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListaResposta"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:padding="8dp"
+                tools:listitem="@layout/activity_item_entrevista" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botão de Interrogação -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbInterrogacao2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Processo Entrevista"
-        android:textColor="#1F4273"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:alpha="0.5"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btEntrevista" />
+        app:srcCompat="@drawable/interrogacao"
+        app:tint="@color/black" />
 
-    <ImageButton
-        android:id="@+id/btDin"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/bg_botao"
-        android:backgroundTint="#47B192"
-        android:scaleType="center"
-        app:circularflow_defaultRadius="100dp"
-        app:circularflow_radiusInDP="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProcessoEn"
-        app:srcCompat="@drawable/grupo" />
-
-    <!-- Card de Dúvida / Informação -->
-
-    <ImageButton
-        android:id="@+id/btEntrevista"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="151dp"
-        android:background="@drawable/bg_botao"
-        android:backgroundTint="#203652"
-        android:scaleType="center"
-        app:circularflow_defaultRadius="100dp"
-        app:circularflow_radiusInDP="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOpcoes"
-        app:srcCompat="@drawable/grupo" />
-
-    <TextView
-        android:id="@+id/tvProcessoDi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Processo Dinâmica"
-        android:textColor="#1F4273"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btDin" />
-
+    <!-- Card de Ajuda Pop-up -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDuvida3"
         android:layout_width="match_parent"
@@ -177,66 +182,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvTituloDuvida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:text="@string/titulo_ajuda"
+                android:textColor="#FEBE11"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-                <!-- Ícone indicando Ajuda/Info -->
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="8dp"
-                    app:tint="#4CAF50" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:lineSpacingExtra="4dp"
-                    android:padding="12dp"
-                    android:text="@string/titulo_ajuda"
-                    android:textColor="#FEBE11"
-                    android:textSize="31sp" />
-
-            </LinearLayout>
-
-            <!-- Texto Centralizado -->
             <TextView
                 android:id="@+id/tvExibido4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:lineSpacingExtra="6dp"
-                android:padding="32dp"
                 android:text="@string/texto_telaMenu"
                 android:textColor="#212121"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
-            <!-- Botão "Entendi" Centralizado -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btEntendi4"
                 android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-6dp"
-                android:layout_marginBottom="26dp"
+                android:layout_height="48dp"
                 android:text="Entendi"
                 android:textColor="#FFFFFF"
-                android:textSize="18dp"
                 app:backgroundTint="#4CAF50"
                 app:cornerRadius="20dp" />
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

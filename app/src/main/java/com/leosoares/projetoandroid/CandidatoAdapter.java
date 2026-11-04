@@ -1,21 +1,25 @@
 package com.leosoares.projetoandroid;
 
-import android.view.LayoutInflater;
-import android.view.View;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-public class CandidatoAdapter extends RecyclerView.Adapter<CandidatoAdapter.ViewHolder>{
+public class CandidatoAdapter extends RecyclerView.Adapter<CandidatoAdapter.ViewHolder> {
 
-    private List<Candidato> listaCandidato;
+    private List<Candidato> listaCandidatos;
 
-    public CandidatoAdapter(List<Candidato> listaCandidato){
-        this.listaCandidato = listaCandidato;
+    public CandidatoAdapter(List<Candidato> listaCandidatos) {
+        this.listaCandidatos = listaCandidatos;
     }
 
     @NonNull
@@ -28,32 +32,73 @@ public class CandidatoAdapter extends RecyclerView.Adapter<CandidatoAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Candidato candidato = listaCandidato.get(position);
-        holder.NomeCandidato.setText(candidato.getTvNomeCandidato());
+        Context context = holder.itemView.getContext();
+        Candidato candidato = listaCandidatos.get(position);
 
+        holder.tvNomeCandidato.setText(candidato.getTvNomeCandidato());
+
+        // Mudança na cor do Card Baseado no Tema
+        int temaSalvo = ThemeManager.getSavedTheme(context);
+
+        switch (temaSalvo) {
+            case ThemeManager.THEME_HIGH_CONTRAST:
+                if (holder.cardContainer != null) {
+                    GradientDrawable border = new GradientDrawable();
+                    border.setShape(GradientDrawable.RECTANGLE);
+                    border.setColor(Color.parseColor("#1B2B3C"));
+                    border.setCornerRadius(24f);
+                    border.setStroke(3, Color.parseColor("#00E6A1"));
+                    holder.cardContainer.setBackground(border);
+                }
+                holder.tvNomeCandidato.setTextColor(Color.WHITE);
+                break;
+
+            case ThemeManager.THEME_DARK:
+                if (holder.cardContainer != null) {
+                    GradientDrawable bgEscuro = new GradientDrawable();
+                    bgEscuro.setShape(GradientDrawable.RECTANGLE);
+                    bgEscuro.setColor(Color.parseColor("#1E293B"));
+                    bgEscuro.setCornerRadius(24f);
+                    holder.cardContainer.setBackground(bgEscuro);
+                }
+                holder.tvNomeCandidato.setTextColor(Color.parseColor("#E2E8F0"));
+                break;
+
+            case ThemeManager.THEME_COLORBLIND:
+            case ThemeManager.THEME_LIGHT:
+            default:
+                if (holder.cardContainer != null) {
+                    GradientDrawable bgClaro = new GradientDrawable();
+                    bgClaro.setShape(GradientDrawable.RECTANGLE);
+                    bgClaro.setColor(Color.WHITE);
+                    bgClaro.setCornerRadius(24f);
+                    holder.cardContainer.setBackground(bgClaro);
+                }
+                holder.tvNomeCandidato.setTextColor(Color.parseColor("#203652"));
+                break;
+        }
+
+        // Clique para abrir o Hub do Candidato
         holder.itemView.setOnClickListener(v -> {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, informacao_candidato.class);
-
-            // Passa o nome do candidato clicado usando a chave "NOME_CANDIDATO"
+            Intent intent = new Intent(context, HubCandidatoActivity.class);
             intent.putExtra("NOME_CANDIDATO", candidato.getTvNomeCandidato());
-
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return listaCandidato != null ? listaCandidato.size() : 0;
+        return listaCandidatos.size();
     }
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView NomeCandidato;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNomeCandidato;
-        public ViewHolder(@NonNull View itemView){
+        View cardContainer;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            NomeCandidato = itemView.findViewById(R.id.tvNomeCandidato);
+            tvNomeCandidato = itemView.findViewById(R.id.tvNomeCandidato);
+            cardContainer = itemView.findViewById(R.id.llCardCandidato);
         }
     }
 }
