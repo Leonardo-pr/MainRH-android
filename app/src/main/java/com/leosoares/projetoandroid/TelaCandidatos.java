@@ -40,7 +40,7 @@ public class TelaCandidatos extends BaseActivity {
     private List<Candidato> listaCandidatos;
     private FloatingActionButton fbInterrogacao4;
     private View headerBackground, main;
-    private ImageButton btThemeToggle, ibAcessibilidade2;
+    private ImageButton ibAcessibilidade2;
     private Button btEntendi4;
     private TextView tvExibido4, tvCandi;
     private CardView cvDuvida4, cvContainerList;
@@ -60,7 +60,6 @@ public class TelaCandidatos extends BaseActivity {
         // Mapeamento dos Componentes
         main = findViewById(R.id.main);
         headerBackground = findViewById(R.id.headerBackground);
-        btThemeToggle = findViewById(R.id.btThemeToggle);
         tvCandi = findViewById(R.id.tvCandi);
         cvContainerList = findViewById(R.id.cvContainerList);
         svBusca = findViewById(R.id.svBusca);
@@ -95,17 +94,6 @@ public class TelaCandidatos extends BaseActivity {
             });
         }
 
-        // Botão Sol / Lua (Alternância rápida entre Claro e Escuro)
-        if (btThemeToggle != null) {
-            btThemeToggle.setOnClickListener(v -> {
-                btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
-                if (temaAtual == ModoTema.ESCURO) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.ESCURO);
-                }
-            });
-        }
 
         // Botão de Acessibilidade (BottomSheet)
         if (ibAcessibilidade2 != null) {
@@ -135,7 +123,6 @@ public class TelaCandidatos extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Garante a sincronização automática ao retornar para esta tela
         sincronizarTemaSalvo();
     }
 
@@ -175,24 +162,9 @@ public class TelaCandidatos extends BaseActivity {
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
 
-        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
-            @Override
-            public void onToggleAltoContraste() {
-                salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-            }
-
-            @Override
-            public void onToggleDaltonico() {
-                salvarEAplicarTema(ModoTema.DALTONICO);
-            }
-
-            @Override
-            public void onTemaSelecionado(int tipoTema) {
-                if (tipoTema == ThemeManager.THEME_DARK) salvarEAplicarTema(ModoTema.ESCURO);
-                else if (tipoTema == ThemeManager.THEME_HIGH_CONTRAST) salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                else if (tipoTema == ThemeManager.THEME_COLORBLIND) salvarEAplicarTema(ModoTema.DALTONICO);
-                else salvarEAplicarTema(ModoTema.CLARO);
-            }
+        dialog.setListener(tipoTema -> {
+            ThemeManager.saveTheme(this, tipoTema);
+            recreate();
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
@@ -227,7 +199,6 @@ public class TelaCandidatos extends BaseActivity {
 
         switch (novoTema) {
             case ALTO_CONTRASTE:
-                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
                 if (main != null) main.setBackgroundColor(Color.parseColor("#0A0F14"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#121D28"));
                 if (tvCandi != null) tvCandi.setTextColor(Color.parseColor("#FFE600"));
@@ -253,7 +224,6 @@ public class TelaCandidatos extends BaseActivity {
                 break;
 
             case DALTONICO:
-                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
                 if (main != null) main.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#0057B8"));
                 if (tvCandi != null) tvCandi.setTextColor(Color.parseColor("#0057B8"));
@@ -279,7 +249,6 @@ public class TelaCandidatos extends BaseActivity {
                 break;
 
             case ESCURO:
-                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.lua);
                 if (main != null) main.setBackgroundColor(Color.parseColor("#12161A"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#1B2430"));
                 if (cvContainerList != null) cvContainerList.setCardBackgroundColor(Color.parseColor("#1E293B"));
@@ -305,7 +274,6 @@ public class TelaCandidatos extends BaseActivity {
 
             case CLARO:
             default:
-                if (btThemeToggle != null) btThemeToggle.setImageResource(R.drawable.sol);
                 if (main != null) main.setBackgroundColor(Color.parseColor("#E2E2E2"));
                 if (headerBackground != null) headerBackground.setBackgroundColor(Color.parseColor("#203652"));
                 if (cvContainerList != null) cvContainerList.setCardBackgroundColor(Color.WHITE);

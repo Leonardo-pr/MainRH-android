@@ -54,7 +54,6 @@ public class HubCandidatoActivity extends BaseActivity {
         // Mapeamento dos Componentes
         main = findViewById(R.id.main);
         headerBackground = findViewById(R.id.headerBackground);
-        btThemeToggle2 = findViewById(R.id.btThemeToggle2);
         ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
         tvNomeCandidato = findViewById(R.id.tvNomeCandidato);
         tvSubtitulo = findViewById(R.id.tvSubtitulo);
@@ -75,8 +74,6 @@ public class HubCandidatoActivity extends BaseActivity {
                 tvNomeCandidato.setText(nome);
             }
         }
-
-        // 1. CARREGA O TEMA SALVO AO ABRIR A TELA
         sincronizarTemaSalvo();
 
         // Alternar Modo Claro / Escuro (Sol/Lua)
@@ -172,32 +169,9 @@ public class HubCandidatoActivity extends BaseActivity {
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
 
-        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
-            @Override
-            public void onToggleAltoContraste() {
-                if (temaAtual == ModoTema.ALTO_CONTRASTE) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                }
-            }
-
-            @Override
-            public void onToggleDaltonico() {
-                if (temaAtual == ModoTema.DALTONICO) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.DALTONICO);
-                }
-            }
-
-            @Override
-            public void onTemaSelecionado(int tipoTema) {
-                if (tipoTema == ThemeManager.THEME_DARK) salvarEAplicarTema(ModoTema.ESCURO);
-                else if (tipoTema == ThemeManager.THEME_HIGH_CONTRAST) salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                else if (tipoTema == ThemeManager.THEME_COLORBLIND) salvarEAplicarTema(ModoTema.DALTONICO);
-                else salvarEAplicarTema(ModoTema.CLARO);
-            }
+        dialog.setListener(tipoTema -> {
+            ThemeManager.saveTheme(this, tipoTema);
+            recreate();
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");

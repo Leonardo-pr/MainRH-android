@@ -1,7 +1,6 @@
 package com.leosoares.projetoandroid;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +15,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Configura os botões globais de tema e acessibilidade sempre que a tela carregar
+        // Configura os botões globais de acessibilidade sempre que a tela carregar
         configurarBotoesGlobais();
     }
 
@@ -40,23 +39,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void configurarBotoesGlobais() {
-        // Botão de alternancia modo noturno e claro simbolos
-        ImageButton btThemeToggle = findViewById(R.id.btThemeToggle);
-        if (btThemeToggle != null) {
-            btThemeToggle.setOnClickListener(v -> {
-                btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
-                int temaAtual = ThemeManager.getSavedTheme(this);
-                if (temaAtual == ThemeManager.THEME_DARK) {
-                    ThemeManager.saveTheme(this, ThemeManager.THEME_LIGHT);
-                } else {
-                    ThemeManager.saveTheme(this, ThemeManager.THEME_DARK);
-                }
-                recreate();
-            });
-        }
-
-        // Botão de Acessibilidade presente nas telas
         ImageButton ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
+        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade2);
+        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade3);
+
         if (ibAcessibilidade != null) {
             ibAcessibilidade.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
         }
@@ -65,24 +51,9 @@ public class BaseActivity extends AppCompatActivity {
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
 
-        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
-            @Override
-            public void onToggleAltoContraste() {
-                ThemeManager.saveTheme(BaseActivity.this, ThemeManager.THEME_HIGH_CONTRAST);
-                recreate();
-            }
-
-            @Override
-            public void onToggleDaltonico() {
-                ThemeManager.saveTheme(BaseActivity.this, ThemeManager.THEME_COLORBLIND);
-                recreate();
-            }
-
-            @Override
-            public void onTemaSelecionado(int tipoTema) {
-                ThemeManager.saveTheme(BaseActivity.this, tipoTema);
-                recreate();
-            }
+        dialog.setListener(tipoTema -> {
+            ThemeManager.saveTheme(this, tipoTema);
+            recreate();
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");

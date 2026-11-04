@@ -20,24 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btThemeToggle2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Alternar Tema"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
-        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/headerBackground"
-        app:layout_constraintTop_toTopOf="@+id/headerBackground"
-        app:layout_constraintVertical_bias="0.466"
-        app:srcCompat="@drawable/sol"
-        app:tint="#FFFFFF" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFotoPerfil"
         android:layout_width="48dp"
@@ -209,8 +191,8 @@
 
     <ImageButton
         android:id="@+id/ibAcessibilidade"
-        android:layout_width="41dp"
-        android:layout_height="43dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
         app:layout_constraintStart_toStartOf="parent"
