@@ -1,7 +1,5 @@
 package com.leosoares.projetoandroid;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -11,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.cardview.widget.CardView;
@@ -74,7 +71,7 @@ public class TelaCandidatos extends BaseActivity {
         btEntendi4 = findViewById(R.id.btEntendi4);
         ibAcessibilidade2 = findViewById(R.id.ibAcessibilidade2);
 
-        // Carrega o tema salvo ao abrir
+        // Sincroniza o tema salvo ao abrir a tela
         sincronizarTemaSalvo();
 
         listaCandidatos = carregarCandidatosEmProcesso();
@@ -98,7 +95,7 @@ public class TelaCandidatos extends BaseActivity {
             });
         }
 
-        // Modo Noturno / Claro (Sol/Lua)
+        // Botão Sol / Lua (Alternância rápida entre Claro e Escuro)
         if (btThemeToggle != null) {
             btThemeToggle.setOnClickListener(v -> {
                 btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
@@ -110,7 +107,7 @@ public class TelaCandidatos extends BaseActivity {
             });
         }
 
-        // Pop-Up de Acessibilidade
+        // Botão de Acessibilidade (BottomSheet)
         if (ibAcessibilidade2 != null) {
             ibAcessibilidade2.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
         }
@@ -135,6 +132,13 @@ public class TelaCandidatos extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Garante a sincronização automática ao retornar para esta tela
+        sincronizarTemaSalvo();
+    }
+
     // Lê o que está salvo no ThemeManager e aplica
     private void sincronizarTemaSalvo() {
         int salvo = ThemeManager.getSavedTheme(this);
@@ -155,7 +159,7 @@ public class TelaCandidatos extends BaseActivity {
         }
     }
 
-    // Salva no ThemeManager e aplica o tema
+    // Salva globalmente no ThemeManager e aplica o tema na tela
     private void salvarEAplicarTema(ModoTema novoTema) {
         this.temaAtual = novoTema;
         int tipoInt = ThemeManager.THEME_LIGHT;
@@ -174,20 +178,12 @@ public class TelaCandidatos extends BaseActivity {
         dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
             @Override
             public void onToggleAltoContraste() {
-                if (temaAtual == ModoTema.ALTO_CONTRASTE) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                }
+                salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
             }
 
             @Override
             public void onToggleDaltonico() {
-                if (temaAtual == ModoTema.DALTONICO) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.DALTONICO);
-                }
+                salvarEAplicarTema(ModoTema.DALTONICO);
             }
 
             @Override
@@ -225,7 +221,7 @@ public class TelaCandidatos extends BaseActivity {
         return lista;
     }
 
-    // Gerenciador de Temas
+    // Aplicação visual de cores para cada Modo de Tema
     private void aplicarTema(ModoTema novoTema) {
         this.temaAtual = novoTema;
 
@@ -337,11 +333,5 @@ public class TelaCandidatos extends BaseActivity {
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sincronizarTemaSalvo();
     }
 }
