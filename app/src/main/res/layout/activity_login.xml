@@ -152,7 +152,8 @@
                 android:paddingStart="4dp"
                 android:textColor="@color/black"
                 android:textColorHint="#8E8E93"
-                android:textSize="15sp" />
+                android:textSize="20sp"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -181,7 +182,8 @@
                     android:paddingStart="4dp"
                     android:textColor="@color/black"
                     android:textColorHint="#8E8E93"
-                    android:textSize="15sp" />
+                    android:textSize="20sp"
+                    />
 
                 <ImageButton
                     android:id="@+id/ibOcultar"
@@ -205,6 +207,7 @@
         android:layout_marginEnd="1dp"
         android:backgroundTint="#1A304B"
         android:text="Entrar"
+        android:textSize="20sp"
         android:textColor="@color/white"
         app:cornerRadius="@dimen/cardview_default_elevation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -225,16 +228,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/interrogacao"
         app:tint="@color/black" />
-
-    <ImageButton
-        android:id="@+id/ibAcessibilidade"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAcessibilidade"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/headerBackground3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/acessib" />
+        app:cardCornerRadius="22.5dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#ffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/ibAcessibilidade"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/acessib" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

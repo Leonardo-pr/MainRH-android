@@ -63,7 +63,7 @@ public class InformacaoCandidato extends BaseActivity {
         // Mapeamento dos Componentes
         main = findViewById(R.id.main);
         headerBackground2 = findViewById(R.id.headerBackground2);
-        ibAcessibilidade5 = findViewById(R.id.ibAcessibilidade5);
+        ibAcessibilidade5 = findViewById(R.id.ibAcessibilidade);
         tvNomeCandidatoDetalhe = findViewById(R.id.tvNomeCandidatoDetalhe);
         cvContainerList = findViewById(R.id.cvContainerList);
         tvContadorQuestao = findViewById(R.id.tvContadorQuestao);

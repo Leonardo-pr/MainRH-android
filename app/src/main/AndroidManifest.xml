@@ -6,35 +6,11 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAndroid">
-        <activity
-            android:name=".item_candidato_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".hub_candidato_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".informacao_candidato_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".item_entrevista_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".tela_candidatos_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".tela_menu_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".splash_daltonico"
-            android:exported="false" />
-        <activity
-            android:name=".login_daltonico"
-            android:exported="false" />
         <activity
             android:name=".InformacaoCandidato"
             android:exported="true" />
@@ -46,9 +22,6 @@
             android:exported="false" />
         <activity
             android:name=".TelaCandidatos"
-            android:exported="false" />
-        <activity
-            android:name=".tela_dinamica"
             android:exported="false" />
         <activity
             android:name=".TelaMenu"
@@ -64,18 +37,6 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".esqueci_Sem"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".EsqueciSenha"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".HubCandidato"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".HubCandidatoActivity" />

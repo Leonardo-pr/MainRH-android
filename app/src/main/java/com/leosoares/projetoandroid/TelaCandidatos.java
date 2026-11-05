@@ -68,7 +68,7 @@ public class TelaCandidatos extends BaseActivity {
         cvDuvida4 = findViewById(R.id.cvDuvida4);
         tvExibido4 = findViewById(R.id.tvExibido4);
         btEntendi4 = findViewById(R.id.btEntendi4);
-        ibAcessibilidade2 = findViewById(R.id.ibAcessibilidade2);
+        ibAcessibilidade2 = findViewById(R.id.ibAcessibilidade);
 
         // Sincroniza o tema salvo ao abrir a tela
         sincronizarTemaSalvo();

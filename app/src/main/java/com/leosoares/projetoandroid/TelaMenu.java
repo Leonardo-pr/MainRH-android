@@ -65,7 +65,7 @@ public class TelaMenu extends BaseActivity {
         main = findViewById(R.id.main);
         svBusca = findViewById(R.id.svBusca);
         headerBackground = findViewById(R.id.headerBackground);
-        ibAcessibilidade3 = findViewById(R.id.ibAcessibilidade3);
+        ibAcessibilidade3 = findViewById(R.id.ibAcessibilidade);
         fbInterrogacao2 = findViewById(R.id.fbInterrogacao2);
         btEntendi = findViewById(R.id.btEntendi4);
         cvDuvida3 = findViewById(R.id.cvDuvida3);

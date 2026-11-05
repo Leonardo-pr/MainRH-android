@@ -3,11 +3,13 @@ package com.leosoares.projetoandroid;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
 
 public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         applySavedTheme();
         super.onCreate(savedInstanceState);
     }
@@ -40,8 +42,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private void configurarBotoesGlobais() {
         ImageButton ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
-        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade2);
-        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade3);
+        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
+        if (ibAcessibilidade == null) ibAcessibilidade = findViewById(R.id.ibAcessibilidade);
 
         if (ibAcessibilidade != null) {
             ibAcessibilidade.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
