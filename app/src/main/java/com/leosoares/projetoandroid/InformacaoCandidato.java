@@ -116,6 +116,18 @@ public class InformacaoCandidato extends BaseActivity {
             ibAcessibilidade5.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
         }
 
+        // Perfil do Usuário
+        CardView cvFotoPerfil = findViewById(R.id.cvFotoPerfil);
+        if (cvFotoPerfil != null) {
+            cvFotoPerfil.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("MainRH_Prefs", MODE_PRIVATE);
+                String nomeLogado = prefs.getString("NOME_USUARIO_LOGADO", "Recrutador");
+
+                PerfilBottomSheet perfilSheet = new PerfilBottomSheet(nomeLogado);
+                perfilSheet.show(getSupportFragmentManager(), "PerfilBottomSheet");
+            });
+        }
+
         // Listener da RatingBar
         if (rbNotaCandidato != null) {
             rbNotaCandidato.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {

@@ -106,6 +106,18 @@ public class HubCandidatoActivity extends BaseActivity {
             });
         }
 
+        // Perfil do Usuário
+        CardView cvFotoPerfil = findViewById(R.id.cvFotoPerfil);
+        if (cvFotoPerfil != null) {
+            cvFotoPerfil.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("MainRH_Prefs", MODE_PRIVATE);
+                String nomeLogado = prefs.getString("NOME_USUARIO_LOGADO", "Recrutador");
+
+                PerfilBottomSheet perfilSheet = new PerfilBottomSheet(nomeLogado);
+                perfilSheet.show(getSupportFragmentManager(), "PerfilBottomSheet");
+            });
+        }
+
         if (btEntendi4 != null && cvDuvida3 != null) {
             btEntendi4.setOnClickListener(v -> cvDuvida3.animate()
                     .alpha(0f)

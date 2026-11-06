@@ -118,12 +118,16 @@ public class TelaLogin extends BaseActivity {
 
         // Botão Entrar
         if (btEntrar != null) {
-            btEntrar.setOnClickListener(v -> {
-                String nomeUsuario = edUsuario.getText().toString().trim();
-                Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
-                intent.putExtra("NOME_USUARIO", nomeUsuario);
-                startActivity(intent);
-            });
+                btEntrar.setOnClickListener(v -> {
+                    String nomeUsuario = edUsuario.getText().toString().trim();
+                    // Salva o nome na memória global do app
+                    android.content.SharedPreferences prefs = getSharedPreferences("MainRH_Prefs", MODE_PRIVATE);
+                    prefs.edit().putString("NOME_USUARIO_LOGADO", nomeUsuario).apply();
+                    // Continua com a Intent normal
+                    Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
+                    intent.putExtra("NOME_USUARIO", nomeUsuario);
+                    startActivity(intent);
+                });
         }
     }
 

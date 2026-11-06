@@ -78,6 +78,18 @@ public class TelaCandidatos extends BaseActivity {
         adapter = new CandidatoAdapter(listaCandidatos);
         rvListaResposta.setAdapter(adapter);
 
+        // Perfil do Usuário
+        CardView cvFotoPerfil = findViewById(R.id.cvFotoPerfil);
+        if (cvFotoPerfil != null) {
+            cvFotoPerfil.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("MainRH_Prefs", MODE_PRIVATE);
+                String nomeLogado = prefs.getString("NOME_USUARIO_LOGADO", "Recrutador");
+
+                PerfilBottomSheet perfilSheet = new PerfilBottomSheet(nomeLogado);
+                perfilSheet.show(getSupportFragmentManager(), "PerfilBottomSheet");
+            });
+        }
+
         if (svBusca != null) {
             svBusca.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

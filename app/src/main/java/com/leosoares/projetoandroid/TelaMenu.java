@@ -125,6 +125,16 @@ public class TelaMenu extends BaseActivity {
             });
         }
 
+        // Perfil do Usuário
+        CardView cvFotoPerfil = findViewById(R.id.cvFotoPerfil);
+        if (cvFotoPerfil != null) {
+            cvFotoPerfil.setOnClickListener(v -> {
+                String nomeLogado = tvUser != null ? tvUser.getText().toString() : "Recrutador";
+                PerfilBottomSheet perfilSheet = new PerfilBottomSheet(nomeLogado);
+                perfilSheet.show(getSupportFragmentManager(), "PerfilBottomSheet");
+            });
+        }
+
         // Botão de Acessibilidade
         if (ibAcessibilidade3 != null) {
             ibAcessibilidade3.setOnClickListener(v -> abrirBottomSheetAcessibilidade());
