@@ -41,7 +41,7 @@
     <!-- Grid com as opções de acessibilidade -->
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="319dp"
         android:columnCount="2"
         android:rowCount="1"
         android:useDefaultMargins="true">
@@ -52,12 +52,12 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"
-            android:foreground="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#F8FAFC"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#F8FAFC">
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,8 +77,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Alto Contraste"
-                    android:textStyle="bold"
-                    android:textColor="#1B2430" />
+                    android:textColor="#1B2430"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -88,12 +88,12 @@
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_columnWeight="1"
-            android:foreground="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#F8FAFC"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#F8FAFC">
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,8 +113,79 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Modo Daltônico"
-                    android:textStyle="bold"
-                    android:textColor="#1B2430" />
+                    android:textColor="#1B2430"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card: Modo Claro -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvClaro"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#F8FAFC"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/return_to"
+                    app:tint="#808080" />
+
+                <TextView
+                    android:id="@+id/tvClaro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Padrão"
+                    android:textColor="#1B2430"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- Card: Modo Daltônico -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvEscuro"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#F8FAFC"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/lua"
+                    app:tint="#808080" />
+
+                <TextView
+                    android:id="@+id/tvEscuro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Modo Escuro"
+                    android:textColor="#1B2430"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

@@ -119,7 +119,7 @@ public class SplashActivity extends BaseActivity {
                     relativeLayout.setBackgroundColor(Color.parseColor("#12161A"));
                 }
                 if (imgLogo != null) {
-                    imgLogo.setImageResource(R.drawable.iconemain_rh);
+                    imgLogo.setImageResource(R.drawable.icone_modoescuro);
                 }
                 if (progressBar != null) {
                     progressBar.setIndeterminateTintList(ColorStateList.valueOf(Color.parseColor("#56C8A8")));

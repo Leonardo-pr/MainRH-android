@@ -18,38 +18,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botão Modo Noturno (Sol / Lua) -->
-    <ImageButton
-        android:id="@+id/ibAcessibilidade3"
-        android:layout_width="41dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAcessibilidade"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="#ffff"
+        app:cardCornerRadius="22.5dp"
+        app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.491"
-        app:srcCompat="@drawable/acessib" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/btThemeToggle"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Alternar Tema"
-        android:padding="8dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/headerBackground"
-        app:layout_constraintEnd_toStartOf="@+id/cvFotoPerfil"
-        app:layout_constraintTop_toTopOf="@+id/headerBackground"
-        app:srcCompat="@drawable/sol"
-        app:tint="#FFFFFF" />
+        <ImageButton
+            android:id="@+id/ibAcessibilidade"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/acessib" />
 
+    </androidx.cardview.widget.CardView>
     <!-- Foto de Perfil no Header -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cvFotoPerfil"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
@@ -105,7 +101,7 @@
         android:layout_marginEnd="24dp"
         android:text="Vagas em andamento:"
         android:textColor="#5A6E85"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:iconifiedByDefault="false"
+
                 android:queryHint="Pesquisar..." />
 
             <androidx.recyclerview.widget.RecyclerView

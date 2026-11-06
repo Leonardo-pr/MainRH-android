@@ -1,7 +1,5 @@
 package com.leosoares.projetoandroid;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -15,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.cardview.widget.CardView;
@@ -75,23 +72,10 @@ public class TelaLogin extends BaseActivity {
         tvExibido4 = findViewById(R.id.tvExibido4);
         tvAtencao = findViewById(R.id.tvAtencao);
         btEntendi4 = findViewById(R.id.btEntendi4);
-        btThemeToggle = findViewById(R.id.btThemeToggle);
         frameLayout = findViewById(R.id.frameLayout2);
 
         // Carrega o tema salvo ao abrir o aplicativo
         sincronizarTemaSalvo();
-
-        // Botão modo claro e modo escuro (Sol/Lua)
-        if (btThemeToggle != null) {
-            btThemeToggle.setOnClickListener(v -> {
-                btThemeToggle.animate().rotationBy(360f).setDuration(400).start();
-                if (temaAtual == ModoTema.ESCURO) {
-                    salvarEAplicarTema(ModoTema.CLARO);
-                } else {
-                    salvarEAplicarTema(ModoTema.ESCURO);
-                }
-            });
-        }
 
         // Pop up Acessibilidade
         if (ibAcessibilidade != null) {
@@ -134,12 +118,16 @@ public class TelaLogin extends BaseActivity {
 
         // Botão Entrar
         if (btEntrar != null) {
-            btEntrar.setOnClickListener(v -> {
-                String nomeUsuario = edUsuario.getText().toString().trim();
-                Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
-                intent.putExtra("NOME_USUARIO", nomeUsuario);
-                startActivity(intent);
-            });
+                btEntrar.setOnClickListener(v -> {
+                    String nomeUsuario = edUsuario.getText().toString().trim();
+                    // Salva o nome na memória global do app
+                    android.content.SharedPreferences prefs = getSharedPreferences("MainRH_Prefs", MODE_PRIVATE);
+                    prefs.edit().putString("NOME_USUARIO_LOGADO", nomeUsuario).apply();
+                    // Continua com a Intent normal
+                    Intent intent = new Intent(TelaLogin.this, SplashActivity.class);
+                    intent.putExtra("NOME_USUARIO", nomeUsuario);
+                    startActivity(intent);
+                });
         }
     }
 
@@ -179,24 +167,9 @@ public class TelaLogin extends BaseActivity {
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
 
-        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
-            @Override
-            public void onToggleAltoContraste() {
-                salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-            }
-
-            @Override
-            public void onToggleDaltonico() {
-                salvarEAplicarTema(ModoTema.DALTONICO);
-            }
-
-            @Override
-            public void onTemaSelecionado(int tipoTema) {
-                if (tipoTema == ThemeManager.THEME_DARK) salvarEAplicarTema(ModoTema.ESCURO);
-                else if (tipoTema == ThemeManager.THEME_HIGH_CONTRAST) salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                else if (tipoTema == ThemeManager.THEME_COLORBLIND) salvarEAplicarTema(ModoTema.DALTONICO);
-                else salvarEAplicarTema(ModoTema.CLARO);
-            }
+        dialog.setListener(tipoTema -> {
+            ThemeManager.saveTheme(this, tipoTema);
+            recreate(); // Recarrega a tela instantaneamente com o novo tema aplicado
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");
@@ -319,6 +292,11 @@ public class TelaLogin extends BaseActivity {
                 if (fbInterrogacao != null) {
                     fbInterrogacao.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#243144")));
                     fbInterrogacao.setImageTintList(ColorStateList.valueOf(Color.parseColor("#E2E8F0")));
+                }
+                if (ivLogo != null) ivLogo.setImageResource(R.drawable.modoescuro_logo);
+                if (fbInterrogacao != null) {
+                    fbInterrogacao.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0057B8")));
+                    fbInterrogacao.setImageTintList(ColorStateList.valueOf(Color.WHITE));
                 }
                 break;
 

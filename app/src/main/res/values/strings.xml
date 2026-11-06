@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjetoAndroid</string>
+    <string name="app_name">MainRH</string>
     <string name="texto_telaLogin">
     <b>Tela de Login</b>&#10;&#10;<b>Objetivo:</b>&#10;Garantir que somente usuários autorizados tenham acesso às informações dos processos seletivos da organização, colocando seu usuário e senha registrado no banco de dados, você poderá ter acesso ao app.
     </string>

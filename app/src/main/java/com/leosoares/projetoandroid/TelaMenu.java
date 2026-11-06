@@ -65,8 +65,7 @@ public class TelaMenu extends BaseActivity {
         main = findViewById(R.id.main);
         svBusca = findViewById(R.id.svBusca);
         headerBackground = findViewById(R.id.headerBackground);
-        ibAcessibilidade3 = findViewById(R.id.ibAcessibilidade3);
-        btThemeToggle = findViewById(R.id.btThemeToggle);
+        ibAcessibilidade3 = findViewById(R.id.ibAcessibilidade);
         fbInterrogacao2 = findViewById(R.id.fbInterrogacao2);
         btEntendi = findViewById(R.id.btEntendi4);
         cvDuvida3 = findViewById(R.id.cvDuvida3);
@@ -123,6 +122,16 @@ public class TelaMenu extends BaseActivity {
                     filtrar(newText);
                     return true;
                 }
+            });
+        }
+
+        // Perfil do Usuário
+        CardView cvFotoPerfil = findViewById(R.id.cvFotoPerfil);
+        if (cvFotoPerfil != null) {
+            cvFotoPerfil.setOnClickListener(v -> {
+                String nomeLogado = tvUser != null ? tvUser.getText().toString() : "Recrutador";
+                PerfilBottomSheet perfilSheet = new PerfilBottomSheet(nomeLogado);
+                perfilSheet.show(getSupportFragmentManager(), "PerfilBottomSheet");
             });
         }
 
@@ -190,24 +199,9 @@ public class TelaMenu extends BaseActivity {
     private void abrirBottomSheetAcessibilidade() {
         AcessibilidadeBottomSheet dialog = new AcessibilidadeBottomSheet();
 
-        dialog.setListener(new AcessibilidadeBottomSheet.OnAcessibilidadeListener() {
-            @Override
-            public void onToggleAltoContraste() {
-                salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-            }
-
-            @Override
-            public void onToggleDaltonico() {
-                salvarEAplicarTema(ModoTema.DALTONICO);
-            }
-
-            @Override
-            public void onTemaSelecionado(int tipoTema) {
-                if (tipoTema == ThemeManager.THEME_DARK) salvarEAplicarTema(ModoTema.ESCURO);
-                else if (tipoTema == ThemeManager.THEME_HIGH_CONTRAST) salvarEAplicarTema(ModoTema.ALTO_CONTRASTE);
-                else if (tipoTema == ThemeManager.THEME_COLORBLIND) salvarEAplicarTema(ModoTema.DALTONICO);
-                else salvarEAplicarTema(ModoTema.CLARO);
-            }
+        dialog.setListener(tipoTema -> {
+            ThemeManager.saveTheme(this, tipoTema);
+            recreate(); // Recarrega a tela instantaneamente com o novo tema aplicado
         });
 
         dialog.show(getSupportFragmentManager(), "AcessibilidadeBottomSheet");

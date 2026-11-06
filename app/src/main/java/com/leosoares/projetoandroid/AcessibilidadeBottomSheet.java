@@ -15,9 +15,6 @@ import androidx.fragment.app.DialogFragment;
 public class AcessibilidadeBottomSheet extends DialogFragment {
 
     public interface OnAcessibilidadeListener {
-        void onToggleAltoContraste();
-        void onToggleDaltonico();
-
         void onTemaSelecionado(int tipoTema);
     }
 
@@ -30,8 +27,6 @@ public class AcessibilidadeBottomSheet extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        // Centralizar o Dialog e deixa o fundo externo transparente
         if (getDialog() != null && getDialog().getWindow() != null) {
             Window window = getDialog().getWindow();
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -46,18 +41,34 @@ public class AcessibilidadeBottomSheet extends DialogFragment {
 
         CardView cvAltoContraste = view.findViewById(R.id.cvAltoContraste);
         CardView cvDaltonico = view.findViewById(R.id.cvDaltonico);
+        CardView cvClaro = view.findViewById(R.id.cvClaro);
+        CardView cvEscuro = view.findViewById(R.id.cvEscuro);
         View btnFechar = view.findViewById(R.id.btnFechar);
 
         if (cvAltoContraste != null) {
             cvAltoContraste.setOnClickListener(v -> {
-                if (listener != null) listener.onToggleAltoContraste();
+                if (listener != null) listener.onTemaSelecionado(ThemeManager.THEME_HIGH_CONTRAST);
                 dismiss();
             });
         }
 
         if (cvDaltonico != null) {
             cvDaltonico.setOnClickListener(v -> {
-                if (listener != null) listener.onToggleDaltonico();
+                if (listener != null) listener.onTemaSelecionado(ThemeManager.THEME_COLORBLIND);
+                dismiss();
+            });
+        }
+
+        if (cvClaro != null) {
+            cvClaro.setOnClickListener(v -> {
+                if (listener != null) listener.onTemaSelecionado(ThemeManager.THEME_LIGHT);
+                dismiss();
+            });
+        }
+
+        if (cvEscuro != null) {
+            cvEscuro.setOnClickListener(v -> {
+                if (listener != null) listener.onTemaSelecionado(ThemeManager.THEME_DARK);
                 dismiss();
             });
         }
